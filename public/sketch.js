@@ -16,8 +16,8 @@ function setup() {
       console.log("Got: " + data.x + " " + data.y + " from " + data.id);
       // Draw a blue circle
       fill(0,0,255);
-      noStroke();
-      ellipse(data.x,data.y,80,80);
+      strokeWeight(3);
+      line(data.px,data.py,data.x, data.y);
     }
   );
 }
@@ -30,20 +30,22 @@ function mouseDragged() {
   // Draw some white circles
   fill(255);
   noStroke();
-  ellipse(mouseX,mouseY,80,80);
+  line(pmouseX,data.p,data.x, data.y);
   // Send the mouse coordinates
-  sendmouse(mouseX,mouseY);
+  sendmouse(mouseX,mouseY,pmouseX, pmouseY);
 }
 
 // Function for sending to the socket
-function sendmouse(xpos, ypos) {
+function sendmouse(xpos, ypos, px, py) {
   // We are sending!
   console.log("sendmouse: " + xpos + " " + ypos);
   
   // Make a little object with  and y
   var data = {
     x: xpos,
-    y: ypos
+    y: ypos,
+    px: px,
+    py: py,
   };
 
   // Send that object to the socket
