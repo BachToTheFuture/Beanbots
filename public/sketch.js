@@ -5,7 +5,7 @@ let colors = {}; // Each new connected user has a color
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  colorMode(HSB, 100, 100);
+  colorMode(HSB, 360, 100, 100);
   background(0);
   // Start a socket connection to the server
   // Some day we would run this server somewhere else
@@ -30,7 +30,7 @@ function draw() {
 
 function mouseDragged() {
   // Draw some white circles
-  stroke(255);
+  stroke(0,20,100);
   strokeWeight(3);
   line(pmouseX,pmouseY,mouseX,mouseY);
   // Send the mouse coordinates
