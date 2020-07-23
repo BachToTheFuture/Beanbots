@@ -29,13 +29,10 @@ io.sockets.on('connection',
       function(data) {
         // Data comes in as whatever was sent, including objects
         console.log("Received: 'mouse' " + data.x + " " + data.y);
-      
+        // Add client ID to data
+        data.id = socket.id;
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
-        
-        // This is a way to send to everyone including sender
-        // io.sockets.emit('message', "this goes to everyone");
-
       }
     );
     
