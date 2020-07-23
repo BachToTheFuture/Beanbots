@@ -1,63 +1,20 @@
 // Based off of Shawn Van Every's Live Web
 // http://itp.nyu.edu/~sve204/liveweb_fall2013/week3.html
 
+var express = require('express')
+var app = express();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
-// HTTP Portion
-var http = require('http');
-// URL module
-var url = require('url');
-var path = require('path');
+app.use(express.static(__dirname + '/public' ));
 
-// Using the filesystem module
-var fs = require('fs');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
-var server = http.createServer(handleRequest);
-server.listen(8080);
-
-console.log('Server started on port 8080');
-
-function handleRequest(req, res) {
-  // What did we request?
-  var pathname = req.url;
-  
-  // If blank let's ask for index.html
-  if (pathname == '/') {
-    pathname = '/index.html';
-  }
-  
-  // Ok what's our file extension
-  var ext = path.extname(pathname);
-
-  // Map extension to file type
-  var typeExt = {
-    '.html': 'text/html',
-    '.js':   'text/javascript',
-    '.css':  'text/css'
-  };
-
-  // What is it?  Default to plain text
-  var contentType = typeExt[ext] || 'text/plain';
-
-  // User file system module
-  fs.readFile(__dirname + pathname,
-    // Callback function for reading
-    function (err, data) {
-      // if there is an error
-      if (err) {
-        res.writeHead(500);
-        return res.end('Error loading ' + pathname);
-      }
-      // Otherwise, send the data, the contents of the file
-      res.writeHead(200,{ 'Content-Type': contentType });
-      res.end(data);
-    }
-  );
-}
-
-
-// WebSocket Portion
-// WebSockets work with the HTTP server
-var io = require('socket.io').listen(server);
+http.listen(3000, () => {
+  console.log('listening on *:3000');
+});
 
 // Register a callback function to run when we have an individual connection
 // This is run for each individual user that connects
