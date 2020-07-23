@@ -15,10 +15,10 @@ function setup() {
   socket.on('mouse',
     // When we receive data
     function(data) {
-      console.log("Got: " + data.x + " " + data.y);
+      console.log("Got: " + data.x + " " + data.y + ", color: " + data.dat.color);
       // Draw a blue circle
       stroke(data.dat.color, 50, 100);
-      strokeWeight(3);
+      strokeWeight(Math.min(Math.max(2,Math.abs(data.x-data.px)), 7));
       line(data.px,data.py,data.x, data.y);
     }
   );
@@ -30,8 +30,8 @@ function draw() {
 
 function mouseDragged() {
   // Draw some white circles
-  stroke(0,20,100);
-  strokeWeight(3);
+  stroke(0,0,100);
+  strokeWeight(Math.min(Math.max(2,Math.abs(mouseX-pmouseX)), 7));
   line(pmouseX,pmouseY,mouseX,mouseY);
   // Send the mouse coordinates
   sendmouse(mouseX,mouseY,pmouseX, pmouseY);
