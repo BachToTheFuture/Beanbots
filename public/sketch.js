@@ -16,11 +16,13 @@ function setup() {
     // When we receive data
     function(data) {
       // Show who is drawing
+      if (!others.includes(data.id)) others.push(data.id);
+      
       noStroke();
       textSize(15);
       fill(data.dat.color, 50, 100);
-      text(data.id,60,42);
-      rect(30,30, 20,20);
+      text(data.id,60,24+others.indexOf(data.id)*22);
+      rect(30,10+others.indexOf(data.id)*22, 20,20);
     
       console.log("Got: " + data.x + " " + data.y + ", color: " + data.dat.color);
       // Draw a blue circle
