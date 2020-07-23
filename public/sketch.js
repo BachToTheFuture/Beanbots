@@ -1,7 +1,7 @@
 
 // Keep track of our socket connection
 let socket;
-let colors = {}; // Each new connected user has a color
+let others = []
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,6 +15,13 @@ function setup() {
   socket.on('mouse',
     // When we receive data
     function(data) {
+      // Show who is drawing
+      noStroke();
+      textSize(15);
+      fill(data.dat.color, 50, 100);
+      text(data.id,60,42);
+      rect(30,30, 20,20);
+    
       console.log("Got: " + data.x + " " + data.y + ", color: " + data.dat.color);
       // Draw a blue circle
       stroke(data.dat.color, 50, 100);
@@ -25,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-  // Nothing
+
 }
 
 function mouseDragged() {

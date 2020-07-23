@@ -33,6 +33,7 @@ io.sockets.on('connection',
       function(data) {
         // Data comes in as whatever was sent, including objects
         data.dat = clients[socket.id];
+        data.id = socket.id;
         console.log(data);
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
