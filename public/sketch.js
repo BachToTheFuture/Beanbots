@@ -1,9 +1,11 @@
 
 // Keep track of our socket connection
 let socket;
+let colors = {}; // Each new connected user has a color
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 100, 100);
   background(0);
   // Start a socket connection to the server
   // Some day we would run this server somewhere else
@@ -13,9 +15,9 @@ function setup() {
   socket.on('mouse',
     // When we receive data
     function(data) {
-      console.log("Got: " + data.x + " " + data.y + " from " + data.id);
+      console.log("Got: " + data.x + " " + data.y);
       // Draw a blue circle
-      fill(0,0,255);
+      stroke(data.dat.color, 50, 100);
       strokeWeight(3);
       line(data.px,data.py,data.x, data.y);
     }
@@ -28,9 +30,9 @@ function draw() {
 
 function mouseDragged() {
   // Draw some white circles
-  fill(255);
-  noStroke();
-  line(pmouseX,data.p,data.x, data.y);
+  stroke(255);
+  strokeWeight(3);
+  line(pmouseX,pmouseY,mouseX,mouseY);
   // Send the mouse coordinates
   sendmouse(mouseX,mouseY,pmouseX, pmouseY);
 }

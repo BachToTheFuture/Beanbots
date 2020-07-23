@@ -6,6 +6,8 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+let clients = {};
+
 app.use(express.static(__dirname + '/public' ));
 
 app.get('/', (req, res) => {
@@ -23,14 +25,15 @@ io.sockets.on('connection',
   function (socket) {
   
     console.log("We have a new client: " + socket.id);
+    clients[socket.id] = {color: Math.floor(Math.random()*360)}
+    //console.log(clients[socket.id]);
   
     // When this user emits, client side: socket.emit('otherevent',some data);
     socket.on('mouse',
       function(data) {
         // Data comes in as whatever was sent, including objects
-        console.log("Received: 'mouse' " + data.x + " " + data.y);
-        // Add client ID to data
-        data.id = socket.id;
+        data.dat = clients[socket.id];
+        console.log(data);
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
       }
@@ -38,6 +41,7 @@ io.sockets.on('connection',
     
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
+      delete clients[socket.id];
     });
   }
 );
