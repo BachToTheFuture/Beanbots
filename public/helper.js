@@ -2,6 +2,7 @@ var robot;
 var opponent;
 var socket;
 var room;
+var collectibles = [];
 
 // This function is a lifesaver, trust me
 function drawRect(x, y, width, height, rotation, originX, originY) {
@@ -115,6 +116,12 @@ $(document).ready(function() {
       socket.on("opponentData", function(data) {
         if (!opponent) opponent = data.robot;
       });
+      socket.on("updateCollectiblePos", function(data) {
+        let c = collectibles[data.idx];
+        c.x = data.x;
+        c.y = data.y;
+        c.color = data.color;
+      })
     }
   });
 

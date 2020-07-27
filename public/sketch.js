@@ -1,6 +1,5 @@
 
-var obstacles = [];
-var collectibles = [];
+//var obstacles = [];
 
 var allSensors = [
   "ColorSensor", "DistanceSensor"
@@ -26,14 +25,16 @@ function setup() {
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
   
+  /*
   // Make the walls around the field
   obstacles.push(new Wall(0, 0, width, 0));
   obstacles.push(new Wall(width, 0, width, height, color="red"));
   obstacles.push(new Wall(0, 0, 0, height));
   obstacles.push(new Wall(0, height, width, height));
+  */
   
   for (var i = 0; i < 10; i++)
-    collectibles.push(new Collectible(random(width),random(height),10,10,(Math.random() > 0.5 ? "rect" : "ball")));
+    collectibles.push(new Collectible(random(width),random(height),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
 }
 
 function draw() {
@@ -43,7 +44,8 @@ function draw() {
   robot.render();
   if (opponent && room) {
     robotRender(opponent);
-    if (socket && frameCount % 4) {
+    // Make sure to only send it every 4 frames and when the robot is moving?
+    if (socket && frameCount % 4 && (robot.vx > 0 || robot.vy > 0 || robot.vr > 0)) {
       socket.emit("sendRobotPos", {x: robot.x, y:robot.y, originX: robot.originX, originY: robot.originY, rotation:robot.rotation, room: room});
     }
   }

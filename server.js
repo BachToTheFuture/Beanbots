@@ -51,6 +51,12 @@ io.sockets.on('connection',
       // Send robot data over to the other player
       socket.to(data.room).emit("opponentPos", data);
     });
+  
+    socket.on('sendCollectiblePos', function(data) {
+      // Send robot data over to the other player
+      socket.to(data.room).emit("updateCollectiblePos", data);
+    });
+  
     socket.on('disconnect', function() {
       console.log(socket.id+" has disconnected");
       //if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);

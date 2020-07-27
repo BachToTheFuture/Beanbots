@@ -18,7 +18,8 @@ class Wall {
 }
 
 class Collectible {
-  constructor(x,y,width,height,shape) {
+  constructor(x,y,width,height,shape,idx) {
+    this.idx = idx;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -67,6 +68,8 @@ class Collectible {
         this.color = "yellow";
         this.vx = robot.vx;
         this.vy = robot.vy;
+        // Update the block
+        socket.emit("sendCollectiblePos", {idx: this.idx, x: this.x, y:this.y, color:this.color, room: room});
       }
       else {
         this.color = "lightblue";
@@ -79,6 +82,7 @@ class Collectible {
         this.color = "yellow";
         this.vx = robot.vx;
         this.vy = robot.vy;
+        socket.emit("sendCollectiblePos", {idx: this.idx, x: this.x, y:this.y, color:this.color, room: room});
       }
       else {
         this.color = "lightblue";
