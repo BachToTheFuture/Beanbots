@@ -35,16 +35,17 @@ io.sockets.on('connection',
       let roomname = queue.shift();
       socket.join(roomname);
       let side = Math.random() > 0.5 ? "red" : "blue";
-      io.to(roomname).emit('matchAccepted', {ready: true, side: side});
-      io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red"});
+      io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
+      io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
       var room = io.sockets.adapter.rooms[roomname];
       console.log(room.length)
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
     // Players send their robot objects to the server and the server runs the game
-    socket.on('initializeGame', function(data) {
+    socket.on('sendRobotPos', function(data) {
       console.log(data);
-      //delete clients[socket.id];
+      // Send robot data over to the other player
+      socket.to(data.room).emit("opponentPos", data);
     });
     socket.on('disconnect', function() {
       console.log("Client has disconnected");

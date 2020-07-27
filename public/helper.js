@@ -1,5 +1,11 @@
 var robot;
 var socket;
+var room;
+
+function robotRender(data) {
+  
+}
+
 
 // This function is a lifesaver, trust me
 function drawRect(x,y,width,height,rotation,originX,originY) {
@@ -34,10 +40,23 @@ $(function() {
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
       notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`);
+      // Maybe move the "field" to the center of the screen and hide the tabs
+      if (data.side == "red") {
+        robot.x = width/2-150;
+        robot.y = height/2;
+      }
+      else {
+        robot.x = width/2+100;
+        robot.y = height/2;
+      }
       // Decycle removes all backreferences to the robot object
-      // Send the robot to the server
-      socket.emit("initializeGame", {robot: JSON.decycle(robot)});
+      // Set a new room!
+      room = data.room;
+      socket.emit("sendRobotPos", {robot: JSON.decycle(robot), room: room});
     });
+    socket.on("opponentPos", function(data) {
+      console.log(data);
+    })
   })
   
   $('.equip').click(event => {
