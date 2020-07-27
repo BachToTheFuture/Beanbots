@@ -98,12 +98,12 @@ $(document).ready(function() {
           robot: JSON.decycle(robot),
           room: room
         });
-        
-        /* 
-        socket.emit("sendInitCollectiblesData", {
+        // One of the competitors change the collectibles layout and sends it to the 
+        if (data.side == (Math.random() > 0.5 ? "blue" : "red")) socket.emit("sendInitCollectiblesData", {
           collectibles: JSON.decycle(collectibles),
           room: room
-        });*/
+        });
+        
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
 
         // Start the robot?
