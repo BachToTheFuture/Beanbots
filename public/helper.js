@@ -1,9 +1,22 @@
 var robot;
+var opponent;
 var socket;
 var room;
 
+// For some reason nothing is showing 
 function robotRender(data) {
-  
+  // Draw the wheels first, then the body, then everything else
+  // Draw body
+  //fill(data.color);
+  drawRect(data.x, data.y, data.width, data.height, data.rotation);
+
+  // Draw the robot's name
+  textAlign(CENTER);
+  textStyle(BOLD);
+  fill("black");
+  strokeWeight(0);
+  text(data.name, data.x+data.width/2, this.y-20);
+  strokeWeight(2);
 }
 
 
@@ -55,7 +68,7 @@ $(function() {
       socket.emit("sendRobotPos", {robot: JSON.decycle(robot), room: room});
     });
     socket.on("opponentPos", function(data) {
-      console.log(data);
+      opponent = data;
     })
   })
   

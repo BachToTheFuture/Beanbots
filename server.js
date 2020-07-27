@@ -49,7 +49,7 @@ io.sockets.on('connection',
     });
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
-      //delete clients[socket.id];
+      if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);
     });
   }
 );

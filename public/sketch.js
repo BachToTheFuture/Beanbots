@@ -21,7 +21,7 @@ function setup() {
   giveUserRandomItems();
   
   // Create the robot :)
-  robot = new Robot("TestRobot", width/2, height/2, color(0,50,100));
+  robot = new Robot("TestRobot", width/2, height/2, "rgb(255, 131, 112)");
   robot.wheels = new NormalWheels(robot);
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
@@ -43,4 +43,5 @@ function draw() {
   obstacles.forEach(obstacle => obstacle.render());
   collectibles.forEach(c => c.render());
   robot.render();
+  if (opponent && room) robotRender(opponent);
 }
