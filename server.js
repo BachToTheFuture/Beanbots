@@ -56,6 +56,10 @@ io.sockets.on('connection',
       // Send robot data over to the other player
       socket.to(data.room).emit("updateCollectiblePos", data);
     });
+  socket.on('sendInitCollectiblesData', function(data) {
+      // Send robot data over to the other player
+      socket.to(data.room).emit("collectiblesData", data);
+    });
   
     socket.on('disconnect', function() {
       console.log(socket.id+" has disconnected");

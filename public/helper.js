@@ -98,11 +98,31 @@ $(document).ready(function() {
           robot: JSON.decycle(robot),
           room: room
         });
+        socket.emit("sendInitCollectiblesData", {
+          collectibles: JSON.decycle(collectibles),
+          room: room
+        });
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
 
         // Start the robot?
         robot.run();
       });
+      socket.on("collectiblesData", function(data) {
+        data = data.collectibles;
+        collectibles.forEach(c => {
+          Object.keys(data).forEach(k => {
+            if (k != "walls") {
+              c[k] = data[c.idx][k];
+            }
+          });
+          c.walls.forEach((wall, i) => {
+            wall.a = data[c.idx].walls[i].a;
+            wall.b = data[c.idx].walls[i].a;
+            wall.color = data[c.idx].walls[i].a;
+          })
+        })
+      });
+      
       // Get opponent's positions
       socket.on("opponentPos", function(data) {
         if (opponent) {
@@ -117,6 +137,7 @@ $(document).ready(function() {
         if (!opponent) opponent = data.robot;
       });
       socket.on("updateCollectiblePos", function(data) {
+        // Update a collectible's position
         let c = collectibles[data.idx];
         c.x = data.x;
         c.y = data.y;

@@ -39,7 +39,7 @@ function setup() {
 
 function draw() {
   background(0, 0, 94);
-  obstacles.forEach(obstacle => obstacle.render());
+  //obstacles.forEach(obstacle => obstacle.render());
   collectibles.forEach(c => c.render());
   robot.render();
   if (opponent && room) {
