@@ -3,11 +3,6 @@ var editor = ace.edit( "editor" );
 // inline must be true to syntax highlight PHP without opening <?php tag
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
 
-function runRobot() {
-  robot.code = editor.getValue();
-  robot.run();
-}
-
 /*
 Some example code:
 Program to find the first block or ball it sees and get its color

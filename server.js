@@ -52,7 +52,7 @@ io.sockets.on('connection',
       socket.to(data.room).emit("opponentPos", data);
     });
     socket.on('disconnect', function() {
-      console.log("Client has disconnected");
+      console.log(socket.id+" has disconnected");
       //if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);
     });
   }

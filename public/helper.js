@@ -49,11 +49,34 @@ function notification(msg) {
 }
 
 $(document).ready(function(){
+  
+  $(".runRobot").click(e => {
+    let target = $(e.target);
+    if (target.hasClass("btn-success")) {
+      target.removeClass("btn-success");
+      target.addClass("btn-danger");
+      target.html("Reset robot");
+      robot.code = editor.getValue();
+      robot.run();
+    }
+    else {
+      target.removeClass("btn-danger");
+      target.addClass("btn-success");
+      target.html("Run robot");
+      robot.reset();
+    }
+  });
+  
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
     // Change the button text and prevent clicking??
-    notification(`Waiting for a match... please wait!`);
+    notification(`Waiting for an opponent... please wait!`);
+    $(e.target).prop('disabled', true)
+    $(e.target).html("Waiting for an opponent...");
+    
     socket.on('matchAccepted', function(data) {
+      // Hide the join match button
+      $("#join-match").hide();
       // Tell the user that they've been matched
       notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`);
       // Maybe move the "field" to the center of the screen and hide the tabs

@@ -43,6 +43,9 @@ class Robot {
   reset() {
     this.x = this.startX;
     this.y = this.startY;
+    this.vx = 0;
+    this.vy = 0;
+    this.vr = 0;
     this.rotation = this.startR;
   }
   render() {
