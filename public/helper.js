@@ -85,7 +85,7 @@ $(document).ready(function() {
           `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
         );
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
-        $(".competition-bar").show();
+        $(".competition-bar").fadeIn(); // Show the scores and timer
         
         // Maybe move the "field" to the center of the screen and hide the tabs
         if (data.side == "red") {
@@ -113,34 +113,28 @@ $(document).ready(function() {
         
         // Create a 5 second timer to count down
         timer = new CountDownTimer(6);
-        timer.onTick(format).start();
         let display = document.querySelector('#countdown-timer');
+        timer.onTick(format).start();
             
-        $("#countdown-timer").show();
+        $("#countdown-timer").fadeIn();
         function format(minutes, seconds) {
-          console.log(seconds);
-          if (seconds == 6)
-            display.textContent = "Ready?";
-          else
-            display.textContent = seconds;
-          if (seconds == 0)
-            $("#countdown-timer").hide();
-        }
-        
-        if (timer.expired()) {
-          console.log("Robot started running!")
-          robot.run();
-          /*
-          // Start another timer
-          timer = new CountDownTimer(3);
-          timer.onTick(format).start();
+          display.textContent = seconds;
+          if (seconds == 0) {
+            $("#countdown-timer").fadeOut();
+            console.log("Robot started running!")
+            robot.run();
 
-          function format(minutes, seconds) {
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            $("#timer").text = minutes + ':' + seconds;
+            // Start another timer
+            let timer2 = new CountDownTimer(30);
+            let display = document.querySelector('#timer');
+            timer2.onTick(format).start();
+
+            function format(minutes, seconds) {
+              minutes = minutes < 10 ? "0" + minutes : minutes;
+              seconds = seconds < 10 ? "0" + seconds : seconds;
+              display.textContent = minutes + ':' + seconds;
+            }
           }
-          */
         }
       });
       socket.on("collectiblesData", function(data) {
