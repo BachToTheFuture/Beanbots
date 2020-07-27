@@ -30,3 +30,6 @@ canvas {
 .equipped .input-group-text {
   background: lightgreen !important;
 }
+.notif-section {
+  position: absolute; top: 0; right: 0;
+}
