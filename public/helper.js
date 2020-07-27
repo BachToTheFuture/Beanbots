@@ -4,22 +4,21 @@ var socket;
 var room;
 
 // This function is a lifesaver, trust me
-function drawRect(x,y,width,height,rotation,originX,originY) {
+function drawRect(x, y, width, height, rotation, originX, originY) {
   push(); // Save origin
   // If originX or originY is defined
   if (originX && originY) {
     // Rotate around (originX, originY)
     translate(originX, originY);
     rotate(rotation);
-    rect(x-originX,y-originY, width, height);
+    rect(x - originX, y - originY, width, height);
     pop(); // Restore origin
-  }
-  else {
+  } else {
     // Assume we're rotating the object around its own center
-    translate(x+width/2, y+height/2);
+    translate(x + width / 2, y + height / 2);
     rectMode(CENTER);
     rotate(rotation);
-    rect(0,0, width, height);
+    rect(0, 0, width, height);
     pop(); // Restore origin
   }
 }
@@ -28,8 +27,9 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 // ARGGHGHGHGHHG
 function robotRender(data) {
   // Draw robot wheels
-  switch(data.wheels.type) {
-    case "NormalWheels": NormalWheels.renderOpponent(data);
+  switch (data.wheels.type) {
+    case "NormalWheels":
+      NormalWheels.renderOpponent(data);
   }
   // Draw robot body
   fill(data.color);
@@ -39,17 +39,16 @@ function robotRender(data) {
   textStyle(BOLD);
   fill(data.textColor);
   strokeWeight(0);
-  text(data.name, data.x+data.width/2, data.y-20);
+  text(data.name, data.x + data.width / 2, data.y - 20);
   strokeWeight(2);
 }
 
 function notification(msg) {
-  $('#main-toast-body').html(msg);
-  $('.toast').toast('show');
+  $("#main-toast-body").html(msg);
+  $(".toast").toast("show");
 }
 
-$(document).ready(function(){
-  
+$(document).ready(function() {
   $(".runRobot").click(e => {
     let target = $(e.target);
     if (target.hasClass("btn-success")) {
@@ -58,77 +57,84 @@ $(document).ready(function(){
       target.html("Reset robot");
       robot.code = editor.getValue();
       robot.run();
-    }
-    else {
+    } else {
       target.removeClass("btn-danger");
       target.addClass("btn-success");
       target.html("Run robot");
       robot.reset();
     }
   });
-  
+
   $("#join-match").click(e => {
-    socket = io.connect('https://code-bean-kamen.glitch.me');
-    // Change the button text and prevent clicking??
-    notification(`Waiting for an opponent... please wait!`);
-    $(e.target).prop('disabled', true)
-    $(e.target).html("Waiting for an opponent...");
-    
-    socket.on('matchAccepted', function(data) {
-      // Hide the join match button
-      $("#join-match").hide();
-      // Tell the user that they've been matched
-      notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`);
-      // Maybe move the "field" to the center of the screen and hide the tabs
-      if (data.side == "red") {
-        robot.x = width/2-150;
-        robot.y = height/2;
-      }
-      else {
-        robot.x = width/2+100;
-        robot.y = height/2;
-      }
-      // Decycle removes all backreferences to the robot object
-      // Set a new room!
-      room = data.room;
-      socket.emit("sendInitRobotData", {robot: JSON.decycle(robot), room: room});
-      robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
-      
-      // Start the robot?
-      robot.run();
-    });
-    // Get opponent's positions
-    socket.on("opponentPos", function(data) {
-      if (opponent) {
-        opponent.x = data.x;
-        opponent.y = data.y;
-        opponent.originX = data.originX;
-        opponent.originY = data.originY;
-        opponent.rotation = data.rotation;
-      }
-    });
-    socket.on("opponentData", function(data) {
-      if (!opponent) opponent = data.robot;
-    })
+    // Check if the user actually has code on the robot
+    if (robot.code === "") {
+      notification(`Please run your code at least once before you begin!`);
+    } else {
+      socket = io.connect("https://code-bean-kamen.glitch.me");
+      notification(`Waiting for an opponent... please wait!`);
+      $(e.target).prop("disabled", true);
+      $(e.target).html("Waiting for an opponent...");
+
+      socket.on("matchAccepted", function(data) {
+        // Hide the join match button
+        $("#join-match").hide();
+        // Tell the user that they've been matched
+        notification(
+          `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
+        );
+        // Maybe move the "field" to the center of the screen and hide the tabs
+        if (data.side == "red") {
+          robot.x = width / 2 - 150;
+          robot.y = height / 2;
+        } else {
+          robot.x = width / 2 + 100;
+          robot.y = height / 2;
+        }
+        // Decycle removes all backreferences to the robot object
+        // Set a new room!
+        room = data.room;
+        socket.emit("sendInitRobotData", {
+          robot: JSON.decycle(robot),
+          room: room
+        });
+        robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
+
+        // Start the robot?
+        robot.run();
+      });
+      // Get opponent's positions
+      socket.on("opponentPos", function(data) {
+        if (opponent) {
+          opponent.x = data.x;
+          opponent.y = data.y;
+          opponent.originX = data.originX;
+          opponent.originY = data.originY;
+          opponent.rotation = data.rotation;
+        }
+      });
+      socket.on("opponentData", function(data) {
+        if (!opponent) opponent = data.robot;
+      });
+    }
   });
-  
-  $(document).on('click', '.equipToggle', event => {
+
+  $(document).on("click", ".equipToggle", event => {
     let target = $(event.target).parent();
     console.log(target);
     // We need this so we know if the item is equipped or not
-    
+
     if (target.hasClass("equip")) {
       target.removeClass("equip");
       target.addClass("equipped");
       let item = target.attr("id");
-      let name = $("#"+item+"Name").val();
-      let color = $("#"+item+"Color").val();
-      let placement = $("#"+item+"Placement").val();
+      let name = $("#" + item + "Name").val();
+      let color = $("#" + item + "Color").val();
+      let placement = $("#" + item + "Placement").val();
       console.log(name);
       console.log(color);
       console.log(placement);
 
-      switch(item) {
+      switch (item) {
         case "NormalWheels":
           robot.wheels = new NormalWheels(robot, color);
           break;
@@ -139,23 +145,21 @@ $(document).ready(function(){
           robot.parts[name] = new DistanceSensor(robot, placement, color);
           break;
       }
-    }
-    else {
+    } else {
       target.removeClass("equipped");
       target.addClass("equip");
       let item = target.attr("id");
       // If this is a wheel
       if (item.includes("Wheel")) {
-        notification("You can't take off the robot's wheels!")
-      }
-      else {
-        let name = $("#"+item+"Name").val();
+        notification("You can't take off the robot's wheels!");
+      } else {
+        let name = $("#" + item + "Name").val();
         delete robot.parts[name];
       }
     }
   });
-  
-  $('.updateRobot').click(event => {
+
+  $(".updateRobot").click(event => {
     let target = $(event.target).parent();
     let name = $("#robotName").val();
     let color = $("#robotColor").val();
@@ -185,8 +189,9 @@ function giveUserRandomItems() {
     <option value="back">back</option>
   </select>
 </div>
-`);});
-    userWheels.forEach(s => {
+`);
+  });
+  userWheels.forEach(s => {
     $("#user-wheels").append(`
 <div class="input-group">
   <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
@@ -194,5 +199,6 @@ function giveUserRandomItems() {
   </a>
   <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
 </div>
-`);});
+`);
+  });
 }
