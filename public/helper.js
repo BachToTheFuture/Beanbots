@@ -60,23 +60,25 @@ $(document).ready(function(){
       if (data.side == "red") {
         robot.x = width/2-150;
         robot.y = height/2;
-        robot.textColor = "#ff5145";
       }
       else {
         robot.x = width/2+100;
         robot.y = height/2;
-        robot.textColor = "#347aeb";
       }
       // Decycle removes all backreferences to the robot object
       // Set a new room!
       room = data.room;
       socket.emit("sendInitRobotData", {robot: JSON.decycle(robot), room: room});
+      
+      robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb"
     });
     // Get opponent's positions
     socket.on("opponentPos", function(data) {
       if (opponent) {
         opponent.x = data.x;
         opponent.y = data.y;
+        opponent.originX = data.originX;
+        opponent.originY = data.originY;
         opponent.rotation = data.rotation;
       }
     });
