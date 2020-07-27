@@ -24,8 +24,21 @@ function drawRect(x, y, width, height, rotation, originX, originY) {
   }
 }
 
-// For some reason nothing is showing >:(
-// ARGGHGHGHGHHG
+function endGame() {
+  // Disconnect from the game and go back to the practice field!
+  socket.disconnect();
+  robot.textColor = "black";
+  socket = null;
+  opponent = null;
+  room = null;
+  $(".runRobot").fadeIn();
+  $("#join-match").text("Play a match!");
+  $("#join-match").fadeIn();
+  $(".competition-bar").hide();
+  $(".practice-bar").fadeIn();
+  robot.reset();
+}
+
 function robotRender(data) {
   // Draw robot wheels
   switch (data.wheels.type) {
@@ -78,6 +91,7 @@ $(document).ready(function() {
       $(e.target).html("Waiting for an opponent...");
 
       socket.on("matchAccepted", function(data) {
+        $("#join-match").prop("disabled", false);
         // Hide the join match button
         $("#join-match").hide();
         // Tell the user that they've been matched
@@ -104,10 +118,15 @@ $(document).ready(function() {
         });
         // One of the competitors change the collectibles layout and sends it to the other user
         // Change collectible positions here maybe?
-        if (data.side == "red") socket.emit("sendInitCollectiblesData", {
-          collectibles: JSON.decycle(collectibles),
-          room: room
-        });
+        if (data.side == "red") {
+          $(".red-team").text = robot.name;
+          socket.emit("sendInitCollectiblesData", {
+            collectibles: JSON.decycle(collectibles),
+            room: room
+          });
+        }
+        else
+          $(".blue-team").text = robot.name;
         
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         
@@ -125,7 +144,7 @@ $(document).ready(function() {
             robot.run();
 
             // Start another timer
-            let timer2 = new CountDownTimer(30);
+            let timer2 = new CountDownTimer(2);
             let display = document.querySelector('#timer');
             timer2.onTick(format).start();
 
@@ -133,6 +152,13 @@ $(document).ready(function() {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
               display.textContent = minutes + ':' + seconds;
+              
+              if (seconds == 0) {
+                // End game here
+                // Check for winners
+                notification("Good game!");
+                endGame();
+              }
             }
           }
         }

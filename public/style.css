@@ -56,3 +56,9 @@ canvas {
 .competition-bar {
   display:none;
 }
+.red-team {
+  color: #ff644d;
+}
+.blue-team {
+  color: #4d99f7;
+}
