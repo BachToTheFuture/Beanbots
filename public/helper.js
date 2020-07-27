@@ -23,7 +23,7 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 }
 
 function notification(msg) {
-  $('#main-toast-body').text(msg);
+  $('#main-toast-body').html(msg);
   $('.toast').toast('show');
 }
 
@@ -34,8 +34,17 @@ $(function() {
     
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
-      notification("You have been matched with an opponent!")
-      socket.emit("initializeGame", {robot: true});
+      notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`)
+      if (data.side == "red") {
+        robot.x = width/2-100;
+        robot.y = height/2;
+      }
+      else {
+        robot.x = width/2+100;
+        robot.y = height/2;
+      }
+      
+      //socket.emit("initializeGame", {robot: true});
     });
   })
   

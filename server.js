@@ -25,7 +25,7 @@ io.sockets.on('connection',
   function (socket) {
     console.log("We have a new client: " + socket.id);
     //console.log(clients[socket.id]);
-    if (queue.length == 0) {
+    if (queue.length < 1) {
       queue.push(socket.id);
       // The user ID is the room's name
       socket.join(socket.id);
@@ -34,7 +34,9 @@ io.sockets.on('connection',
       // join room with this person.
       let roomname = queue.shift();
       socket.join(roomname);
-      io.in(roomname).emit('matchAccepted', {ready: true});
+      let side = Math.random() > 0.5 ? "red" : "blue";
+      io.to(roomname).emit('matchAccepted', {ready: true, side: side});
+      io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red"});
       var room = io.sockets.adapter.rooms[roomname];
       console.log(room.length)
     }
