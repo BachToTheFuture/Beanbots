@@ -8,7 +8,7 @@ var allSensors = [
 var allWheels = [
   "NormalWheels"
 ]
-
+// Collection of user's posessions
 var userSensors = [];
 var userWheels = [];
 
@@ -42,6 +42,9 @@ function draw() {
   background(0, 0, 94);
   obstacles.forEach(obstacle => obstacle.render());
   collectibles.forEach(c => c.render());
+  if (opponent) {
+    fill("black");
+    rect(opponent.x, opponent.y, opponent.width, opponent.height);
+  }
   robot.render();
-  if (opponent && room) robotRender(opponent);
 }

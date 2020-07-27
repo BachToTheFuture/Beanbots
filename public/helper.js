@@ -33,7 +33,7 @@ function robotRender(data) {
   // Draw the wheels first, then the body, then everything else
   // Draw body
   //fill(data.color);
-  drawRect(data.x, data.y, data.width, data.height, data.rotation);
+  rect(data.x, data.y, data.width, data.height);
 
   // Draw the robot's name
   textAlign(CENTER);
@@ -52,6 +52,7 @@ function notification(msg) {
 $(function() {
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
+    // Change the button text and prevent clicking??
     
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
@@ -70,6 +71,7 @@ $(function() {
       room = data.room;
       socket.emit("sendRobotPos", {robot: JSON.decycle(robot), room: room});
     });
+    // Get opponent's positions
     socket.on("opponentPos", function(data) {
       opponent = data;
     })
