@@ -108,19 +108,26 @@ $(document).ready(function() {
         robot.run();
       });
       socket.on("collectiblesData", function(data) {
+        // Reconstruct collectibles data
         data = data.collectibles;
-        collectibles.forEach(c => {
+        //console.log("BEFORE", collectibles);
+        //console.log(data);
+        collectibles.forEach((c, cidx) => {
           Object.keys(data).forEach(k => {
             if (k != "walls") {
-              c[k] = data[c.idx][k];
+              console.log(k, data[cidx][k], c[k])
+              collectibles[cidx][k] = data[c.idx][k];
             }
           });
           c.walls.forEach((wall, i) => {
-            wall.a = data[c.idx].walls[i].a;
-            wall.b = data[c.idx].walls[i].a;
-            wall.color = data[c.idx].walls[i].a;
-          })
-        })
+            collectibles[cidx].walls[i].a.x = data[c.idx].walls[i].a.x;
+            collectibles[cidx].walls[i].a.y = data[c.idx].walls[i].a.y;
+            collectibles[cidx].walls[i].b.x = data[c.idx].walls[i].b.x;
+            collectibles[cidx].walls[i].b.y = data[c.idx].walls[i].b.y;
+            collectibles[cidx].walls[i].color = data[c.idx].walls[i].color;
+          });
+        });
+        //console.log("AFTER", collectibles);
       });
       
       // Get opponent's positions
