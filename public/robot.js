@@ -8,6 +8,7 @@ class Robot {
     this.code = "";
     // Color
     this.color = color;
+    this.textColor = "black";
     // Size
     this.width = 50;
     this.height = 40;
@@ -57,7 +58,7 @@ class Robot {
     // Draw the robot's name
     textAlign(CENTER);
     textStyle(BOLD);
-    fill("black");
+    fill(this.textColor);
     strokeWeight(0);
     text(this.name, this.x+this.width/2, this.y-20);
     strokeWeight(2);

@@ -28,13 +28,9 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 // For some reason nothing is showing >:(
 // ARGGHGHGHGHHG
 function robotRender(data) {
-  fill("black");
-  ellipse(data.x, data.y, 30);
-  // Draw the wheels first, then the body, then everything else
-  // Draw body
-  //fill(data.color);
-  rect(data.x, data.y, data.width, data.height);
-
+  fill(data.color);
+  drawRect(data.x, data.y, data.width, data.height, data.rotation);
+  
   // Draw the robot's name
   textAlign(CENTER);
   textStyle(BOLD);
@@ -61,10 +57,12 @@ $(function() {
       if (data.side == "red") {
         robot.x = width/2-150;
         robot.y = height/2;
+        robot.textColor = "crimson";
       }
       else {
         robot.x = width/2+100;
         robot.y = height/2;
+        robot.textColor = "lightblue";
       }
       // Decycle removes all backreferences to the robot object
       // Set a new room!
@@ -73,7 +71,7 @@ $(function() {
     });
     // Get opponent's positions
     socket.on("opponentPos", function(data) {
-      opponent = data;
+      opponent = data.robot;
     })
   })
   

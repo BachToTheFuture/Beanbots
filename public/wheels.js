@@ -1,6 +1,7 @@
 // Normal wheels class
 class NormalWheels {
   constructor(robot, color="black") {
+    this.type = "NormalWheels";
     this.robot = robot;
     this.color = color;
   }

@@ -44,7 +44,6 @@ function draw() {
   collectibles.forEach(c => c.render());
   robot.render();
   if (opponent && room) {
-    console.log("asdfasdf");
     robotRender(opponent);
   }
 }

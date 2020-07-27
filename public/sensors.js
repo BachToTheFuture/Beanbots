@@ -1,6 +1,7 @@
 // Distance sensor
 class DistanceSensor {
   constructor(robot, side, color="lightgreen") {
+    this.type = "DistanceSensor";
     this.robot = robot;
     this.side = side; // Which side of the robot it's being placed
     this.distance = 0;
@@ -133,6 +134,7 @@ only when the sensor is few pixels (maybe like 50px) away from the obstacle.
 */
 class ColorSensor {
   constructor(robot, side, color="gray") {
+    this.type = "ColorSensor";
     this.robot = robot;
     this.side = side; // Which side of the robot it's being placed
     this.distance = 0;
