@@ -36,6 +36,11 @@ canvas {
 .toast {
   margin-top:10px;
 }
-.scoreboard {
-  font-size:4rem;
+.scoreboard-name {
+  font-size:3rem;
+  padding-right:20px;
+}
+.scoreboard-score, .scoreboard-timer {
+  font-size:3rem;
+  font-weight:bold;
 }
