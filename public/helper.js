@@ -21,6 +21,10 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 }
 
 $(function() {
+
+  $("#join-match").click(e => {
+    socket = io.connect('https://code-bean-kamen.glitch.me');
+  })
   
   $('.equip').click(event => {
     let target = $(event.target).parent();

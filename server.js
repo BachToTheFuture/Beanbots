@@ -6,7 +6,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-let clients = {};
+let queue = [];
 
 app.use(express.static(__dirname + '/public' ));
 
@@ -23,17 +23,17 @@ http.listen(3000, () => {
 io.sockets.on('connection',
   // We are given a websocket object in our function
   function (socket) {
-  
     console.log("We have a new client: " + socket.id);
-    clients[socket.id] = {color: Math.floor(Math.random()*360)}
     //console.log(clients[socket.id]);
-  
+    if (queue.length == 0) queue.push(socket.id);
+    else {
+      // join room with this person.
+      socket.join(queue.pop().id);
+      alert("Matched!");
+    }
     // When this user emits, client side: socket.emit('otherevent',some data);
     socket.on('mouse',
       function(data) {
-        // Data comes in as whatever was sent, including objects
-        data.dat = clients[socket.id];
-        data.id = socket.id;
         console.log(data);
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
@@ -42,7 +42,7 @@ io.sockets.on('connection',
     
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
-      delete clients[socket.id];
+      //delete clients[socket.id];
     });
   }
 );
