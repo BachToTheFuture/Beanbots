@@ -1,3 +1,4 @@
+
 // Main robot class: this is the robot body
 class Robot {
   constructor(name, x, y, color) {

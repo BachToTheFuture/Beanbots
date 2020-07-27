@@ -3,6 +3,7 @@ var opponent;
 var socket;
 var room;
 var collectibles = [];
+var team;
 
 // This function is a lifesaver, trust me
 function drawRect(x, y, width, height, rotation, originX, originY) {
@@ -31,6 +32,7 @@ function endGame() {
   socket = null;
   opponent = null;
   room = null;
+  team = null;
   $(".runRobot").fadeIn();
   $("#join-match").text("Play a match!");
   $("#join-match").fadeIn();
@@ -125,10 +127,11 @@ $(document).ready(function() {
             room: room
           });
         }
-        else
-          $(".blue-team").text = robot.name;
+        else $(".blue-team").text = robot.name;
         
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
+        // Store the robot side;
+        team = data.side;
         
         // Create a 5 second timer to count down
         timer = new CountDownTimer(6);
@@ -194,6 +197,8 @@ $(document).ready(function() {
       });
       socket.on("opponentData", function(data) {
         if (!opponent) opponent = data.robot;
+        if (team == "red") 
+        $(".blue-team").text = robot.name;
       });
       socket.on("updateCollectiblePos", function(data) {
         // Update a collectible's position
