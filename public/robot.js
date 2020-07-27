@@ -4,6 +4,12 @@ class Robot {
     this.name = name;
     this.wheels;
     this.parts = {};
+    
+    // Initial positions
+    this.startX = x;
+    this.startY = y;
+    this.startR = 0;
+    
     // The preprogrammed instructions
     this.code = "";
     // Color
@@ -33,6 +39,11 @@ class Robot {
     (() => {
       fn(this);
     })();
+  }
+  reset() {
+    this.x = this.startX;
+    this.y = this.startY;
+    this.rotation = this.startR;
   }
   render() {
     // Draw the wheels first, then the body, then everything else

@@ -25,8 +25,6 @@ function setup() {
   robot.wheels = new NormalWheels(robot);
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
-  //robot.parts.colorSensor = new ColorSensor(robot, "right");
-  //robot.parts.distanceSensor = new DistanceSensor(robot, "front");
   
   // Make the walls around the field
   obstacles.push(new Wall(0, 0, width, 0));
@@ -45,5 +43,8 @@ function draw() {
   robot.render();
   if (opponent && room) {
     robotRender(opponent);
+    if (socket) {
+      socket.emit("sendRobotPos", {x: robot.x, y:robot.y, rotation:robot.rotation, room: room});
+    }
   }
 }

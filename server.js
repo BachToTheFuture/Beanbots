@@ -42,14 +42,18 @@ io.sockets.on('connection',
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
     // Players send their robot objects to the server and the server runs the game
+    socket.on('sendInitRobotData', function(data) {
+      // Send robot data over to the other player
+      socket.to(data.room).emit("opponentData", data);
+    });
+  
     socket.on('sendRobotPos', function(data) {
-      console.log(data);
       // Send robot data over to the other player
       socket.to(data.room).emit("opponentPos", data);
     });
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
-      if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);
+      //if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);
     });
   }
 );

@@ -3,7 +3,6 @@ var opponent;
 var socket;
 var room;
 
-
 // This function is a lifesaver, trust me
 function drawRect(x,y,width,height,rotation,originX,originY) {
   push(); // Save origin
@@ -28,13 +27,17 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 // For some reason nothing is showing >:(
 // ARGGHGHGHGHHG
 function robotRender(data) {
+  // Draw robot wheels
+  switch(data.wheels.type) {
+    case "NormalWheels": NormalWheels.renderOpponent(data);
+  }
+  // Draw robot body
   fill(data.color);
   drawRect(data.x, data.y, data.width, data.height, data.rotation);
-  
   // Draw the robot's name
   textAlign(CENTER);
   textStyle(BOLD);
-  fill("black");
+  fill(data.textColor);
   strokeWeight(0);
   text(data.name, data.x+data.width/2, data.y-20);
   strokeWeight(2);
@@ -45,7 +48,7 @@ function notification(msg) {
   $('.toast').toast('show');
 }
 
-$(function() {
+$(document).ready(function(){
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
     // Change the button text and prevent clicking??
@@ -57,27 +60,34 @@ $(function() {
       if (data.side == "red") {
         robot.x = width/2-150;
         robot.y = height/2;
-        robot.textColor = "crimson";
+        robot.textColor = "#ff5145";
       }
       else {
         robot.x = width/2+100;
         robot.y = height/2;
-        robot.textColor = "lightblue";
+        robot.textColor = "#347aeb";
       }
       // Decycle removes all backreferences to the robot object
       // Set a new room!
       room = data.room;
-      socket.emit("sendRobotPos", {robot: JSON.decycle(robot), room: room});
+      socket.emit("sendInitRobotData", {robot: JSON.decycle(robot), room: room});
     });
     // Get opponent's positions
     socket.on("opponentPos", function(data) {
-      opponent = data.robot;
+      if (opponent) {
+        opponent.x = data.x;
+        opponent.y = data.y;
+        opponent.rotation = data.rotation;
+      }
+    });
+    socket.on("opponentData", function(data) {
+      if (!opponent) opponent = data.robot;
     })
-  })
+  });
   
-  $('.equip').click(event => {
+  $(document).on('click', '.equip', event => {
     let target = $(event.target).parent();
-    console.log(target)
+    console.log(target);
     // We need this so we know if the item is equipped or not
     
     if (target.hasClass("equip")) {
