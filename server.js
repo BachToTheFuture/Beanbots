@@ -34,7 +34,7 @@ io.sockets.on('connection',
       // join room with this person.
       let roomname = queue.shift();
       socket.join(roomname);
-      socket.to('game').emit('nice game', "let's play a game");
+      socket.to(roomname).emit('matchAccepted', {ready: true});
       var room = io.sockets.adapter.rooms[roomname];
       console.log(room.length)
     }

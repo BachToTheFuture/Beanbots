@@ -1,5 +1,3 @@
-var robot;
-var socket;
 
 var obstacles = [];
 var collectibles = [];
