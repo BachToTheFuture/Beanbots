@@ -121,20 +121,23 @@ $(document).ready(function() {
         // One of the competitors change the collectibles layout and sends it to the other user
         // Change collectible positions here maybe?
         if (data.side == "red") {
-          $(".red-team").text = robot.name;
+          document.querySelector('.red-team').textContent = robot.name;
           socket.emit("sendInitCollectiblesData", {
             collectibles: JSON.decycle(collectibles),
             room: room
           });
         }
-        else $(".blue-team").text = robot.name;
+        else {
+          document.querySelector('.blue-team').textContent = robot.name;
+        }
+        
         
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
         team = data.side;
         
         // Create a 5 second timer to count down
-        timer = new CountDownTimer(6);
+        timer = new CountDownTimer(5);
         let display = document.querySelector('#countdown-timer');
         timer.onTick(format).start();
             
@@ -147,7 +150,7 @@ $(document).ready(function() {
             robot.run();
 
             // Start another timer
-            let timer2 = new CountDownTimer(2);
+            let timer2 = new CountDownTimer(10);
             let display = document.querySelector('#timer');
             timer2.onTick(format).start();
 
@@ -197,8 +200,8 @@ $(document).ready(function() {
       });
       socket.on("opponentData", function(data) {
         if (!opponent) opponent = data.robot;
-        if (team == "red") 
-        $(".blue-team").text = robot.name;
+        if (team == "red") document.querySelector('.blue-team').textContent = opponent.name;
+        else document.querySelector('.red-team').textContent = opponent.name;
       });
       socket.on("updateCollectiblePos", function(data) {
         // Update a collectible's position
