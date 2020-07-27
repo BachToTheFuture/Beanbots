@@ -44,3 +44,15 @@ canvas {
   font-size:3rem;
   font-weight:bold;
 }
+
+#countdown-timer {
+  font-size:4rem;
+  font-weight:bold;
+  position:absolute;
+  top:240px;
+  left:300px;
+  display: none;
+}
+.competition-bar {
+  display:none;
+}

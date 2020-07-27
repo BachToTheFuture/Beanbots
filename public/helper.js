@@ -83,7 +83,8 @@ $(document).ready(function() {
         notification(
           `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
         );
-        $(".rightside").hide(); // Hide the entire rightside of the screen
+        $(".practice-bar").hide(); // Hide the entire rightside of the screen
+        $(".competition-bar").show();
         
         // Maybe move the "field" to the center of the screen and hide the tabs
         if (data.side == "red") {
@@ -108,9 +109,32 @@ $(document).ready(function() {
         });
         
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
+        
+        // Create a 3 second timer to count down
+        timer = new CountDownTimer(3);
+        timer.onTick(format).start();
 
-        // Start the robot?
-        robot.run();
+        function format(minutes, seconds) {
+          $("#countdown-timer").text = seconds;
+          if (seconds == 0) {
+            $("#countdown-timer").hide();
+          }
+        }
+        
+        if (timer.expired()) {
+          robot.run();
+          /*
+          // Start another timer
+          timer = new CountDownTimer(3);
+          timer.onTick(format).start();
+
+          function format(minutes, seconds) {
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            $("#timer").text = minutes + ':' + seconds;
+          }
+          */
+        }
       });
       socket.on("collectiblesData", function(data) {
         // Reconstruct collectibles data
