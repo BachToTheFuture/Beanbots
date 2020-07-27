@@ -98,10 +98,12 @@ $(document).ready(function() {
           robot: JSON.decycle(robot),
           room: room
         });
+        
+        /* 
         socket.emit("sendInitCollectiblesData", {
           collectibles: JSON.decycle(collectibles),
           room: room
-        });
+        });*/
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
 
         // Start the robot?
@@ -110,13 +112,12 @@ $(document).ready(function() {
       socket.on("collectiblesData", function(data) {
         // Reconstruct collectibles data
         data = data.collectibles;
-        //console.log("BEFORE", collectibles);
-        //console.log(data);
+        console.log("BEFORE", collectibles);
         collectibles.forEach((c, cidx) => {
-          Object.keys(data).forEach(k => {
+          Object.keys(data[0]).forEach(k => {
             if (k != "walls") {
-              console.log(k, data[cidx][k], c[k])
-              collectibles[cidx][k] = data[c.idx][k];
+              console.log(k, collectibles[cidx][k], data[cidx][k])
+              collectibles[cidx][k] = data[cidx][k];
             }
           });
           c.walls.forEach((wall, i) => {
@@ -127,7 +128,7 @@ $(document).ready(function() {
             collectibles[cidx].walls[i].color = data[c.idx].walls[i].color;
           });
         });
-        //console.log("AFTER", collectibles);
+        console.log("AFTER", collectibles);
       });
       
       // Get opponent's positions
