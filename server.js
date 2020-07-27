@@ -39,13 +39,6 @@ io.sockets.on('connection',
       console.log(room.length)
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
-    socket.on('initializeGame',
-      function(data) {
-        console.log(data);
-        // Send it to all other clients
-        socket.broadcast.emit('mouse', data);
-      }
-    );
     // Players send their robot objects to the server and the server runs the game
     socket.on('initializeGame', function(data) {
       console.log(data);

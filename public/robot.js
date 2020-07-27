@@ -24,6 +24,15 @@ class Robot {
     this.vr = 0; // rotation speed;
     this.rotation = 0; // robot rotation in radians
   }
+  run() {
+    let code = this.code;
+    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+    // Redefine global variables as undefined so users don't access them and mess around with it
+    let fn = new AsyncFunction("robot","var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels;\n"+code);
+    (() => {
+      fn(this);
+    })();
+  }
   render() {
     // Draw the wheels first, then the body, then everything else
     this.wheels.render();

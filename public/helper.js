@@ -22,6 +22,11 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
   }
 }
 
+function notification(msg) {
+  $('#main-toast-body').text(msg);
+  $('.toast').toast('show');
+}
+
 $(function() {
   
   $("#join-match").click(e => {
@@ -29,9 +34,8 @@ $(function() {
     
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
-      $('#main-toast-body').text("You've been matched with an opponent!");
-      $('.toast').toast('show');
-      socket.emit("initializeGame", {robot: robot});
+      notification("You have been matched with an opponent!")
+      socket.emit("initializeGame", {robot: true});
     });
   })
   
@@ -69,7 +73,7 @@ $(function() {
       let item = target.attr("id");
       // If this is a wheel
       if (item.includes("Wheel")) {
-        alert("you can't take off the robot's wheels!")
+        notification("You can't take off the robot's wheels!")
       }
       else {
         let name = $("#"+item+"Name").val();

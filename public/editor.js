@@ -4,14 +4,8 @@ var editor = ace.edit( "editor" );
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
 
 function runRobot() {
-  let code = editor.getValue();
-  const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-  // Redefine global variables as undefined so users don't access them and mess around with it
-  
-  let fn = new AsyncFunction("robot","var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels;\n"+code);
-  (() => {
-    fn(robot);
-  })();
+  robot.code = editor.getValue();
+  robot.run();
 }
 
 /*
