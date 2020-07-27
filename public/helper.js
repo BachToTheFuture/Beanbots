@@ -92,8 +92,10 @@ $(document).ready(function(){
       // Set a new room!
       room = data.room;
       socket.emit("sendInitRobotData", {robot: JSON.decycle(robot), room: room});
+      robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
       
-      robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb"
+      // Start the robot?
+      robot.run();
     });
     // Get opponent's positions
     socket.on("opponentPos", function(data) {
