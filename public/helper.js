@@ -28,23 +28,15 @@ function notification(msg) {
 }
 
 $(function() {
-  
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
     
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
-      notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`)
-      if (data.side == "red") {
-        robot.x = width/2-100;
-        robot.y = height/2;
-      }
-      else {
-        robot.x = width/2+100;
-        robot.y = height/2;
-      }
-      
-      //socket.emit("initializeGame", {robot: true});
+      notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`);
+      // Decycle removes all backreferences to the robot object
+      // Send the robot to the server
+      socket.emit("initializeGame", {robot: JSON.decycle(robot)});
     });
   })
   
