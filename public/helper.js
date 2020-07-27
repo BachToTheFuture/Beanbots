@@ -100,7 +100,7 @@ $(document).ready(function() {
         });
         // One of the competitors change the collectibles layout and sends it to the other user
         // Change collectible positions here maybe?
-        if (data.side == (Math.random() > 0.5 ? "blue" : "red")) socket.emit("sendInitCollectiblesData", {
+        if (data.side == "red") socket.emit("sendInitCollectiblesData", {
           collectibles: JSON.decycle(collectibles),
           room: room
         });
@@ -113,7 +113,6 @@ $(document).ready(function() {
       socket.on("collectiblesData", function(data) {
         // Reconstruct collectibles data
         data = data.collectibles;
-        console.log("BEFORE", collectibles);
         collectibles.forEach((c, cidx) => {
           Object.keys(data[0]).forEach(k => {
             if (k != "walls") {
@@ -128,7 +127,6 @@ $(document).ready(function() {
             collectibles[cidx].walls[i].color = data[c.idx].walls[i].color;
           });
         });
-        console.log("AFTER", collectibles);
       });
       
       // Get opponent's positions

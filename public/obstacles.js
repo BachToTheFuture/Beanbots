@@ -59,6 +59,11 @@ class Collectible {
     });
     
     this.checkCollision();
+    // Set velocity to 0 if it's moving slow enough
+    if (Math.abs(this.vx) < 0.02) this.vx = 0;
+    if (Math.abs(this.vy) < 0.02) this.vy = 0;
+    // Update the block when it is moving
+    if (this.vx!=0 || this.vy!=0) socket.emit("sendCollectiblePos", {idx: this.idx, x: this.x, y:this.y, color:this.color, room: room});
   }
   
   checkCollision() {
@@ -68,8 +73,6 @@ class Collectible {
         this.color = "yellow";
         this.vx = robot.vx;
         this.vy = robot.vy;
-        // Update the block
-        socket.emit("sendCollectiblePos", {idx: this.idx, x: this.x, y:this.y, color:this.color, room: room});
       }
       else {
         this.color = "lightblue";
@@ -82,7 +85,6 @@ class Collectible {
         this.color = "yellow";
         this.vx = robot.vx;
         this.vy = robot.vy;
-        socket.emit("sendCollectiblePos", {idx: this.idx, x: this.x, y:this.y, color:this.color, room: room});
       }
       else {
         this.color = "lightblue";
