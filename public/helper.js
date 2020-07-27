@@ -53,7 +53,7 @@ $(function() {
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
     // Change the button text and prevent clicking??
-    
+    notification(`Waiting for a match... please wait!`);
     socket.on('matchAccepted', function(data) {
       // Tell the user that they've been matched
       notification(`You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`);
