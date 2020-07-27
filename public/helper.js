@@ -71,6 +71,7 @@ $(document).ready(function() {
     if (robot.code === "") {
       notification(`Please run your code at least once before you begin!`);
     } else {
+      $(".runRobot").hide();
       socket = io({transports: ['websocket'], upgrade: false}).connect("https://code-bean-kamen.glitch.me");
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);
@@ -110,18 +111,24 @@ $(document).ready(function() {
         
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         
-        // Create a 3 second timer to count down
-        timer = new CountDownTimer(3);
+        // Create a 5 second timer to count down
+        timer = new CountDownTimer(6);
         timer.onTick(format).start();
-
+        let display = document.querySelector('#countdown-timer');
+            
+        $("#countdown-timer").show();
         function format(minutes, seconds) {
-          $("#countdown-timer").text = seconds;
-          if (seconds == 0) {
+          console.log(seconds);
+          if (seconds == 6)
+            display.textContent = "Ready?";
+          else
+            display.textContent = seconds;
+          if (seconds == 0)
             $("#countdown-timer").hide();
-          }
         }
         
         if (timer.expired()) {
+          console.log("Robot started running!")
           robot.run();
           /*
           // Start another timer

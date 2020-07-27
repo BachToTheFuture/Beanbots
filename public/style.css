@@ -52,6 +52,7 @@ canvas {
   top:240px;
   left:300px;
   display: none;
+  text-align: center;
 }
 .competition-bar {
   display:none;
