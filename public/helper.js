@@ -71,7 +71,7 @@ $(document).ready(function() {
     if (robot.code === "") {
       notification(`Please run your code at least once before you begin!`);
     } else {
-      socket = io.connect("https://code-bean-kamen.glitch.me");
+      socket = io({transports: ['websocket'], upgrade: false}).connect("https://code-bean-kamen.glitch.me");
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);
       $(e.target).html("Waiting for an opponent...");
@@ -98,7 +98,8 @@ $(document).ready(function() {
           robot: JSON.decycle(robot),
           room: room
         });
-        // One of the competitors change the collectibles layout and sends it to the 
+        // One of the competitors change the collectibles layout and sends it to the other user
+        // Change collectible positions here maybe?
         if (data.side == (Math.random() > 0.5 ? "blue" : "red")) socket.emit("sendInitCollectiblesData", {
           collectibles: JSON.decycle(collectibles),
           room: room
@@ -116,7 +117,6 @@ $(document).ready(function() {
         collectibles.forEach((c, cidx) => {
           Object.keys(data[0]).forEach(k => {
             if (k != "walls") {
-              console.log(k, collectibles[cidx][k], data[cidx][k])
               collectibles[cidx][k] = data[cidx][k];
             }
           });
