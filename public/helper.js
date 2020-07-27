@@ -87,7 +87,7 @@ $(document).ready(function(){
     })
   });
   
-  $(document).on('click', '.equip', event => {
+  $(document).on('click', '.equipToggle', event => {
     let target = $(event.target).parent();
     console.log(target);
     // We need this so we know if the item is equipped or not
@@ -147,7 +147,7 @@ function giveUserRandomItems() {
   userSensors.forEach(s => {
     $("#user-sensors").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="input-group-prepend equip">
+  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Name" placeholder="Variable name">
@@ -164,7 +164,7 @@ function giveUserRandomItems() {
     userWheels.forEach(s => {
     $("#user-wheels").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="input-group-prepend equip">
+  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
