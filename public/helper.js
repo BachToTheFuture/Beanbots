@@ -83,6 +83,8 @@ $(document).ready(function() {
         notification(
           `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
         );
+        $(".rightside").hide(); // Hide the entire rightside of the screen
+        
         // Maybe move the "field" to the center of the screen and hide the tabs
         if (data.side == "red") {
           robot.x = width / 2 - 150;
