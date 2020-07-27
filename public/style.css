@@ -1,0 +1,32 @@
+html, body {
+  margin: 0;
+  padding: 10px;
+  font-family: 'Raleway', sans-serif;
+}
+h3 {
+  font-weight: bold;
+}
+canvas {
+  display: block;
+  float:left;
+}
+.leftside {
+  min-width: 600px;
+}
+.rightside {
+  margin-left:20px;
+  min-width: 600px;
+}
+.site-name {
+  min-width: 150px;
+}
+.input-group {
+  margin:10px;
+}
+
+.equip .input-group-text {
+  background: #eee !important;
+}
+.equipped .input-group-text {
+  background: lightgreen !important;
+}

@@ -1,10 +1,115 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-    <script language="javascript" type="text/javascript" src="sketch.js"></script>
-    <script language="javascript" type="text/javascript" src="socket.io-1.4.5.js"></script>
-    
+    <title>Practice Field</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- import the p5.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://unpkg.com/p5.collide2d"></script>
+    <!-- import the webpage's javascript file -->
+    <script src="/sketch.js" defer></script>
   </head>
   <body>
+    <header class="bpy-3">
+      <div class="row flex-nowrap align-items-center">
+        <div class="col-2 pt-1 site-name">
+          <h3>Practice Field</h3>
+        </div>
+        <div class="col pt-1">
+          <a href="#" class="btn btn-success" onclick="runRobot();">
+            Run robot
+          </a>
+          <a href="#" class="btn btn-secondary">
+            Play a match!
+          </a>
+        </div>
+      </div>
+    </header>
+    <br>
+    <div class="row">
+      <div class="col-5 leftside">
+        <div id="canvas"></div>
+      </div>
+      <div class="col-5 rightside">
+        <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+          
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Tutorial</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Customize</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Code</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-help2" data-toggle="pill" href="#pills-help2" role="tab" aria-controls="pills-help2" aria-selected="false">Documentation</a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <b>Robot Body</b>
+      <div class="input-group">
+        <a href="#" class="input-group-prepend updateRobot">
+          <span class="input-group-text" id="robotBody">Update robot</span>
+        </a>
+        <input type="text" class="form-control" id="robotName" placeholder="Robot name">
+        <input type="text" class="form-control" id="robotColor" placeholder="Robot color">
+      </div>
+      <b>Wheels</b>
+      <div id="user-wheels"></div>
+      <b>Sensors</b>
+      <div id="user-sensors"></div></div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      
+    <div id="editor" style="min-height:540px; height: 100%; width: 100%;">
+</div>
+  </div>
+    <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
+      <h3>Tutorial</h3>
+      <p>
+        Welcome! You will learn how to design a robot, program it, and compete against other people.
+      </p>
+    </div>
+    <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
+      <h3>Documentation</h3>
+      <p>
+        Put documentation stuff here
+      </p>
+    </div>
+</div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-javascript.js"></script>
+    <script src="editor.js"></script>
+    <script src="helper.js"></script>
+    <script src="wheels.js"></script>
+    <script src="rays.js"></script>
+    <script src="obstacles.js"></script>
+    <script src="sensors.js"></script>
+    <script src="robot.js"></script>
   </body>
 </html>
+
