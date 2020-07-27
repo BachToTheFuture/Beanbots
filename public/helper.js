@@ -3,22 +3,6 @@ var opponent;
 var socket;
 var room;
 
-// For some reason nothing is showing 
-function robotRender(data) {
-  // Draw the wheels first, then the body, then everything else
-  // Draw body
-  //fill(data.color);
-  drawRect(data.x, data.y, data.width, data.height, data.rotation);
-
-  // Draw the robot's name
-  textAlign(CENTER);
-  textStyle(BOLD);
-  fill("black");
-  strokeWeight(0);
-  text(data.name, data.x+data.width/2, this.y-20);
-  strokeWeight(2);
-}
-
 
 // This function is a lifesaver, trust me
 function drawRect(x,y,width,height,rotation,originX,originY) {
@@ -39,6 +23,25 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
     rect(0,0, width, height);
     pop(); // Restore origin
   }
+}
+
+// For some reason nothing is showing >:(
+// ARGGHGHGHGHHG
+function robotRender(data) {
+  fill("black");
+  ellipse(data.x, data.y, 30);
+  // Draw the wheels first, then the body, then everything else
+  // Draw body
+  //fill(data.color);
+  drawRect(data.x, data.y, data.width, data.height, data.rotation);
+
+  // Draw the robot's name
+  textAlign(CENTER);
+  textStyle(BOLD);
+  fill("black");
+  strokeWeight(0);
+  text(data.name, data.x+data.width/2, data.y-20);
+  strokeWeight(2);
 }
 
 function notification(msg) {
