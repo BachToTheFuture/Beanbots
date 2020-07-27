@@ -25,11 +25,18 @@ io.sockets.on('connection',
   function (socket) {
     console.log("We have a new client: " + socket.id);
     //console.log(clients[socket.id]);
-    if (queue.length == 0) queue.push(socket.id);
+    if (queue.length == 0) {
+      queue.push(socket.id);
+      // The user ID is the room's name
+      socket.join(socket.id);
+    }
     else {
       // join room with this person.
-      socket.join(queue.pop().id);
-      alert("Matched!");
+      let roomname = queue.shift();
+      socket.join(roomname);
+      socket.to('game').emit('nice game', "let's play a game");
+      var room = io.sockets.adapter.rooms[roomname];
+      console.log(room.length)
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
     socket.on('mouse',
