@@ -23,14 +23,15 @@ function drawRect(x,y,width,height,rotation,originX,originY) {
 }
 
 $(function() {
-  $('.toast').toast('show');
   
   $("#join-match").click(e => {
     socket = io.connect('https://code-bean-kamen.glitch.me');
     
     socket.on('matchAccepted', function(data) {
-      console.log(data);
+      // Tell the user that they've been matched
+      $('#main-toast-body').text("You've been matched with an opponent!");
       $('.toast').toast('show');
+      socket.emit("initializeGame", {robot: robot});
     });
   })
   

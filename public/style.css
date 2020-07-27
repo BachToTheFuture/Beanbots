@@ -33,3 +33,6 @@ canvas {
 .notif-section {
   position: absolute; top: 0; right: 0;
 }
+.toast {
+  margin-top:10px;
+}

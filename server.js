@@ -34,19 +34,23 @@ io.sockets.on('connection',
       // join room with this person.
       let roomname = queue.shift();
       socket.join(roomname);
-      socket.to(roomname).emit('matchAccepted', {ready: true});
+      io.in(roomname).emit('matchAccepted', {ready: true});
       var room = io.sockets.adapter.rooms[roomname];
       console.log(room.length)
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
-    socket.on('mouse',
+    socket.on('initializeGame',
       function(data) {
         console.log(data);
         // Send it to all other clients
         socket.broadcast.emit('mouse', data);
       }
     );
-    
+    // Players send their robot objects to the server and the server runs the game
+    socket.on('initializeGame', function(data) {
+      console.log(data);
+      //delete clients[socket.id];
+    });
     socket.on('disconnect', function() {
       console.log("Client has disconnected");
       //delete clients[socket.id];
