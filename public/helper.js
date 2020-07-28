@@ -97,6 +97,10 @@ $(document).ready(function() {
       target.html("Reset robot");
       robot.code = editor.getValue();
       robot.run();
+      
+      /* Save the robot's name, color, and code to the storage */
+      window.localStorage.setItem('robo_data', {name: robot.name, color: robot.color, code: robot.code});
+      
     } else {
       target.removeClass("btn-danger");
       target.addClass("btn-success");

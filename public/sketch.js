@@ -21,14 +21,19 @@ function setup() {
   canvas.parent("canvas");
   background(0, 0, 94);
   
-  
+  drawField();
   
   // Give the user a random item from each category 
   giveUserRandomItems();
   
-  // Create the robot :)
+  // Create robot
   robot = new Robot(generateName(), width/2 - 150, height/2, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
+  
+  // Try restoring saved robot data
+  if (localStorage.getItem("robo_data") !== null) {
+    
+  }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
   
@@ -56,4 +61,8 @@ function draw() {
       socket.emit("sendRobotPos", {x: robot.x, y:robot.y, originX: robot.originX, originY: robot.originY, rotation:robot.rotation, room: room});
     }
   }
+}
+
+function drawField() {
+  
 }
