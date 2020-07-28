@@ -32,13 +32,16 @@ io.sockets.on('connection',
     }
     else {
       // join room with this person.
-      let roomname = queue.shift();
-      socket.join(roomname);
-      let side = Math.random() > 0.5 ? "red" : "blue";
-      io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
-      io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
-      var room = io.sockets.adapter.rooms[roomname];
-      console.log(room.length)
+      // Make sure this is not yourself!
+      if (queue[0] != socket.id) {
+        let roomname = queue.shift();
+        socket.join(roomname);
+        let side = Math.random() > 0.5 ? "red" : "blue";
+        io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
+        io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
+        var room = io.sockets.adapter.rooms[roomname];
+        console.log(room.length)
+      }
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
     // Players send their robot objects to the server and the server runs the game

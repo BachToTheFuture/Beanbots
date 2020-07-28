@@ -21,6 +21,8 @@ function setup() {
   canvas.parent("canvas");
   background(0, 0, 94);
   
+  
+  
   // Give the user a random item from each category 
   giveUserRandomItems();
   
