@@ -22,9 +22,16 @@ class Wall {
   constructor(x1, y1, x2, y2, color = "black") {
     this.a = createVector(x1, y1);
     this.b = createVector(x2, y2);
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
     this.color = color;
   }
-
+  reset() {
+    this.a = createVector(this.x1, this.y1);
+    this.b = createVector(this.x2, this.y2);
+  }
   render() {
     /* Do nothing oops */
   }
@@ -70,6 +77,9 @@ class Collectible {
     this.x = this.startX;
     this.y = this.startY;
     this.rotation = 0;
+    this.walls.forEach(wall => {
+      wall.reset();
+    })
   }
   render() {
     if (this.shape == "rect") {
