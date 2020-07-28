@@ -23,7 +23,7 @@ class Wall {
 }
 
 class Collectible {
-  constructor(x, y, width, height, shape, idx, color, mass) {
+  constructor(x, y, width, height, shape, idx, color, mass, name) {
     this.idx = idx;
     this.x = x;
     this.y = y;
@@ -31,6 +31,7 @@ class Collectible {
     this.originY = y;
     this.width = width;
     this.height = height;
+    this.name = name;
     // For how hard it is for the robot to push it
     // Set this to infinity if this is immovable
     this.mass = mass || 100;
@@ -74,7 +75,7 @@ class Collectible {
     this.checkCollision(robot);
     
     collectibles.forEach((c)=>{
-      if (c.x != this.x && c.y != this.y) this.checkCollision(c);
+      if (c.x != this.x && c.y != this.y) c.checkCollision(this);
     });
     
     // Set velocity to 0 if it's moving slow enough
@@ -106,7 +107,7 @@ class Collectible {
           this.height
         )
       ) {
-        console.log("hit");
+        //console.log(this.name, obj.name);
         // Physics from
         // https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics
         let vCollision = {x: this.x - obj.x, y: this.y - obj.y};
@@ -123,7 +124,6 @@ class Collectible {
         this.vy -= (impulse * obj.mass * vCollisionNorm.y);
         
       } else {
-        this.color = "black";
         this.vx *= this.friction;
         this.vy *= this.friction;
       }

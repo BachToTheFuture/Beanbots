@@ -55,16 +55,20 @@ function setup() {
   */
   
   // Top wall
-  collectibles.push(new Collectible(0, -2, width, 2,"rect", 0, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(0, -25, width, 50,"rect", 0, color(0,0,25), Infinity,"topwall"));
   // Left wall
-  collectibles.push(new Collectible(-2, 0, 2, height,"rect", 1, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(-2, 2, 2, height-3,"rect", 1, color(0,0,25), 1000000,"leftwall"));
   // Bottom wall
-  collectibles.push(new Collectible(0, height, width, 2,"rect", 2, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(0, height, width, 2,"rect", 2, color(0,0,25), 1000000,"bottomwall"));
   // Right wall
-  collectibles.push(new Collectible(width, 0, 2, height,"rect", 3, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(width, 2, 2, height-3,"rect", 3, color(0,0,25), 1000000,"rightwall"));
   
-  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 4, color(219, 91, 87), 300));
-  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 5, color(0, 91, 87), 300));
+  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 4, color(219, 91, 87), 300,"bluefoundation"));
+  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 5, color(0, 91, 87), 300,"redfoundation"));
+  
+  for (var i = 6; i < 12; i++) {
+    collectibles.push(new Collectible(random(width+10), random(height/2+30, height-10), 14, 14,"rect", 4, "yellow", 300,"block"));
+  }
 }
 
 function draw() {
