@@ -281,15 +281,10 @@ $(document).ready(function() {
       }
     } else {
       let item = target.attr("id");
-      // If this is a wheel
-      if (item.includes("Wheel")) {
-        notification("You can't take off the robot's wheels!");
-      } else {
-        target.removeClass("equipped");
-        target.addClass("equip");
-        let name = $("#" + item + "Name").val();
-        delete robot.parts[name];
-      }
+      target.removeClass("equipped");
+      target.addClass("equip");
+      let name = $("#" + item + "Name").val();
+      delete robot.parts[name];
     }
   });
 
@@ -329,7 +324,7 @@ function giveUserRandomItems() {
   userWheels.forEach(s => {
     $("#user-wheels").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="equipToggle input-group-prepend equipped">
+  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
