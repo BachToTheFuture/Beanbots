@@ -108,20 +108,16 @@ class Collectible {
         )
       ) {
         // Transfer momentum? physics is off here sorry :(
-        let ovx = this.vx;
-        let ovy = this.vy;
-        if (this.mass > obj.mass) {
-          this.vx = (obj.vx*obj.mass) / this.mass;
-          this.vy = (obj.vy*obj.mass) / this.mass;
-          obj.vx = this.vx;
-          obj.vy = this.vy;
-        }
-        else {
-          obj.vx = (this.vx*this.mass) / obj.mass;
-          obj.vy = (this.vy*this.mass) / obj.mass;
-          this.vx = obj.vx;
-          this.vy = obj.vy;
-        }
+        let vCollision = {x: this.x - obj.x, y: this.y - obj.y};
+        let distance = Math.sqrt((this.x-obj.x)*(this.x-obj.x) + (this.y-obj.y)*(this.y-obj.y));
+        let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
+        let vRelativeVelocity = {x: this.vx - obj.vx, y: this.vy - obj.vy};
+        let speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
+        
+        obj.vx += (speed * vCollisionNorm.x);
+        obj.vy += (speed * vCollisionNorm.y);
+        this.vx += (speed * vCollisionNorm.x);
+        this.vy += (speed * vCollisionNorm.y);
         
       } else {
         this.vx *= this.friction;
