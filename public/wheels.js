@@ -120,7 +120,8 @@ class MecanumWheels extends NormalWheels {
   }
   move(powerX, powerY) {
     this.robot.power = (powerX + powerY)/2;
-    this.robot.vy = Math.sin(this.robot.rotation) * powerY;
-    this.robot.vx = Math.cos(this.robot.rotation) * powerX;
+    this.robot.vy = powerY;
+    this.robot.vx = powerX;
+    console.log(powerX, powerY);
   }
 }

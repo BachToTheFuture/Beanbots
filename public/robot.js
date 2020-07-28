@@ -80,8 +80,11 @@ class Robot {
     this.originX = this.x + this.width / 2;
     this.originY = this.y + this.height / 2;
     // Update velocity components depending on the robot's angle
-    this.vy = Math.sin(this.rotation) * this.power;
-    this.vx = Math.cos(this.rotation) * this.power;
+    
+    if (this.wheels.type == "NormalWheels") {
+      this.vy = Math.sin(this.rotation) * this.power;
+      this.vx = Math.cos(this.rotation) * this.power;
+    }
     
     // Draw the robot's name
     textAlign(CENTER);
