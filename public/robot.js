@@ -96,17 +96,17 @@ class Robot {
     
     // Make sure the robot stay inside the field
     if (this.x < 0){
-         this.vx = Math.abs(this.vx) * this.friction;
+         this.vx *= this.friction;
          this.x = 0;
      } else if (this.x > width - this.width){
-         this.vx = -Math.abs(this.vx) * this.friction;
+         this.vx *= this.friction;
          this.x = width - this.width;
      }
     if (this.y < 0){
-         this.vy = Math.abs(this.vy) * this.friction;
+         this.vy *= this.friction;
          this.y = 0;
      } else if (this.y > height - this.height){
-         this.vy = -Math.abs(this.vy) * this.friction;
+         this.vy *= this.friction;
          this.y = height - this.height;
      }
   }
