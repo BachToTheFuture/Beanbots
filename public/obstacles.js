@@ -72,11 +72,11 @@ class Collectible {
     });
     
     this.checkCollision(robot);
-    /*
+    
     collectibles.forEach((c,i)=>{
       if (i != this.idx) c.checkCollision(this);
     });
-    */
+    
     
     // Set velocity to 0 if it's moving slow enough
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
@@ -108,12 +108,20 @@ class Collectible {
         )
       ) {
         // Transfer momentum? physics is off here sorry :(
-        let ovx = obj.vx;
-        let ovy = obj.vy;
-        obj.vx = (this.vx*this.mass) / obj.mass;
-        obj.vy = (this.vy*this.mass) / obj.mass;
-        this.vx = (ovx*obj.mass) / this.mass;
-        this.vy = (ovy*obj.mass) / this.mass;
+        let ovx = this.vx;
+        let ovy = this.vy;
+        if (this.mass > obj.mass) {
+          this.vx = (obj.vx*obj.mass) / this.mass;
+          this.vy = (obj.vy*obj.mass) / this.mass;
+          obj.vx = this.vx;
+          obj.vy = this.vy;
+        }
+        else {
+          obj.vx = (this.vx*this.mass) / obj.mass;
+          obj.vy = (this.vy*this.mass) / obj.mass;
+          this.vx = obj.vx;
+          this.vy = obj.vy;
+        }
         
       } else {
         this.vx *= this.friction;
