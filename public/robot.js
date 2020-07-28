@@ -90,7 +90,21 @@ class Robot {
     text(this.name, this.x + this.width / 2, this.y - 20);
     strokeWeight(2);
     
-    //this.checkCollision();
+    // Make sure the robot stay inside the field
+    if (this.x < this.width){
+         this.vx = Math.abs(this.vx) * this.friction;
+         this.x = this.width;
+     } else if (this.x > width - this.width){
+         this.vx = -Math.abs(this.vx) * this.friction;
+         this.x = width - this.width;
+     }
+    if (this.y < this.height){
+         this.vy = Math.abs(this.vy) * this.friction;
+         this.y = this.height;
+     } else if (this.y > height - this.height){
+         this.vy = -Math.abs(this.vy) * this.friction;
+         this.y = height - this.height;
+     }
   }
   /*
   checkCollision() {
