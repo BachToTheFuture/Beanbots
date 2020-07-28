@@ -25,7 +25,7 @@ function setup() {
   giveUserRandomItems();
   
   // Create robot
-  robot = new Robot(generateName(), 0, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+  robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
   
   //window.localStorage.clear();
@@ -55,7 +55,7 @@ function setup() {
   */
   
   // Top wall
-  collectibles.push(new Collectible(-2, 0, width, 2,"rect", 0, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(0, -2, width, 2,"rect", 0, color(0,0,25), 1000000));
   // Left wall
   collectibles.push(new Collectible(-2, 0, 2, height,"rect", 0, color(0,0,25), 1000000));
   // Bottom wall

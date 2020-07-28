@@ -71,8 +71,12 @@ class Collectible {
       w.b.add(createVector(this.vx, this.vy));
       //w.render();
     });
-
+    
+    collectibles.forEach((c,i)=>{
+      if (i != this.idx) c.checkCollision(this);
+    })
     this.checkCollision(robot);
+    
     // Set velocity to 0 if it's moving slow enough
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
     if (Math.abs(this.vy) < 0.02) this.vy = 0;
@@ -91,7 +95,6 @@ class Collectible {
     if (this.shape == "rect") {
       // Check with robot first
       if (
-        (obj.vx != 0 || obj.vy != 0) &&
         collideRectRect(
           obj.x,
           obj.y,
@@ -104,17 +107,19 @@ class Collectible {
         )
       ) {
         // Transfer momentum? physics is off here sorry :(
-        this.vx = (obj.vx*obj.mass) / this.mass;
-        this.vy = (obj.vy*obj.mass) / this.mass;
-        obj.vx = this.vx;
-        obj.vy = this.vy;
+        let ovx = obj.vx;
+        let ovy = obj.vy;
+        obj.vx = (this.vx*this.mass) / obj.mass;
+        obj.vy = (this.vy*this.mass) / obj.mass;
+        this.vx = (ovx*obj.mass) / this.mass;
+        this.vy = (ovy*obj.mass) / this.mass;
+        
       } else {
         this.vx *= this.friction;
         this.vy *= this.friction;
       }
     } else if (this.shape == "ball") {
       if (
-        (obj.vx != 0 || obj.vy != 0) &&
         collideRectCircle(
           obj.x,
           obj.y,
