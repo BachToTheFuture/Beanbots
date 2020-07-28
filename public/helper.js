@@ -140,6 +140,8 @@ $(document).ready(function() {
         } else {
           robot.x = width / 2 + 100;
           robot.y = height / 2;
+          // flip robot 180 degrees
+          robot.rotation = Math.PI;
         }
         // Set a new room!
         room = data.room;

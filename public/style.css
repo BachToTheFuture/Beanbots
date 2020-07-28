@@ -10,6 +10,7 @@ canvas {
   display: block;
   float:left;
   border: 2px #222 solid;
+  margin-bottom:20px;
 }
 .leftside {
   min-width: 600px;
