@@ -54,8 +54,17 @@ function setup() {
     collectibles.push(new Collectible(random(width-20),random(height-20),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
   */
   
-  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87)));
-  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87)));
+  // Top wall
+  collectibles.push(new Collectible(-2, 0, width, 2,"rect", 0, color(0,0,25), 1000000));
+  // Left wall
+  collectibles.push(new Collectible(-2, 0, 2, height,"rect", 0, color(0,0,25), 1000000));
+  // Bottom wall
+  collectibles.push(new Collectible(0, height, width, 2,"rect", 0, color(0,0,25), 1000000));
+  // Right wall
+  collectibles.push(new Collectible(width, 0, 2, height,"rect", 0, color(0,0,25), 1000000));
+  
+  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87), 2));
+  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 2));
 }
 
 function draw() {

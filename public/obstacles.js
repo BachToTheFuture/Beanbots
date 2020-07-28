@@ -23,7 +23,7 @@ class Wall {
 }
 
 class Collectible {
-  constructor(x, y, width, height, shape, idx, color) {
+  constructor(x, y, width, height, shape, idx, color, mass) {
     this.idx = idx;
     this.x = x;
     this.y = y;
@@ -31,9 +31,9 @@ class Collectible {
     this.originY = y;
     this.width = width;
     this.height = height;
-    // If this is immovable, the robot is stucl
-    this.immovable = false;
-    this.mass = 0; // this will be a future addition
+    // For how hard it is for the robot to push it
+    // Set this to infinity if this is immovable
+    this.mass = mass || 1;
     
     this.vx = 0;
     this.vy = 0;
@@ -72,7 +72,7 @@ class Collectible {
       //w.render();
     });
 
-    this.checkCollision();
+    this.checkCollision(robot);
     // Set velocity to 0 if it's moving slow enough
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
     if (Math.abs(this.vy) < 0.02) this.vy = 0;
@@ -87,15 +87,16 @@ class Collectible {
       });
   }
 
-  checkCollision() {
+  checkCollision(obj) {
     if (this.shape == "rect") {
+      // Check with robot first
       if (
-        (robot.vx != 0 || robot.vy != 0) &&
+        (obj.vx != 0 || obj.vy != 0) &&
         collideRectRect(
-          robot.x,
-          robot.y,
-          robot.width,
-          robot.height,
+          obj.x,
+          obj.y,
+          obj.width,
+          obj.height,
           this.x,
           this.y,
           this.width,
@@ -103,27 +104,31 @@ class Collectible {
         )
       ) {
         // Transfer momentum? physics is off here sorry :(
-        this.vx = robot.vx;
-        this.vy = robot.vy;
+        this.vx = (obj.vx*obj.mass) / this.mass;
+        this.vy = (obj.vy*obj.mass) / this.mass;
+        obj.vx = this.vx;
+        obj.vy = this.vy;
       } else {
         this.vx *= this.friction;
         this.vy *= this.friction;
       }
     } else if (this.shape == "ball") {
       if (
-        (robot.vx != 0 || robot.vy != 0) &&
+        (obj.vx != 0 || obj.vy != 0) &&
         collideRectCircle(
-          robot.x,
-          robot.y,
-          robot.width,
-          robot.height,
+          obj.x,
+          obj.y,
+          obj.width,
+          obj.height,
           this.x,
           this.y,
           this.width
         )
       ) {
-        this.vx = robot.vx;
-        this.vy = robot.vy;
+        this.vx = (obj.vx*obj.mass) / this.mass;
+        this.vy = (obj.vy*obj.mass) / this.mass;
+        obj.vx = this.vx;
+        obj.vy = this.vy;
       } else {
         this.vx *= this.friction;
         this.vy *= this.friction;

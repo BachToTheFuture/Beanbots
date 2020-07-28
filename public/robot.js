@@ -15,7 +15,10 @@ class Robot {
     this.startX = x;
     this.startY = y;
     this.startR = 0;
-
+    
+    // The robot's mass
+    this.mass = 1;
+    
     // The preprogrammed instructions
     this.code = "";
     // Color
