@@ -20,7 +20,7 @@ class Robot {
     this.code = "";
     // Color
     this.color = color;
-    this.textColor = "black";
+    this.textColor = "white";
     // Size
     this.width = 50;
     this.height = 40;

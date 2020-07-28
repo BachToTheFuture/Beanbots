@@ -21,8 +21,6 @@ function setup() {
   canvas.parent("canvas");
   background(0, 0, 94);
   
-  drawField();
-  
   // Give the user a random item from each category 
   giveUserRandomItems();
   
@@ -32,7 +30,11 @@ function setup() {
   
   // Try restoring saved robot data
   if (localStorage.getItem("robo_data") !== null) {
-    
+    let robodata = localStorage.getItem("robo_data");
+    robot.name = robodata.name;
+    robot.color = robodata.color;
+    robot.code = robodata.code;
+    editor.setValue(robot.code);
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
@@ -51,6 +53,7 @@ function setup() {
 
 function draw() {
   background(0, 0, 94);
+  drawField();
   //obstacles.forEach(obstacle => obstacle.render());
   collectibles.forEach(c => c.render());
   robot.render();
@@ -64,5 +67,19 @@ function draw() {
 }
 
 function drawField() {
+  background(219, 7, 42);
+  fill(219, 91, 87);
+  rect(225, 20, 55, 100);
   
+  fill(0, 91, 87);
+  rect(325, 20, 55, 100);
+  
+  fill(219, 91, 87);
+  rect(0, 300, 200, 10); 
+  
+  fill(0,91, 87);
+  rect(400, 300, 200, 10);
+  
+  fill(0, 0, 0);
+  rect(200, 270, 200, 100);
 }
