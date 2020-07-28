@@ -63,6 +63,10 @@ function robotRender(data) {
   switch (data.wheels.type) {
     case "NormalWheels":
       NormalWheels.renderOpponent(data);
+      break;
+    case "MecanumWheels":
+      MecanumWheels.renderOpponent(data);
+      break;
   }
   // Draw robot body
   fill(data.color);
@@ -272,6 +276,9 @@ $(document).ready(function() {
         case "NormalWheels":
           robot.wheels = new NormalWheels(robot, color);
           break;
+        case "MecanumWheels":
+          robot.wheels = new MecanumWheels(robot, color);
+          break;
         case "ColorSensor":
           robot.parts[name] = new ColorSensor(robot, placement, color);
           break;
@@ -299,8 +306,11 @@ $(document).ready(function() {
 
 function giveUserRandomItems() {
   // Give user random items from each category
-  userSensors.push(random(allSensors));
-  userWheels.push(random(allWheels));
+  //userSensors.push(random(allSensors));
+  //userWheels.push(random(allWheels));
+  
+  userSensors = allSensors;
+  userWheels = allWheels;
   // have this group for each item
   userSensors.forEach(s => {
     $("#user-sensors").append(`

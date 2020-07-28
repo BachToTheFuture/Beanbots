@@ -9,7 +9,7 @@ var allSensors = [
   "ColorSensor", "DistanceSensor"
 ]
 var allWheels = [
-  "NormalWheels"
+  "NormalWheels", "MecanumWheels"
 ]
 
 var userSensors = [];
@@ -27,7 +27,7 @@ function setup() {
   
   // Create robot
   robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-  robot.wheels = new NormalWheels(robot);
+  robot.wheels = eval("new " + random(allWheels) + "(robot)");
   
   //window.localStorage.clear();
   
