@@ -9,13 +9,15 @@ h3 {
 canvas {
   display: block;
   float:left;
+  border: 2px #222 solid;
 }
 .leftside {
   min-width: 600px;
 }
 .rightside {
   margin-left:20px;
-  min-width: 600px;
+  max-height: 600px;
+  overflow-y: auto;
 }
 .site-name {
   min-width: 150px;
@@ -23,7 +25,17 @@ canvas {
 .input-group {
   margin:10px;
 }
+a {
+  color: black;
+}
+.btn {
+  font-weight:600;
+}
 
+.nav-link {
+  font-weight:600;
+  color: black;
+}
 .equip .input-group-text {
   background: #eee !important;
 }

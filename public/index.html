@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Practice Field</title>
+    <title>CoolBeanBots</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,12 +10,16 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
+    
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css" />
 
     <!-- import the p5.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
     <script src="https://unpkg.com/p5.collide2d"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
+    
     <!-- import the webpage's javascript file -->
     <script src="/sketch.js" defer></script>
   </head>
@@ -23,7 +27,7 @@
     <header class="bpy-3">
       <div class="row flex-nowrap align-items-center">
         <div class="col-2 pt-1 site-name">
-          <h3>Practice Field</h3>
+          <h3>CoolBean 🤖</h3>
         </div>
         <div class="col pt-1">
           <button href="#" id="join-match" class="btn btn-primary">
@@ -75,7 +79,7 @@
         <hr>
         <h4> Timer </h4>
         <h1 id="timer" class="scoreboard-timer">
-          00:00
+          00:30
         </h1>
         <hr>
         <h4> Event Log </h4>
@@ -90,7 +94,7 @@
     <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Tutorial</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Customize</a>
+    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Configs</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Code</a>
@@ -101,7 +105,7 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-    <b>Robot Body</b>
+    <b>Robot name and color</b>
       <div class="input-group">
         <a href="#" class="input-group-prepend updateRobot">
           <span class="input-group-text" id="robotBody">Update robot</span>
@@ -116,14 +120,36 @@
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
       
     <div id="editor" style="min-height:540px; height: 100%; width: 100%;">
-// Type something!
+/* Take a look at the tutorial tab for some starter code! */
 </div>
   </div>
     <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
       <h3>Tutorial</h3>
       <p>
         Welcome! You will learn how to design a robot, program it, and compete against other people.
+        This tutorial is not completed yet :)
       </p>
+      <h3>Starter Code</h3>
+      <b> Move forward for 2 seconds </b>
+      <pre><code class="javascript">
+robot.wheels.move(0.5);
+await robot.sleep(2000);
+robot.wheels.stop();
+      </code></pre>
+      <b> Rotate clockwise for 3 seconds </b>
+      <pre><code class="javascript">
+robot.wheels.rotate(0.5);
+await robot.wait(3000);
+robot.wheels.stop();
+      </code></pre>
+      <b> Rotate until distance sensor detects something </b>
+      <pre><code class="javascript">
+// Assuming the variable name for distance sensor is distanceSensor
+await robot.parts.distanceSensor.distance = 0; // this resets the sensor
+robot.wheels.rotate(0.03);
+await robot.parts.distanceSensor.until(distance => distance != 0);
+robot.wheels.stop();
+      </code></pre>
     </div>
     <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
       <h3>Documentation</h3>
@@ -134,6 +160,7 @@
 </div>
       </div>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script language="javascript" type="text/javascript" src="socket.io-1.4.5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -141,6 +168,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  
+    <script src="wackynames.js"></script>
     <script src="cycle.js"></script>
     <script src="countdown.js"></script>
     <script src="editor.js"></script>

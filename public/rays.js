@@ -1,8 +1,10 @@
-// Daniel Shiffman
-// https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
-// https://youtu.be/TOEi6T2mtHo
-
-// 2D Ray Casting
+/*
+rays.js
+===============================================
+This entire file is from Daniel Shiffman's 2D Ray Casting tutorial!
+https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
+https://youtu.be/TOEi6T2mtHo
+*/
 
 class Ray {
   constructor(pos, shiftAngle) {

@@ -1,5 +1,9 @@
 
-//var obstacles = [];
+/*
+sketch.js
+===============================================
+This is essentially the main JS file
+*/  
 
 var allSensors = [
   "ColorSensor", "DistanceSensor"
@@ -16,11 +20,12 @@ function setup() {
   let canvas = createCanvas(600,600);
   canvas.parent("canvas");
   background(0, 0, 94);
-
+  
+  // Give the user a random item from each category 
   giveUserRandomItems();
   
   // Create the robot :)
-  robot = new Robot("TestRobot", width/2, height/2, "rgb(255, 131, 112)");
+  robot = new Robot(generateName(), width/2 - 150, height/2, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
@@ -34,7 +39,7 @@ function setup() {
   */
   
   for (var i = 0; i < 10; i++)
-    collectibles.push(new Collectible(random(width),random(height),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
+    collectibles.push(new Collectible(random(width-20),random(height-20),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
 }
 
 function draw() {

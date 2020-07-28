@@ -1,21 +1,28 @@
-// Distance sensor
+/*
+sensors.js
+===============================================
+This file contains all the classes for sensors.
+*/
+
 class DistanceSensor {
-  constructor(robot, side, color="lightgreen") {
+  constructor(robot, side, color = "lightgreen") {
     this.type = "DistanceSensor";
     this.robot = robot;
     this.side = side; // Which side of the robot it's being placed
     this.distance = 0;
     let angles = {
       front: 0,
-      left : -Math.PI/2,
-      right: Math.PI/2,
-      back : Math.PI
-    }
-    this.ray = new Ray(createVector(this.robot.originX, this.robot.originY), angles[side]);
+      left: -Math.PI / 2,
+      right: Math.PI / 2,
+      back: Math.PI
+    };
+    this.ray = new Ray(
+      createVector(this.robot.originX, this.robot.originY),
+      angles[side]
+    );
     this.pos = createVector(this.robot.originX, this.robot.originY);
     this.color = color;
   }
-  
   render() {
     this.pos.set(this.robot.originX, this.robot.originY);
     if (this.side == "front") {
@@ -29,11 +36,10 @@ class DistanceSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "left") {
+    } else if (this.side == "left") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width/2 - 5,
+        this.robot.x + this.robot.width / 2 - 5,
         this.robot.y - 4,
         10,
         4,
@@ -41,11 +47,10 @@ class DistanceSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "right") {
+    } else if (this.side == "right") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width/2 - 5,
+        this.robot.x + this.robot.width / 2 - 5,
         this.robot.y + this.robot.height,
         10,
         4,
@@ -53,8 +58,7 @@ class DistanceSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "back") {
+    } else if (this.side == "back") {
       fill(this.color);
       drawRect(
         this.robot.x - 4,
@@ -70,7 +74,6 @@ class DistanceSensor {
     this.ray.show();
     this.get();
   }
-  
   get() {
     // This is some complicated ray tracing from Daniel Shiffman
     // https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
@@ -78,18 +81,6 @@ class DistanceSensor {
     const ray = this.ray;
     let closest = null;
     let record = Infinity;
-    /*
-    for (let obs of obstacles) {
-      const pt = ray.cast(obs);
-      if (pt) {
-        const d = p5.Vector.dist(this.pos, pt);
-        if (d < record) {
-          record = d;
-          closest = pt;
-        }
-      }
-    }
-    */
     // Check ray casting with collectibles
     for (let c of collectibles) {
       c.walls.forEach(w => {
@@ -101,14 +92,14 @@ class DistanceSensor {
             closest = pt;
           }
         }
-      })
+      });
     }
     if (closest) {
       this.distance = dist(this.pos.x, this.pos.y, closest.x, closest.y);
       line(this.pos.x, this.pos.y, closest.x, closest.y);
     }
   }
-  
+
   until(condition, callback) {
     // Wait until the sensor gets a certain distance
     let t = this;
@@ -122,7 +113,7 @@ class DistanceSensor {
           clearTimeout(l);
           return;
         }
-      }, 250)
+      }, 250);
     });
   }
 }
@@ -133,22 +124,24 @@ It's very similar to the distance sensor, but it gets the obstacle's color prope
 only when the sensor is few pixels (maybe like 50px) away from the obstacle.
 */
 class ColorSensor {
-  constructor(robot, side, color="gray") {
+  constructor(robot, side, color = "gray") {
     this.type = "ColorSensor";
     this.robot = robot;
     this.side = side; // Which side of the robot it's being placed
     this.distance = 0;
     let angles = {
       front: 0,
-      left : -Math.PI/2,
-      right: Math.PI/2,
-      back : Math.PI
-    }
-    this.ray = new Ray(createVector(this.robot.originX, this.robot.originY), angles[side]);
+      left: -Math.PI / 2,
+      right: Math.PI / 2,
+      back: Math.PI
+    };
+    this.ray = new Ray(
+      createVector(this.robot.originX, this.robot.originY),
+      angles[side]
+    );
     this.pos = createVector(this.robot.originX, this.robot.originY);
     this.color = color;
   }
-  
   render() {
     this.pos.set(this.robot.originX, this.robot.originY);
     if (this.side == "front") {
@@ -162,11 +155,10 @@ class ColorSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "left") {
+    } else if (this.side == "left") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width/2 - 5,
+        this.robot.x + this.robot.width / 2 - 5,
         this.robot.y - 4,
         10,
         4,
@@ -174,11 +166,10 @@ class ColorSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "right") {
+    } else if (this.side == "right") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width/2 - 5,
+        this.robot.x + this.robot.width / 2 - 5,
         this.robot.y + this.robot.height,
         10,
         4,
@@ -186,8 +177,7 @@ class ColorSensor {
         this.robot.originX,
         this.robot.originY
       );
-    }
-    else if (this.side == "back") {
+    } else if (this.side == "back") {
       fill(this.color);
       drawRect(
         this.robot.x - 4,
@@ -203,11 +193,8 @@ class ColorSensor {
     this.ray.show();
     this.get();
   }
-  
+
   get() {
-    // This is some complicated ray tracing from Daniel Shiffman
-    // https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
-    // https://youtu.be/TOEi6T2mtHo
     const ray = this.ray;
     let closest = null;
     let record = Infinity;
@@ -223,7 +210,7 @@ class ColorSensor {
             closestColor = w.color;
           }
         }
-      })
+      });
     }
     if (closest) {
       this.distance = dist(this.pos.x, this.pos.y, closest.x, closest.y);
@@ -233,11 +220,9 @@ class ColorSensor {
         stroke(this.color);
         line(this.pos.x, this.pos.y, closest.x, closest.y);
         pop();
-      }
-      else this.color = "gray";
+      } else this.color = "gray";
     }
   }
-  
   until(condition, callback) {
     // Wait until the sensor gets a certain color
     let t = this;
@@ -251,7 +236,7 @@ class ColorSensor {
           clearTimeout(l);
           return;
         }
-      }, 250)
+      }, 250);
     });
   }
 }

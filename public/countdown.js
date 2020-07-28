@@ -1,5 +1,11 @@
 
-// From https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
+/*
+countdown.js
+====================================
+Timer/countdown class
+Source code was from https://stackoverflow.com/questions/29971898/how-to-create-an-accurate-timer-in-javascript
+*/
+
 
 function CountDownTimer(duration, granularity) {
   this.duration = duration;

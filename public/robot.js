@@ -1,16 +1,21 @@
+/*
+robot.js
+===============================================
+The main class that contains the robot body and
+its accessories and components.
+*/
 
-// Main robot class: this is the robot body
 class Robot {
   constructor(name, x, y, color) {
     this.name = name;
     this.wheels;
     this.parts = {};
-    
+
     // Initial positions
     this.startX = x;
     this.startY = y;
     this.startR = 0;
-    
+
     // The preprogrammed instructions
     this.code = "";
     // Color
@@ -23,8 +28,8 @@ class Robot {
     this.x = x;
     this.y = y;
     // Robot's centers
-    this.originX = this.x+this.width/2;
-    this.originY = this.y+this.height/2;
+    this.originX = this.x + this.width / 2;
+    this.originY = this.y + this.height / 2;
     // Velocities and power
     this.power = 0;
     this.vx = 0;
@@ -34,9 +39,14 @@ class Robot {
   }
   run() {
     let code = this.code;
-    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+    const AsyncFunction = Object.getPrototypeOf(async function() {})
+      .constructor;
     // Redefine global variables as undefined so users don't access them and mess around with it
-    let fn = new AsyncFunction("robot","var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels;\n"+code);
+    let fn = new AsyncFunction(
+      "robot",
+      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels;\n" +
+        code
+    );
     (() => {
       fn(this);
     })();
@@ -56,17 +66,16 @@ class Robot {
     fill(this.color);
     drawRect(this.x, this.y, this.width, this.height, this.rotation);
     // Draw the rest of the bot's stuff
-    Object.keys(this.parts).forEach((part) => this.parts[part].render());
+    Object.keys(this.parts).forEach(part => this.parts[part].render());
     // Move robot
     this.y += this.vy;
     this.x += this.vx;
-    
+    // Update rotation
     this.rotation += this.vr;
-    this.originX = this.x+this.width/2;
-    this.originY = this.y+this.height/2;
-    
-    // Update velocities depending on the robot's angle
-    // idk fisiks lol
+    // Update the robot's axis
+    this.originX = this.x + this.width / 2;
+    this.originY = this.y + this.height / 2;
+    // Update velocity components depending on the robot's angle
     this.vy = Math.sin(this.rotation) * this.power;
     this.vx = Math.cos(this.rotation) * this.power;
     
@@ -75,10 +84,10 @@ class Robot {
     textStyle(BOLD);
     fill(this.textColor);
     strokeWeight(0);
-    text(this.name, this.x+this.width/2, this.y-20);
+    text(this.name, this.x + this.width / 2, this.y - 20);
     strokeWeight(2);
   }
   wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

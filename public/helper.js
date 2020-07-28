@@ -1,3 +1,10 @@
+/*
+helper.js
+====================================
+All the helper functions go here.
+*/
+
+/* Initializations */
 var robot;
 var opponent;
 var socket;
@@ -5,29 +12,32 @@ var room;
 var collectibles = [];
 var team;
 
-// This function is a lifesaver, trust me
 function drawRect(x, y, width, height, rotation, originX, originY) {
-  push(); // Save origin
-  // If originX or originY is defined
+  /*
+  Function used to draw the robot's parts.
+  It's useful because it draws the robot parts correctly when the robot rotates.
+  */
+  push();
   if (originX && originY) {
-    // Rotate around (originX, originY)
+    // Rotate the object around the robot's origin
     translate(originX, originY);
     rotate(rotation);
     rect(x - originX, y - originY, width, height);
-    pop(); // Restore origin
+    pop();
   } else {
     // Assume we're rotating the object around its own center
     translate(x + width / 2, y + height / 2);
     rectMode(CENTER);
     rotate(rotation);
     rect(0, 0, width, height);
-    pop(); // Restore origin
+    pop();
   }
 }
 
 function endGame() {
-  // Disconnect from the game and go back to the practice field!
-  //socket.disconnect();
+  /*
+  Function used for cleaning up and resetting values after a game ends.
+  */
   robot.textColor = "black";
   socket = null;
   opponent = null;
@@ -42,7 +52,13 @@ function endGame() {
 }
 
 function robotRender(data) {
-  // Draw robot wheels
+  /*
+  A function that handles the tricky bits in reconstructing the robot from a JSON file
+  This function draws the opponent's robot.
+  
+  TODO: Draw the sensors
+  */
+  // Draw wheels
   switch (data.wheels.type) {
     case "NormalWheels":
       NormalWheels.renderOpponent(data);
@@ -60,12 +76,20 @@ function robotRender(data) {
 }
 
 function notification(msg) {
+  /*
+  Shows popover notifications
+  */
   $("#main-toast-body").html(msg);
   $(".toast").toast("show");
 }
 
+/*
+This big function contains all of the event handlers,
+including button press and socket events.
+*/
 $(document).ready(function() {
   $(".runRobot").click(e => {
+    /* Handle "Run robot" button */
     let target = $(e.target);
     if (target.hasClass("btn-success")) {
       target.removeClass("btn-success");
@@ -82,16 +106,22 @@ $(document).ready(function() {
   });
 
   $("#join-match").click(e => {
-    // Check if the user actually has code on the robot
+    /* Handle "Join match" button */
     if (robot.code === "") {
-      notification(`Please run your code at least once before you begin!`);
+      // Checks if the user actually has code
+      notification(`Please give your robot some code 🥺`);
     } else {
+      // Hide the "run robot" button
       $(".runRobot").hide();
-      socket = io({transports: ['websocket'], upgrade: false}).connect("https://code-bean-kamen.glitch.me");
+      // Create new socket connection
+      socket = io({ transports: ["websocket"], upgrade: false }).connect(
+        "https://cool-bean-bots.glitch.me"
+      );
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);
       $(e.target).html("Waiting for an opponent...");
-
+      
+      // If the match request is accepted
       socket.on("matchAccepted", function(data) {
         $("#join-match").prop("disabled", false);
         // Hide the join match button
@@ -102,8 +132,8 @@ $(document).ready(function() {
         );
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
         $(".competition-bar").fadeIn(); // Show the scores and timer
-        
-        // Maybe move the "field" to the center of the screen and hide the tabs
+
+        // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
           robot.x = width / 2 - 150;
           robot.y = height / 2;
@@ -111,7 +141,6 @@ $(document).ready(function() {
           robot.x = width / 2 + 100;
           robot.y = height / 2;
         }
-        // Decycle removes all backreferences to the robot object
         // Set a new room!
         room = data.room;
         socket.emit("sendInitRobotData", {
@@ -119,46 +148,41 @@ $(document).ready(function() {
           room: room
         });
         // One of the competitors change the collectibles layout and sends it to the other user
-        // Change collectible positions here maybe?
         if (data.side == "red") {
-          document.querySelector('.red-team').textContent = robot.name;
+          document.querySelector(".red-team").textContent = robot.name;
           socket.emit("sendInitCollectiblesData", {
-            collectibles: JSON.decycle(collectibles),
+            collectibles: JSON.decycle(collectibles), // Decycle removes all backreferences to the robot object
             room: room
           });
+        } else {
+          document.querySelector(".blue-team").textContent = robot.name;
         }
-        else {
-          document.querySelector('.blue-team').textContent = robot.name;
-        }
-        
-        
+        // Change the robot's name color to indicate which one is you!
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
         team = data.side;
-        
+
         // Create a 5 second timer to count down
         timer = new CountDownTimer(5);
-        let display = document.querySelector('#countdown-timer');
+        let display = document.querySelector("#countdown-timer");
         timer.onTick(format).start();
-            
+
+        // Count down!
         $("#countdown-timer").fadeIn();
         function format(minutes, seconds) {
           display.textContent = seconds;
+          // When the first countdown finishes start the 30 second timer
           if (seconds == 0) {
             $("#countdown-timer").fadeOut();
-            console.log("Robot started running!")
+            console.log("Robot started running!");
             robot.run();
-
-            // Start another timer
             let timer2 = new CountDownTimer(30);
-            let display = document.querySelector('#timer');
+            let display = document.querySelector("#timer");
             timer2.onTick(format).start();
-
             function format(minutes, seconds) {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
-              display.textContent = minutes + ':' + seconds;
-              
+              display.textContent = minutes + ":" + seconds;
               if (seconds == 0) {
                 // End game here
                 // Check for winners
@@ -170,7 +194,7 @@ $(document).ready(function() {
         }
       });
       socket.on("collectiblesData", function(data) {
-        // Reconstruct collectibles data
+        /* Update the collectibles and their positions (the cubes and balls) based on the data */
         data = data.collectibles;
         collectibles.forEach((c, cidx) => {
           Object.keys(data[0]).forEach(k => {
@@ -187,9 +211,9 @@ $(document).ready(function() {
           });
         });
       });
-      
-      // Get opponent's positions
+
       socket.on("opponentPos", function(data) {
+        /* Get opponent's positions and rotations */
         if (opponent) {
           opponent.x = data.x;
           opponent.y = data.y;
@@ -198,26 +222,31 @@ $(document).ready(function() {
           opponent.rotation = data.rotation;
         }
       });
+
       socket.on("opponentData", function(data) {
+        /* Get the initial opponent's data () */
         if (!opponent) opponent = data.robot;
-        if (team == "red") document.querySelector('.blue-team').textContent = opponent.name;
-        else document.querySelector('.red-team').textContent = opponent.name;
+        if (team == "red")
+          document.querySelector(".blue-team").textContent = opponent.name;
+        else document.querySelector(".red-team").textContent = opponent.name;
       });
+
       socket.on("updateCollectiblePos", function(data) {
-        // Update a collectible's position
+        /* Update a collectible's position if it moves */
         let c = collectibles[data.idx];
         c.x = data.x;
         c.y = data.y;
         c.color = data.color;
-      })
+      });
     }
   });
 
   $(document).on("click", ".equipToggle", event => {
+    /*
+    This part is for equipping accessories to the robot!
+    */
     let target = $(event.target).parent();
     console.log(target);
-    // We need this so we know if the item is equipped or not
-
     if (target.hasClass("equip")) {
       target.removeClass("equip");
       target.addClass("equipped");
@@ -241,13 +270,13 @@ $(document).ready(function() {
           break;
       }
     } else {
-      target.removeClass("equipped");
-      target.addClass("equip");
       let item = target.attr("id");
       // If this is a wheel
       if (item.includes("Wheel")) {
         notification("You can't take off the robot's wheels!");
       } else {
+        target.removeClass("equipped");
+        target.addClass("equip");
         let name = $("#" + item + "Name").val();
         delete robot.parts[name];
       }
@@ -286,10 +315,11 @@ function giveUserRandomItems() {
 </div>
 `);
   });
+  // The user only gets one type of wheel anyway so just have it equipped.
   userWheels.forEach(s => {
     $("#user-wheels").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
+  <a id="${s}" href="#" class="equipToggle input-group-prepend equipped">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
