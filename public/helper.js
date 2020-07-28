@@ -139,13 +139,13 @@ $(document).ready(function() {
 
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
-          robot.x = width / 2 - 150;
-          robot.y = height / 2;
-        } else {
-          robot.x = width / 2 + 100;
-          robot.y = height / 2;
+          robot.x = width;
+          robot.y = height/2+100;
           // flip robot 180 degrees
           robot.rotation = Math.PI;
+        } else {
+          robot.x = 0;
+          robot.y = height/2+100;
         }
         // Set a new room!
         room = data.room;

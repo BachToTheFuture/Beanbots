@@ -25,7 +25,7 @@ function setup() {
   giveUserRandomItems();
   
   // Create robot
-  robot = new Robot(generateName(), width/2 - 150, height/2, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+  robot = new Robot(generateName(), 0, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
   
   //window.localStorage.clear();
@@ -49,8 +49,12 @@ function setup() {
   obstacles.push(new Wall(0, height, width, height));
   */
   
+  /*
   for (var i = 0; i < 10; i++)
     collectibles.push(new Collectible(random(width-20),random(height-20),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
+  */
+  
+  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87)));
 }
 
 function draw() {
@@ -71,27 +75,41 @@ function draw() {
 function drawField() {
   background(219, 7, 42);
   
-  //blue
+  //blue foundation
   fill(219, 91, 87);
   rect(225, 20, 55, 100);
   
-  //red
+  //red foundation
   fill(0, 91, 87);
   rect(325, 20, 55, 100);
   
+  // blue? bridge
   fill(219, 91, 87);
   rect(0, 300, 200, 10); 
   
+  // red? bridge?
   fill(0,91, 87);
   rect(400, 300, 200, 10);
   
+  // big bridge
   fill(0, 0, 25);
-  rect(200, 250, 200, 100);
+  rect(200, height/2-50, 200, 100);
   
   //how to get the yellow line to show above black 
   fill(65, 85, 100);
-  fill(200, 300, 200, 10);
+  rect(200, 300, 200, 10);
   
-  fill(0, 91, 87);
-  square(0, 400, 50);
+  push();
+  noFill();
+  strokeWeight(4);
+  stroke(0, 91, 87);
+  square(-5, height-75, 80);
+  pop();
+  
+  push();
+  noFill();
+  strokeWeight(4);
+  stroke(219, 91, 87);
+  square(width-75, height-75, 80);
+  pop();
 }
