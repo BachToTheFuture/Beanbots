@@ -40,6 +40,8 @@ class Collectible {
     this.width = width;
     this.height = height;
     this.name = name;
+    
+    this.rotation = 0;
     // For how hard it is for the robot to push it
     // Set this to infinity if this is immovable
     this.mass = mass || 100;
@@ -67,17 +69,19 @@ class Collectible {
     this.vy = 0;
     this.x = this.startX;
     this.y = this.startY;
+    this.rotation = 0;
   }
   render() {
     if (this.shape == "rect") {
       fill(this.color);
-      rect(this.x, this.y, this.width, this.height);
+      drawRect(this.x, this.y, this.width, this.height, this.rotation);
     } else if (this.shape == "ball") {
       fill(this.color);
       ellipse(this.x, this.y, this.width, this.height);
     }
     this.x += this.vx;
     this.y += this.vy;
+
     this.walls.forEach(w => {
       w.a.add(createVector(this.vx, this.vy));
       w.b.add(createVector(this.vx, this.vy));
@@ -141,6 +145,7 @@ class Collectible {
         )
       ) {
         //console.log(this.name, obj.name);
+        this.rotation = Math.atan2(this.vy/Math.max(this.vx, this.vy), this.vx/Math.max(this.vx, this.vy));
         // Physics from
         // https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics
         let vCollision = {x: this.x - obj.x, y: this.y - obj.y};

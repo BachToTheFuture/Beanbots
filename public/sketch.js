@@ -27,7 +27,7 @@ function setup() {
   
   // Create robot
   robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-  robot.wheels = eval("new " + random(allWheels) + "(robot)");
+  robot.wheels = new NormalWheels(robot);
   
   //window.localStorage.clear();
   
@@ -61,8 +61,11 @@ function setup() {
   collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87), 200,"bluefoundation"));
   collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 200,"redfoundation"));
   
-  for (var i = 2; i < 12; i++) {
-    collectibles.push(new Collectible(random(width+10), robot.y, 14, 14,"rect", 4, "yellow", 10,"block", 0.995));
+  for (var i = 2; i < 10; i++) {
+    collectibles.push(new Collectible(width/2-114, robot.y+(i-2)*25, 14, 25,"rect", 4, Math.random() > 0.3 ? "yellow" : "black", 10,"block", 0.995));
+  }
+  for (var i = 11; i < 21; i++) {
+    collectibles.push(new Collectible(width/2+100, robot.y+(i-11)*25, 14, 25,"rect", 4, Math.random() > 0.3 ? "yellow" : "black", 10,"block", 0.995));
   }
 }
 
