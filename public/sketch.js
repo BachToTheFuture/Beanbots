@@ -55,6 +55,7 @@ function setup() {
   */
   
   collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87)));
+  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87)));
 }
 
 function draw() {
@@ -74,14 +75,6 @@ function draw() {
 
 function drawField() {
   background(219, 7, 42);
-  
-  //blue foundation
-  fill(219, 91, 87);
-  rect(225, 20, 55, 100);
-  
-  //red foundation
-  fill(0, 91, 87);
-  rect(325, 20, 55, 100);
   
   // blue? bridge
   fill(219, 91, 87);
