@@ -10,8 +10,12 @@ var collectibleColors = [
   "salmon", "gold", "lightblue", "lightgreen"
 ]
 
+var redPoints = 0;
+var bluePoints = 0;
+
 var pointBoundaries = [
-  {x: ,point: 10}
+  {boundary:[0, 300, 200, 10], points: 10, to: "blue"},
+  {boundary:[400, 300, 200, 10], points: 10, to: "red"},
 ]
 
 class Wall {
