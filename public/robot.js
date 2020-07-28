@@ -44,7 +44,7 @@ class Robot {
     // Redefine global variables as undefined so users don't access them and mess around with it
     let fn = new AsyncFunction(
       "robot",
-      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels;\n" +
+      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels, document, eval, window;\n" +
         code
     );
     (() => {
