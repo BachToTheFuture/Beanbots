@@ -58,7 +58,7 @@ class Collectible {
     this.walls.forEach(w => {
       w.a.add(createVector(this.vx, this.vy));
       w.b.add(createVector(this.vx, this.vy));
-      w.render();
+      //w.render();
     });
 
     this.checkCollision();

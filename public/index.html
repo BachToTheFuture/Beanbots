@@ -145,7 +145,7 @@ robot.wheels.stop();
       <b> Rotate until distance sensor detects something </b>
       <pre><code class="javascript">
 // Assuming the variable name for distance sensor is distanceSensor
-await robot.parts.distanceSensor.distance = 0; // this resets the sensor
+robot.parts.distanceSensor.distance = 0; // this resets the sensor
 robot.wheels.rotate(0.03);
 await robot.parts.distanceSensor.until(distance => distance != 0);
 robot.wheels.stop();
