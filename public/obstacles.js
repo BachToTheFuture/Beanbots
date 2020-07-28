@@ -97,7 +97,9 @@ class Collectible {
      }
     
     pointBoundaries.forEach(bounds => {
-      if (collideRectRect(bounds.boundary[0], bounds.boundary[1], bounds.boundary[2], bounds.boundary[3])) bounds.boundary[0]
+      if (collideRectRect(bounds.boundary[0], bounds.boundary[1], bounds.boundary[2], bounds.boundary[3], this.x, this.y, this.width, this.height)) {
+         console.log(bounds.points," to ",bounds.to);
+      }
     });
     
     this.checkCollision(robot);
