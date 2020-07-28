@@ -28,6 +28,11 @@ class Robot {
     // Size
     this.width = 50;
     this.height = 40;
+    this.poly = []
+    this.poly[0] = createVector(x,y);     // set X/Y position
+    this.poly[1] = createVector(x+this.width,y);
+    this.poly[2] = createVector(x+this.width,y+this.height);
+    this.poly[3] = createVector(x,y+this.height);
     // Position and velocity
     this.x = x;
     this.y = y;
@@ -68,7 +73,15 @@ class Robot {
     this.wheels.render();
     // Draw body
     fill(this.color);
-    drawRect(this.x, this.y, this.width, this.height, this.rotation);
+    beginShape();
+    // Update vertex positions by rotation
+    
+    //draw the polygon from the created Vectors above.
+    for(var i=0; i < this.poly.length; i++){
+      vertex(this.poly[i].x,this.poly[i].y);
+    }
+    endShape(CLOSE);
+    //drawRect(this.x, this.y, this.width, this.height, this.rotation);
     // Draw the rest of the bot's stuff
     Object.keys(this.parts).forEach(part => this.parts[part].render());
     // Move robot

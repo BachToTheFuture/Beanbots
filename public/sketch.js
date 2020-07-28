@@ -16,6 +16,7 @@ var userSensors = [];
 var userWheels = [];
 
 function setup() {
+  collideDebug(true);
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
   canvas.parent("canvas");
