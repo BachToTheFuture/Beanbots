@@ -78,7 +78,7 @@ class Robot {
     
     //draw the polygon from the created Vectors above.
     for(var i=0; i < this.poly.length; i++){
-      vertex(this.poly[i].x,this.poly[i].y);
+      vertex(this.poly[i].x+Math.cos(this.rotation)*25,this.poly[i].y);
     }
     endShape(CLOSE);
     //drawRect(this.x, this.y, this.width, this.height, this.rotation);
