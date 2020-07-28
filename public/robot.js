@@ -15,7 +15,7 @@ class Robot {
     this.startX = x;
     this.startY = y;
     this.startR = 0;
-    this.friction = 0.9;
+    this.friction = 1;
     
     // The robot's mass
     this.mass = 100;

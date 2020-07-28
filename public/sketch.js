@@ -61,7 +61,7 @@ function setup() {
   collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 200,"redfoundation"));
   
   for (var i = 2; i < 12; i++) {
-    collectibles.push(new Collectible(random(width+10), random(height/2+30, height-10), 14, 14,"rect", 4, "yellow", 10,"block", 0.999));
+    collectibles.push(new Collectible(random(width+10), random(height/2+30, height-10), 14, 14,"rect", 4, "yellow", 10,"block", 0.995));
   }
 }
 
