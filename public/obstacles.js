@@ -27,6 +27,8 @@ class Collectible {
     this.idx = idx;
     this.x = x;
     this.y = y;
+    this.originX = x;
+    this.originY = y;
     this.width = width;
     this.height = height;
     this.vx = 0;
@@ -44,7 +46,13 @@ class Collectible {
       new Wall(x, y, x, y + height, (color = this.color))
     ];
   }
-
+  reset() {
+    alert("Being reset!");
+    this.vx = 0;
+    this.vy = 0;
+    this.x = this.originX;
+    this.y = this.originY;
+  }
   render() {
     if (this.shape == "rect") {
       fill(this.color);

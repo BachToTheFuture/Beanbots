@@ -32,8 +32,9 @@ io.sockets.on('connection',
     }
     else {
       // join room with this person.
-      // Make sure this is not yourself!
+      // Make sure no one gets put in a room with themselves!
       if (queue[0] != socket.id) {
+        console.log("QUEUE", queue);
         let roomname = queue.shift();
         socket.join(roomname);
         let side = Math.random() > 0.5 ? "red" : "blue";

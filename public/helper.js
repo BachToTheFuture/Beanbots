@@ -49,6 +49,7 @@ function endGame() {
   $(".competition-bar").hide();
   $(".practice-bar").fadeIn();
   robot.reset();
+  obstacles.forEach(o => o.reset());
 }
 
 function robotRender(data) {
@@ -106,6 +107,7 @@ $(document).ready(function() {
       target.addClass("btn-success");
       target.html("Run robot");
       robot.reset();
+      obstacles.forEach(o => o.reset());
     }
   });
 
