@@ -27,7 +27,7 @@ function drawRect(x, y, width, height, rotation, originX, originY) {
 
 function endGame() {
   // Disconnect from the game and go back to the practice field!
-  socket.disconnect();
+  //socket.disconnect();
   robot.textColor = "black";
   socket = null;
   opponent = null;
@@ -150,7 +150,7 @@ $(document).ready(function() {
             robot.run();
 
             // Start another timer
-            let timer2 = new CountDownTimer(10);
+            let timer2 = new CountDownTimer(30);
             let display = document.querySelector('#timer');
             timer2.onTick(format).start();
 
