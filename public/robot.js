@@ -86,7 +86,22 @@ class Robot {
     strokeWeight(0);
     text(this.name, this.x + this.width / 2, this.y - 20);
     strokeWeight(2);
+    
+    //this.checkCollision();
   }
+  /*
+  checkCollision() {
+    if (collideLineRect(
+        0, height, width, height
+        robot.x,
+        robot.y,
+        robot.width,
+        robot.height,
+      ) || ) {
+      
+    }
+  }
+  */
   wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }

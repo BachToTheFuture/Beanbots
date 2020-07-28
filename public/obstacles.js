@@ -31,6 +31,10 @@ class Collectible {
     this.originY = y;
     this.width = width;
     this.height = height;
+    // If this is immovable, the robot is stucl
+    this.immovable = false;
+    this.mass = 0; // this will be a future addition
+    
     this.vx = 0;
     this.vy = 0;
     this.shape = shape;
@@ -47,7 +51,6 @@ class Collectible {
     ];
   }
   reset() {
-    alert("Being reset!");
     this.vx = 0;
     this.vy = 0;
     this.x = this.originX;
