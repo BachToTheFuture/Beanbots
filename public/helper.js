@@ -99,7 +99,7 @@ $(document).ready(function() {
       robot.run();
       
       /* Save the robot's name, color, and code to the storage */
-      window.localStorage.setItem('robo_data', JSON.stringify({name: robot.name, color: robot.color, code: robot.code}));
+      window.localStorage.setItem('robo_data', JSON.stringify({name: robot.name, color: robot.color.toString(), code: robot.code}));
       
     } else {
       target.removeClass("btn-danger");

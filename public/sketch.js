@@ -28,9 +28,11 @@ function setup() {
   robot = new Robot(generateName(), width/2 - 150, height/2, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
   
+  //window.localStorage.clear();
+  
   // Try restoring saved robot data
   if (localStorage.getItem("robo_data") !== null) {
-    let robodata = localStorage.getItem("robo_data");
+    let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot.name = robodata.name;
     robot.color = robodata.color;
     robot.code = robodata.code;
@@ -68,9 +70,12 @@ function draw() {
 
 function drawField() {
   background(219, 7, 42);
+  
+  //blue
   fill(219, 91, 87);
   rect(225, 20, 55, 100);
   
+  //red
   fill(0, 91, 87);
   rect(325, 20, 55, 100);
   
@@ -80,6 +85,13 @@ function drawField() {
   fill(0,91, 87);
   rect(400, 300, 200, 10);
   
-  fill(0, 0, 0);
-  rect(200, 270, 200, 100);
+  fill(0, 0, 25);
+  rect(200, 250, 200, 100);
+  
+  //how to get the yellow line to show above black 
+  fill(65, 85, 100);
+  fill(200, 300, 200, 10);
+  
+  fill(0, 91, 87);
+  square(0, 400, 50);
 }
