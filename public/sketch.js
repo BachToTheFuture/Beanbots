@@ -63,8 +63,8 @@ function setup() {
   // Right wall
   collectibles.push(new Collectible(width, 0, 2, height,"rect", 3, color(0,0,25), 1000000));
   
-  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 4, color(219, 91, 87), 2));
-  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 5, color(0, 91, 87), 2));
+  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 4, color(219, 91, 87), 300));
+  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 5, color(0, 91, 87), 300));
 }
 
 function draw() {

@@ -17,7 +17,7 @@ class Robot {
     this.startR = 0;
     
     // The robot's mass
-    this.mass = 1;
+    this.mass = 100;
     
     // The preprogrammed instructions
     this.code = "";

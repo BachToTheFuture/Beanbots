@@ -33,7 +33,7 @@ class Collectible {
     this.height = height;
     // For how hard it is for the robot to push it
     // Set this to infinity if this is immovable
-    this.mass = mass || 1;
+    this.mass = mass || 100;
     
     this.vx = 0;
     this.vy = 0;
@@ -73,10 +73,9 @@ class Collectible {
     
     this.checkCollision(robot);
     
-    collectibles.forEach((c,i)=>{
-      if (i != this.idx) c.checkCollision(this);
+    collectibles.forEach((c)=>{
+      if (c.x != this.x && c.y != this.y) this.checkCollision(c);
     });
-    
     
     // Set velocity to 0 if it's moving slow enough
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
@@ -107,19 +106,24 @@ class Collectible {
           this.height
         )
       ) {
-        // Transfer momentum? physics is off here sorry :(
+        console.log("hit");
+        // Physics from
+        // https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics
         let vCollision = {x: this.x - obj.x, y: this.y - obj.y};
         let distance = Math.sqrt((this.x-obj.x)*(this.x-obj.x) + (this.y-obj.y)*(this.y-obj.y));
         let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
         let vRelativeVelocity = {x: this.vx - obj.vx, y: this.vy - obj.vy};
         let speed = vRelativeVelocity.x * vCollisionNorm.x + vRelativeVelocity.y * vCollisionNorm.y;
         
-        obj.vx += (speed * vCollisionNorm.x);
-        obj.vy += (speed * vCollisionNorm.y);
-        this.vx += (speed * vCollisionNorm.x);
-        this.vy += (speed * vCollisionNorm.y);
+        let impulse = 2 * speed / (this.mass + obj.mass);
+        
+        obj.vx += (impulse * this.mass * vCollisionNorm.x);
+        obj.vy += (impulse * this.mass * vCollisionNorm.y);
+        this.vx -= (impulse * obj.mass * vCollisionNorm.x);
+        this.vy -= (impulse * obj.mass * vCollisionNorm.y);
         
       } else {
+        this.color = "black";
         this.vx *= this.friction;
         this.vy *= this.friction;
       }
