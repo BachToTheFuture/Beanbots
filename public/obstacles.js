@@ -27,8 +27,8 @@ class Collectible {
     this.idx = idx;
     this.x = x;
     this.y = y;
-    this.originX = x;
-    this.originY = y;
+    this.startX = x;
+    this.startY = y;
     this.width = width;
     this.height = height;
     this.name = name;
@@ -39,7 +39,7 @@ class Collectible {
     this.vx = 0;
     this.vy = 0;
     this.shape = shape;
-    if (this.shape == "rect") this.friction = 0.9;
+    if (this.shape == "rect") this.friction = 0.98;
     else this.friction = 0.99;
     this.color = color || random(collectibleColors);
     // The "walls" are the collectible's rectangular boundaries
@@ -54,8 +54,8 @@ class Collectible {
   reset() {
     this.vx = 0;
     this.vy = 0;
-    this.x = this.originX;
-    this.y = this.originY;
+    this.x = this.startX;
+    this.y = this.startY;
   }
   render() {
     if (this.shape == "rect") {
