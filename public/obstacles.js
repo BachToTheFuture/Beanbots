@@ -10,6 +10,10 @@ var collectibleColors = [
   "salmon", "gold", "lightblue", "lightgreen"
 ]
 
+var pointBoundaries = [
+  {x: ,point: 10}
+]
+
 class Wall {
   constructor(x1, y1, x2, y2, color = "black") {
     this.a = createVector(x1, y1);
