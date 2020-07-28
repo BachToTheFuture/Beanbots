@@ -146,11 +146,12 @@ $(document).ready(function() {
           // flip robot 180 degrees
           robot.rotation = Math.PI;
         } else {
-          robot.x = 4;
+          robot.x = 6;
           robot.y = height/2+100;
         }
         // Set a new room!
         room = data.room;
+        
         socket.emit("sendInitRobotData", {
           robot: JSON.decycle(robot),
           room: room
@@ -158,6 +159,7 @@ $(document).ready(function() {
         // One of the competitors change the collectibles layout and sends it to the other user
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
+          collectibles.forEach(c=>c.color = c.color.toString());
           socket.emit("sendInitCollectiblesData", {
             collectibles: JSON.decycle(collectibles), // Decycle removes all backreferences to the robot object
             room: room
