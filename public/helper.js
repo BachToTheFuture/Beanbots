@@ -141,7 +141,7 @@ $(document).ready(function() {
 
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
-          robot.x = width-4;
+          robot.x = width-56;
           robot.y = height/2+100;
           // flip robot 180 degrees
           robot.rotation = Math.PI;
