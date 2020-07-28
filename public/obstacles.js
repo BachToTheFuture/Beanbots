@@ -96,6 +96,10 @@ class Collectible {
          this.y = height - this.height;
      }
     
+    pointBoundaries.forEach(bounds => {
+      if (collideRectRect(bounds.boundary[0], bounds.boundary[1], bounds.boundary[2], bounds.boundary[3])) bounds.boundary[0]
+    });
+    
     this.checkCollision(robot);
     
     collectibles.forEach((c)=>{
