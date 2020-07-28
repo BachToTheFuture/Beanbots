@@ -31,7 +31,7 @@ class Wall {
 }
 
 class Collectible {
-  constructor(x, y, width, height, shape, idx, color, mass, name) {
+  constructor(x, y, width, height, shape, idx, color, mass, name, friction) {
     this.idx = idx;
     this.x = x;
     this.y = y;
@@ -47,8 +47,11 @@ class Collectible {
     this.vx = 0;
     this.vy = 0;
     this.shape = shape;
-    if (this.shape == "rect") this.friction = 0.98;
-    else this.friction = 0.99;
+    if (friction) this.friction = friction;
+    else {
+      if (this.shape == "rect") this.friction = 0.98;
+      else this.friction = 0.99;
+    }
     this.color = color || random(collectibleColors);
     // The "walls" are the collectible's rectangular boundaries
     // The sensors use ray casting to detect objects
