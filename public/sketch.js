@@ -57,14 +57,14 @@ function setup() {
   // Top wall
   collectibles.push(new Collectible(0, -2, width, 2,"rect", 0, color(0,0,25), 1000000));
   // Left wall
-  collectibles.push(new Collectible(-2, 0, 2, height,"rect", 0, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(-2, 0, 2, height,"rect", 1, color(0,0,25), 1000000));
   // Bottom wall
-  collectibles.push(new Collectible(0, height, width, 2,"rect", 0, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(0, height, width, 2,"rect", 2, color(0,0,25), 1000000));
   // Right wall
-  collectibles.push(new Collectible(width, 0, 2, height,"rect", 0, color(0,0,25), 1000000));
+  collectibles.push(new Collectible(width, 0, 2, height,"rect", 3, color(0,0,25), 1000000));
   
-  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87), 2));
-  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 2));
+  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 4, color(219, 91, 87), 2));
+  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 5, color(0, 91, 87), 2));
 }
 
 function draw() {
@@ -76,7 +76,7 @@ function draw() {
   if (opponent && room) {
     robotRender(opponent);
     // Make sure to only send it every 4 frames and when the robot is moving?
-    if (socket) {
+    if (socket && frameCount % 2) {
       socket.emit("sendRobotPos", {x: robot.x, y:robot.y, originX: robot.originX, originY: robot.originY, rotation:robot.rotation, room: room});
     }
   }

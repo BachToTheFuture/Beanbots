@@ -72,9 +72,11 @@ class Collectible {
     });
     
     this.checkCollision(robot);
+    /*
     collectibles.forEach((c,i)=>{
       if (i != this.idx) c.checkCollision(this);
     });
+    */
     
     // Set velocity to 0 if it's moving slow enough
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
