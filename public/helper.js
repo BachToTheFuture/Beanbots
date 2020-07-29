@@ -44,8 +44,8 @@ function endGame() {
   room = null;
   team = null;
   
-  blueScore = 0;
-  redScore = 0;
+  bluePoints = 0;
+  redPoints = 0;
   
   $(".runRobot").fadeIn();
   $("#join-match").text("Play a match!");
@@ -204,8 +204,8 @@ $(document).ready(function() {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
               display.textContent = minutes + ":" + seconds;
-              document.querySelector(".red-score").textContent = redScore;
-              document.querySelector(".blue-score").textContent = blueScore;
+              document.querySelector(".red-score").textContent = redPoints;
+              document.querySelector(".blue-score").textContent = bluePoints;
               if (seconds == 0) {
                 // End game here
                 // Check for winners
