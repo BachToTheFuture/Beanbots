@@ -18,7 +18,8 @@ var userWheels = [];
 var Engine = Matter.Engine,
     World = Matter.World,
     Bodies = Matter.Bodies,
-    Body = Matter.Body;
+    Body = Matter.Body,
+    Events = Matter.Events;
 
 var engine;
 var world;
@@ -33,8 +34,9 @@ class Challenge {
     this.pointBoundaries = [
       {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line"},
       {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line"},
-    ]
-    // Scores and point boundaries all go in here
+    ];
+    this.bluePoints = 0;
+    this.redPoints = 0;
   }
   setupField() {
     // Create boundaries and walls
@@ -49,6 +51,7 @@ class Challenge {
       let bounds = Bodies.rectangle(p.boundary[0], p.boundary[1],p.boundary[2],p.boundary[3]);
       bounds.type = p.type;
       bounds.points = p.points;
+      bounds.to = p.to;
       World.add(world, bounds);
     })
 
@@ -101,7 +104,6 @@ class Challenge {
     /*
     Function used for cleaning up and resetting values after a game ends.
     */
-    this.gameStarted = false;
     robot.textColor = "black";
     World.remove(world, opponent.body);
     socket = null;
@@ -122,19 +124,6 @@ class Challenge {
   }
 }
 
-Matter.Events.on(engine, 'collisionStart', function(event) {
-    var pairs = event.pairs;
-    for (var i = 0, j = pairs.length; i != j; ++i) {
-        var pair = pairs[i];
-        if (pair.bodyA.type === "blueline" && pair.bodyB.type === "stone"
-           console.log("AWARD", pair.bodyA.points, )
-        }
-        else if (pair.bodyB.type === "blueline" && pair.bodyA.type === "stone") {
-          
-        }
-    }
-});
-
 function setup() {
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
@@ -150,7 +139,6 @@ function setup() {
   engine.world.gravity.y = 0;
   world = engine.world;
   
-  
   challenge = new Challenge("skystones");
   challenge.setupField();
   //window.localStorage.clear();
@@ -161,14 +149,25 @@ function setup() {
     editor.setValue(robot.code);
   }
   else {
-    // Create robot
+    // Create new robot
     robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
     robot.wheels = new NormalWheels(robot);
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
   
-  // Create the 
+  Events.on(engine, 'collisionStart', function(event) {
+    var pairs = event.pairs;
+    for (var i = 0, j = pairs.length; i != j; ++i) {
+        var pair = pairs[i];
+        if (pair.bodyA.type === "line" && pair.bodyB.type === "stone") {
+           console.log("AWARD", pair.bodyA.points, "TO", pair.bodyA.to);
+        }
+        else if (pair.bodyB.type === "line" && pair.bodyA.type === "stone") {
+          console.log("AWARD", pair.bodyB.points, "TO", pair.bodyB.to);
+        }
+    }
+});
 }
 
 function draw() {
