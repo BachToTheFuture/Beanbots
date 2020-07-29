@@ -43,6 +43,10 @@ function endGame() {
   opponent = null;
   room = null;
   team = null;
+  
+  blueScore = 0;
+  redScore = 0;
+  
   $(".runRobot").fadeIn();
   $("#join-match").text("Play a match!");
   $("#join-match").fadeIn();
@@ -143,6 +147,9 @@ $(document).ready(function() {
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
         $(".competition-bar").fadeIn(); // Show the scores and timer
 
+        bluePoints = 0;
+        redPoints = 0;
+        
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
           robot.x = width-56;
@@ -197,6 +204,8 @@ $(document).ready(function() {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
               display.textContent = minutes + ":" + seconds;
+              document.querySelector(".red-score").textContent = redScore;
+              document.querySelector(".blue-score").textContent = blueScore;
               if (seconds == 0) {
                 // End game here
                 // Check for winners

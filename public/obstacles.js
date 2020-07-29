@@ -14,8 +14,8 @@ var redPoints = 0;
 var bluePoints = 0;
 
 var pointBoundaries = [
-  {boundary:[0, 300, 200, 10], points: 10, to: "blue"},
-  {boundary:[400, 300, 200, 10], points: 10, to: "red"},
+  {boundary:[0, 300, 200, 10], points: 10, to: "blue", type: "teamline"},
+  {boundary:[400, 300, 200, 10], points: 10, to: "red", type: "teamline"},
 ]
 
 class Wall {
@@ -47,6 +47,9 @@ class Collectible {
     this.width = width;
     this.height = height;
     this.name = name;
+    
+    
+    this.pointsGiven = [];
     
     this.rotation = 0;
     // For how hard it is for the robot to push it
@@ -116,6 +119,14 @@ class Collectible {
     pointBoundaries.forEach(bounds => {
       if (collideRectRect(bounds.boundary[0], bounds.boundary[1], bounds.boundary[2], bounds.boundary[3], this.x, this.y, this.width, this.height)) {
          console.log(bounds.points," to ",bounds.to);
+        // Point system
+        if (!this.pointsGiven.includes(bounds.type)) {
+          // Award points only once
+          if (bounds.to == "blue") bluePoints += bounds.points;
+          else redPoints += bounds.points;
+          this.pointsGiven.push(bounds.type);
+          console.log(bluePoints, redPoints);
+        }
       }
     });
     
@@ -154,8 +165,10 @@ class Collectible {
           this.height
         )
       ) {
-        //console.log(this.name, obj.name);
-        this.rotation = Math.atan2(this.vy/Math.max(this.vx, this.vy), this.vx/Math.max(this.vx, this.vy));
+        // How should i handle rotation :o
+        //this.rotation = Math.atan2(this.vy/Math.max(this.vx, this.vy), this.vx/Math.max(this.vx, this.vy));
+        
+        
         // Physics from
         // https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics
         let vCollision = {x: this.x - obj.x, y: this.y - obj.y};
