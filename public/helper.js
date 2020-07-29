@@ -117,6 +117,7 @@ $(document).ready(function() {
           data.objects.forEach((o,i)=>{
             objects[i].width = o.w;
             objects[i].height = o.h;
+            objects[i].body.role = o.type;
             Body.setPosition(objects[i].body, {x: o.x, y: o.y})
             objects[i].color = o.color;
           })

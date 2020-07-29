@@ -109,7 +109,7 @@ class Challenge {
     Function used for cleaning up and resetting values after a game ends.
     */
     robot.textColor = "black";
-    World.remove(world, opponent.body);
+    if (opponent) World.remove(world, opponent.body);
     socket = null;
     opponent = null;
     room = null;
@@ -164,15 +164,15 @@ function setup() {
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
         if (pair.bodyA.role === "line" && pair.bodyB.role === "stone") {
-          console.log("AWARD", pair.bodyA.points, "TO", pair.bodyA.to);
           if (pair.bodyA.to == "blue") this.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
           else this.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
+          console.log("Blue vs red:",this.bluePoints, this.redPoints);
           pair.bodyB.pointMultiplier--;
         }
         else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone") {
-          console.log("AWARD", pair.bodyB.points, "TO", pair.bodyB.to);
           if (pair.bodyB.to == "blue") this.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
           else this.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
+          console.log("Blue vs red:",this.bluePoints, this.redPoints);
           pair.bodyA.pointMultiplier--;
         }
     }
