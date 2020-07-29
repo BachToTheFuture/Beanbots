@@ -110,84 +110,79 @@ $(document).ready(function() {
       
       // If the match request is accepted
       socket.on("matchAccepted", function(data) {
-        if (!challenge.gameStarted) {
-          challenge.gameStarted = true;
-          $("#join-match").prop("disabled", false);
-          // Hide the join match button
-          $("#join-match").hide();
-          // Tell the user that they've been matched
-          notification(
-            `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
-          );
-          $(".practice-bar").hide(); // Hide the entire rightside of the screen
-          $(".competition-bar").fadeIn(); // Show the scores and timer
-
-          // Set a new room!
-          room = data.room;
-          let newObjects = [];
-          console.log(data);
-          if (data.side == "red") {
-            document.querySelector(".red-team").textContent = robot.name;
-            objects.forEach(o=>{
-              newObjects.push({
-                x: o.body.position.x,
-                y: o.body.position.y,
-                width: o.width,
-                height: o.height,
-                color: o.color.toString()
-              })
-            });
-          } else {
-            document.querySelector(".blue-team").textContent = robot.name;
-          }
-          socket.emit("sendInitData", {
-            robot: JSON.decycle(robot),
-            objects: newObjects,
-            room: room
+        $("#join-match").prop("disabled", false);
+        // Hide the join match button
+        $("#join-match").hide();
+        // Tell the user that they've been matched
+        notification(
+          `You have been matched with an opponent!<br>You are on the <b>${data.side}</b> team.`
+        );
+        $(".practice-bar").hide(); // Hide the entire rightside of the screen
+        $(".competition-bar").fadeIn(); // Show the scores and timer
+        
+        // Set a new room!
+        room = data.room;
+        let newObjects = [];
+        if (data.side == "red") {
+          document.querySelector(".red-team").textContent = robot.name;
+          objects.forEach(o=>{
+            newObjects.push({
+              x: o.body.position.x,
+              y: o.body.position.y,
+              width: o.width,
+              height: o.height,
+              color: o.color.toString()
+            })
           });
+        } else {
+          document.querySelector(".blue-team").textContent = robot.name;
+        }
+        socket.emit("sendInitData", {
+          robot: JSON.decycle(robot),
+          objects: newObjects,
+          room: room
+        });
+        
+        // Move the robots to their respective starting positions based on teams.
+        
+        // Change the robot's name color to indicate which one is you!
+        robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
+        // Store the robot side;
+        team = data.side;
 
-          // Move the robots to their respective starting positions based on teams.
+        // Create a 5 second timer to count down
+        timer = new CountDownTimer(5);
+        let display = document.querySelector("#countdown-timer");
+        timer.onTick(format).start();
 
-          // Change the robot's name color to indicate which one is you!
-          robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
-          // Store the robot side;
-          team = data.side;
-
-          // Create a 5 second timer to count down
-          timer = new CountDownTimer(5);
-          let display = document.querySelector("#countdown-timer");
-          timer.onTick(format).start();
-
-          // Count down!
-          $("#countdown-timer").fadeIn();
-          function format(minutes, seconds) {
-            display.textContent = seconds;
-            // When the first countdown finishes start the 30 second timer
-            if (seconds == 0) {
-              $("#countdown-timer").fadeOut();
-              console.log("Robot started running!");
-              robot.run();
-              opponent.run();
-              let timer2 = new CountDownTimer(30);
-              let display = document.querySelector("#timer");
-              timer2.onTick(format).start();
-              function format(minutes, seconds) {
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-                document.querySelector(".red-score").textContent = challenge.redPoints;
-                document.querySelector(".blue-score").textContent = challenge.bluePoints;
-                if (seconds == 0) {
-                  // End game here
-                  // Check for winners
-                  notification("Good game!");
-                  challenge.endGame();
-                }
+        // Count down!
+        $("#countdown-timer").fadeIn();
+        function format(minutes, seconds) {
+          display.textContent = seconds;
+          // When the first countdown finishes start the 30 second timer
+          if (seconds == 0) {
+            $("#countdown-timer").fadeOut();
+            console.log("Robot started running!");
+            robot.run();
+            opponent.run();
+            let timer2 = new CountDownTimer(30);
+            let display = document.querySelector("#timer");
+            timer2.onTick(format).start();
+            function format(minutes, seconds) {
+              minutes = minutes < 10 ? "0" + minutes : minutes;
+              seconds = seconds < 10 ? "0" + seconds : seconds;
+              display.textContent = minutes + ":" + seconds;
+              document.querySelector(".red-score").textContent = challenge.redPoints;
+              document.querySelector(".blue-score").textContent = challenge.bluePoints;
+              if (seconds == 0) {
+                // End game here
+                // Check for winners
+                notification("Good game!");
+                challenge.endGame();
               }
             }
           }
         }
-        
       });
 
       socket.on("opponentData", function(data) {

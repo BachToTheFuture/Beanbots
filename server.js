@@ -38,10 +38,16 @@ io.sockets.on('connection',
         let roomname = r.id;
         let side = r.team;
         let opside = side === "red" ? "blue" : "red";
-        console.log("QUEUE", queue, socket.id, side, opside);
+        console.log("QUEUE", queue, , side);
         socket.join(roomname);
-        io.to(roomname).emit('matchAccepted', {side: side, room: roomname});
-        io.to(socket.id).emit('matchAccepted', {side: opside, room: roomname});
+        if (side === "blue") {
+          io.to(roomname).emit('matchAccepted', {side: side, room: roomname});
+          io.to(socket.id).emit('matchAccepted', {side: opside, room: roomname});
+        }
+        else {
+          io.to(socket.id).emit('matchAccepted', {side: opside, room: roomname});
+          io.to(roomname).emit('matchAccepted', {side: side, room: roomname});
+        }
         var room = io.sockets.adapter.rooms[roomname];
         console.log(room.length);
       }
