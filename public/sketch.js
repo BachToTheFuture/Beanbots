@@ -110,10 +110,10 @@ function setup() {
   objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
   
   for (var i = 0; i < 8; i++) {
-    objects.push(new Box(width/2-114, robot.body.position.y+i*25, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+    objects.push(new Box(width/2-114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
   }
   for (var i = 0; i < 8; i++) {
-    objects.push(new Box(width/2+114, robot.body.position.y+i*25, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+    objects.push(new Box(width/2+114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
   }
   // Create the 
 }

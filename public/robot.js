@@ -136,9 +136,9 @@ class Robot {
 class Box {
   constructor(x, y, w, h, color) {
     var options = {
-      friction: 1,
+      friction: 100,
       restitution: 0,
-      mass: 0.0001
+      mass: 1,
     }
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.width = w;
@@ -182,6 +182,7 @@ class Robot extends Box {
     this.body.friction = 0;
     this.body.frictionAir = 0;
     this.body.frictionStatic = 0;
+    this.body.restitution = 0.3
     // Debug purposes
     console.log(this);
   }
@@ -202,17 +203,18 @@ class Robot extends Box {
   reset() {
     Body.setPosition(this.body, {x: this.startX, y:this.startY})
     this.rotation = this.startR;
+    Body.setAngle(this.body, this.rotation);
     Body.setVelocity(this.body, {x:0, y:0});
   }
   render() {
     this.wheels.render();
     this.draw();
-    /*
+    
     Body.setVelocity(this.body, {
       x: Math.cos(this.rotation) * this.body.speed,
       y: Math.sin(this.rotation) * this.body.speed
     });
-    */
+    
     Body.setAngularVelocity(this.body, this.vr);
     
     // Draw the robot's name
