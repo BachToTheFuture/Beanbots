@@ -23,6 +23,7 @@ var Engine = Matter.Engine,
 var engine;
 var world;
 var objects = [];
+var topWall, rightWall, leftWall, bottomWall;
 
 var challenge;
 
@@ -33,10 +34,10 @@ class Challenge {
   }
   setupField() {
     // Create boundaries and walls
-    var topWall = Bodies.rectangle(width/2, -5, width, 10, { isStatic: true});
-    var rightWall = Bodies.rectangle(width+5, height/2, 10, height, { isStatic: true});
-    var leftWall = Bodies.rectangle(-5, height/2, 5, height, { isStatic: true});
-    var bottomWall = Bodies.rectangle(width/2, height+5, width, 10, { isStatic: true});
+    topWall = Bodies.rectangle(width/2, -5, width, 10, { isStatic: true});
+    rightWall = Bodies.rectangle(width+5, height/2, 10, height, { isStatic: true});
+    leftWall = Bodies.rectangle(-5, height/2, 5, height, { isStatic: true});
+    bottomWall = Bodies.rectangle(width/2, height+5, width, 10, { isStatic: true});
     World.add(world, [topWall, leftWall, rightWall, bottomWall]);
 
     // Add foundation?
@@ -87,7 +88,7 @@ class Challenge {
     /*
     Function used for cleaning up and resetting values after a game ends.
     */
-    robot.textColor = "white";
+    robot.textColor = "black";
     socket = null;
     opponent = null;
     room = null;
@@ -131,6 +132,7 @@ function setup() {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
     console.log(robot);
+    editor.setValue(robot.code);
   }
   else {
     // Create robot

@@ -248,7 +248,8 @@ $(document).ready(function() {
           if (team == "blue") {
             Body.setPosition(opponent.body, {x: width-40, y: height/2+100});
             opponent.rotation = Math.PI;
-
+            Body.setAngle(opponent.body, Math.PI);
+            
             Body.setPosition(robot.body, {x: 40, y: height/2+100});
             robot.rotation = 0;
             Body.setAngle(robot.body, 0);

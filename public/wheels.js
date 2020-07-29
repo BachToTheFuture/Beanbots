@@ -5,49 +5,6 @@ class NormalWheels {
     this.robot = robot;
     this.color = color;
   }
-  static renderOpponent(data) {
-    fill(data.wheels.color);
-    // Draw top-left wheel
-    drawRect(
-      data.x + data.width - 15,
-      data.y - 5,
-      10,
-      5,
-      data.rotation,
-      data.originX,
-      data.originY
-    );
-    // Draw top-right wheel
-    drawRect(
-      data.x + data.width - 15,
-      data.y + data.height,
-      10,
-      5,
-      data.rotation,
-      data.originX,
-      data.originY
-    );
-    // Draw bottom-left wheel
-    drawRect(
-      data.x + 5,
-      data.y - 5,
-      10,
-      5,
-      data.rotation,
-      data.originX,
-      data.originY
-    );
-    // Draw bottom-right wheel
-    drawRect(
-      data.x + 5,
-      data.y + data.height,
-      10,
-      5,
-      data.rotation,
-      data.originX,
-      data.originY
-    );
-  }
   render() {
     // This function draws four wheels on the robot.
     // All wheels are drawn in relative to the robot's position

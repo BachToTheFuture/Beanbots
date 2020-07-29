@@ -81,7 +81,7 @@ class DistanceSensor extends RobotPart{
     this.range = 600;
   }
   update() {
-    let bodies = [];
+    let bodies = [topWall, leftWall, bottomWall, rightWall];
     // Maybe optimize this a little?
     objects.forEach(o=>bodies.push(o.body));
     let start = this.robot.body.position;
