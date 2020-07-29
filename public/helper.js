@@ -151,7 +151,8 @@ $(document).ready(function() {
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
         team = data.side;
-
+        // Reset scores
+        challenge.resetPoints();
         // Create a 5 second timer to count down
         timer = new CountDownTimer(5);
         let display = document.querySelector("#countdown-timer");

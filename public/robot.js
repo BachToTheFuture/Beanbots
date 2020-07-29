@@ -20,6 +20,9 @@ class Box {
     this.type = type;
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.body.role = type;
+    // This will be set to 0 when the points are used up
+    this.body.pointMultiplier = 1;
+    
     this.width = w;
     this.height = h;
     // Color
@@ -42,6 +45,7 @@ class Box {
     Body.setVelocity(this.body, {x:0, y:0});
     this.vr = 0;
     Body.setAngularVelocity(this.body, 0);
+    this.body.pointMultiplier = 1;
   }
   draw() {
     var pos = this.body.position;
