@@ -246,10 +246,9 @@ $(document).ready(function() {
       });
 
       socket.on("opponentData", function(data) {
-        /* Get the initial opponent's data () */
+        /* Get the initial opponent's data */
         if (!opponent) {
           // Create a new robot out of this data
-          console.log("DATA",data)
           let op = data.robot;
           if (data.side == "red") {
             opponent = new Robot(op.name, width-40, height/2+100, op.color);
@@ -260,6 +259,8 @@ $(document).ready(function() {
             opponent = new Robot(op.name, 40, height/2+100, op.color);
             document.querySelector(".blue-team").textContent = opponent.name;
           }
+          // Get the code
+          opponent.code = op.code;
           // reconstruct wheels
           switch (op.wheels.type) {
             case "NormalWheels" : opponent.wheels = new NormalWheels(opponent, op.wheels.color);
