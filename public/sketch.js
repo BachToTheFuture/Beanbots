@@ -49,7 +49,7 @@ class Challenge {
     // Add point boundaries where players can score points
     this.pointBoundaries.forEach(p => {
       let bounds = Bodies.rectangle(p.boundary[0], p.boundary[1],p.boundary[2],p.boundary[3]);
-      bounds.type = p.type;
+      bounds.role = p.type;
       bounds.points = p.points;
       bounds.to = p.to;
       World.add(world, bounds);
@@ -134,8 +134,7 @@ function setup() {
   // Give the user a random item from each category 
   giveUserRandomItems();
   
-  engine = Engine.create({options: {showAngleIndicator: true,
-          showVelocity: true,}});
+  engine = Engine.create();
   engine.world.gravity.y = 0;
   world = engine.world;
   
@@ -160,11 +159,15 @@ function setup() {
     var pairs = event.pairs;
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
-        if (pair.bodyA.type === "line" && pair.bodyB.type === "stone") {
-           console.log("AWARD", pair.bodyA.points, "TO", pair.bodyA.to);
+        if (pair.bodyA.role === "line" && pair.bodyB.role === "stone") {
+          console.log("AWARD", pair.bodyA.points, "TO", pair.bodyA.to);
+          if (pair.bodyA.to == "blue") this.bluePoints += pair.bodyA.points;
+          else this.redPoints += pair.bodyA.points;
         }
-        else if (pair.bodyB.type === "line" && pair.bodyA.type === "stone") {
+        else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone") {
           console.log("AWARD", pair.bodyB.points, "TO", pair.bodyB.to);
+          if (pair.bodyB.to == "blue") this.bluePoints += pair.bodyA.points;
+          else this.redPoints += pair.bodyA.points;
         }
     }
 });

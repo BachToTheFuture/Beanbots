@@ -19,7 +19,7 @@ class Box {
     }
     this.type = type;
     this.body = Bodies.rectangle(x, y, w, h, options);
-    this.body.type = type;
+    this.body.role = type;
     this.width = w;
     this.height = h;
     // Color
