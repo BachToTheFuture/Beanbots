@@ -34,8 +34,7 @@ function setup() {
   
   engine = Engine.create();
   engine.world.gravity.y = 0;
-  world = engine.world;
-  World.add(world);
+  World.add(engine.world);
   
   // Create robot
   //robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
