@@ -1,5 +1,10 @@
 
 /*
+sketch.js
+===============================================
+This is essentially the main JS file
+*/  
+
 var allSensors = [
   "ColorSensor", "DistanceSensor"
 ]
@@ -21,6 +26,7 @@ var objects = [];
 function setup() {
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
+  strokeWeight(2);
   canvas.parent("canvas");
   background(0, 0, 94);
   
@@ -29,11 +35,11 @@ function setup() {
   
   engine = Engine.create();
   engine.world.gravity.y = 0;
-  World.add(engine.world);
+  world = engine.world;
   
   // Create robot
-  //robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-  //robot.wheels = new NormalWheels(robot);
+  robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+  robot.wheels = new NormalWheels(robot);
 }
 
 function draw() {
@@ -41,7 +47,7 @@ function draw() {
   drawField();
   Engine.update(engine);
   //collectibles.forEach(c => c.render());
-  //robot.render();
+  robot.render();
   
   if (opponent && room) {
     robotRender(opponent);
@@ -84,51 +90,4 @@ function drawField() {
   stroke(219, 91, 87);
   square(width-75, height-75, 80);
   pop();
-}
-*/
-// Daniel Shiffman
-// http://codingtra.in
-// http://patreon.com/codingtrain
-// Code for: https://youtu.be/urR596FsU68
-
-// module aliases
-var Engine = Matter.Engine,
-  // Render = Matter.Render,
-  World = Matter.World,
-  Bodies = Matter.Bodies;
-
-var engine;
-var world;
-var boxes = [];
-
-var ground;
-
-function setup() {
-  createCanvas(400, 400);
-  engine = Engine.create();
-  world = engine.world;
-  //Engine.run(engine);
-  var options = {
-    isStatic: true
-  }
-  ground = Bodies.rectangle(200, height, width, 100, options);
-
-  World.add(world, ground);
-}
-
-function mousePressed() {
-  boxes.push(new Box(mouseX, mouseY, random(10, 40), random(10, 40), `hsl(${Math.floor(random(0,360))}, 100%, 71%)`));
-}
-
-function draw() {
-  background(51);
-  Engine.update(engine);
-  for (var i = 0; i < boxes.length; i++) {
-    boxes[i].render();
-  }
-  noStroke(255);
-  fill(170);
-  rectMode(CENTER);
-  rect(ground.position.x, ground.position.y, width, 100);
-
 }
