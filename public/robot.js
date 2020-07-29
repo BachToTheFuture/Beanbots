@@ -64,7 +64,6 @@ class Robot extends Box {
     this.body.frictionStatic = 0;
     this.body.restitution = 0.3
     // Debug purposes
-    console.log(this);
   }
   run() {
     let code = this.code;

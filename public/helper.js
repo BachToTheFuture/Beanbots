@@ -54,34 +54,6 @@ function drawRect(x, y, width, height, rotation, originX, originY) {
   }
 }
 
-function robotRender(data) {
-  /*
-  A function that handles the tricky bits in reconstructing the robot from a JSON file
-  This function draws the opponent's robot.
-  
-  TODO: Draw the sensors
-  */
-  // Draw wheels
-  switch (data.wheels.type) {
-    case "NormalWheels":
-      NormalWheels.renderOpponent(data);
-      break;
-    case "MecanumWheels":
-      MecanumWheels.renderOpponent(data);
-      break;
-  }
-  // Draw robot body
-  fill(data.color);
-  drawRect(data.x, data.y, data.width, data.height, data.rotation);
-  // Draw the robot's name
-  textAlign(CENTER);
-  textStyle(BOLD);
-  fill(data.textColor);
-  strokeWeight(0);
-  text(data.name, data.x + data.width / 2, data.y - 20);
-  strokeWeight(2);
-}
-
 function notification(msg) {
   /*
   Shows popover notifications
@@ -263,7 +235,7 @@ $(document).ready(function() {
             Body.setPosition(robot.body, {x: width-40, y: height/2+100});
             robot.rotation = Math.PI;
             Body.setAngle(robot.body, Math.PI);
-            document.querySelector(".blue-team").textContent = opponent.name;
+            document.querySelector(".blue-team").textContent = robot.name;
           }
         };
       });
