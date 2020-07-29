@@ -103,11 +103,12 @@ function setup() {
   
   challenge = new Challenge("skystones");
   challenge.setupField();
-  
+  //window.localStorage.clear();
   if (window.localStorage.getItem("robo_data") !== null) {
     console.log(window.localStorage.getItem("robo_data"));
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
+    console.log(robot);
   }
   else {
     // Create robot

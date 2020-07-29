@@ -25,8 +25,8 @@ function createRobotFromJSON(op){
   Object.keys(op.parts).forEach(part => {
     let val = op.parts[part];
     switch (val.type) {
-      case "ColorSensor"   : r.parts[part] = new NormalWheels(r, val.side, val.color);
-      case "DistanceSensor": r.parts[part] = new MecanumWheels(r, val.side, val.color);
+      case "ColorSensor"   : r.parts[part] = new ColorSensor(r, val.side, val.color);
+      case "DistanceSensor": r.parts[part] = new DistanceSensor(r, val.side, val.color);
     }
   });
   return r;
@@ -193,7 +193,7 @@ $(document).ready(function() {
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
           Body.setPosition(robot.body, {x: width-40, y: height/2+100});
-          Body.setAngle(robot.body, Math.PI);
+          robot.rotation = Math.PI;
         } else {
           Body.setPosition(robot.body, {x: 40, y: height/2+100});
         }
@@ -272,30 +272,17 @@ $(document).ready(function() {
         if (!opponent) {
           // Create a new robot out of this data
           let op = data.robot;
+          opponent = createRobotFromJSON(op);
           if (team == "blue") {
-            opponent = new Robot(op.name, width-40, height/2+100, op.color);
-            Body.setAngle(opponent.body, Math.PI);
+            Body.setPosition(opponent.body, {x: width-40, y: height/2+100});
+            opponent.rotation = Math.PI;
             document.querySelector(".red-team").textContent = opponent.name;
           }
           else {
-            opponent = new Robot(op.name, 40, height/2+100, op.color);
+            Body.setPosition(opponent.body, {x: 40, y: height/2+100});
             document.querySelector(".blue-team").textContent = opponent.name;
           }
-          // Get the code
-          opponent.code = op.code;
-          // reconstruct wheels
-          switch (op.wheels.type) {
-            case "NormalWheels" : opponent.wheels = new NormalWheels(opponent, op.wheels.color);
-            case "MecanumWheels": opponent.wheels = new MecanumWheels(opponent, op.wheels.color);
-          }
-          Object.keys(op.parts).forEach(part => {
-            let val = op.parts[part];
-            switch (val.type) {
-              case "ColorSensor"   : opponent.parts[part] = new NormalWheels(opponent, val.side, val.color);
-              case "DistanceSensor": opponent.parts[part] = new MecanumWheels(opponent, val.side, val.color);
-            }
-          });
-        }        
+        };
       });
 
       socket.on("updateCollectiblePos", function(data) {

@@ -43,7 +43,7 @@ class Box {
     fill(this.color);
     rect(0, 0, this.width, this.height);
     pop();
-    this.color = this.color.toString();
+    if (typeof this.color!="string") this.color= this.color.toString();
   }
 }
 

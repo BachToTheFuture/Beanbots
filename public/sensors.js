@@ -68,7 +68,7 @@ class RobotPart {
     }
     // update values
     this.update();
-    this.color = this.color.toString();
+    if (typeof this.color!="string") this.color= this.color.toString();
   }
   update() {}
 }
