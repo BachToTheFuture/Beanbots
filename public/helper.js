@@ -146,25 +146,22 @@ $(document).ready(function() {
         );
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
         $(".competition-bar").fadeIn(); // Show the scores and timer
-
-        bluePoints = 0;
-        redPoints = 0;
         
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
-          robot.x = width-56;
-          robot.y = height/2+100;
-          // flip robot 180 degrees
-          robot.rotation = Math.PI;
+          Body.setPosition(robot.body, {x: width-40-robot.width, y: height/2+100});
+          Body.setAngle(robot.body, Math.PI);
         } else {
-          robot.x = 6;
-          robot.y = height/2+100;
+          Body.setPosition(robot.body, {x: width-40-robot.width, y: height/2+100});
+          Body.setAngle(robot.body, Math.PI);
         }
         // Set a new room!
         room = data.room;
         
         socket.emit("sendInitRobotData", {
-          robot: JSON.decycle(robot),
+          robot: {
+            x: robot
+          },
           room: room
         });
         // One of the competitors change the collectibles layout and sends it to the other user
