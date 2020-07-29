@@ -32,14 +32,14 @@ function setup() {
   // Give the user a random item from each category 
   giveUserRandomItems();
   
-  // Create robot
-  robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-  //robot.wheels = new NormalWheels(robot);
-  
   engine = Engine.create();
-  world = engine.world;
   engine.world.gravity.y = 0;
+  world = engine.world;
   World.add(world);
+  
+  // Create robot
+  //robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+  //robot.wheels = new NormalWheels(robot);
 }
 
 function draw() {
@@ -47,7 +47,7 @@ function draw() {
   drawField();
   Engine.update(engine);
   //collectibles.forEach(c => c.render());
-  robot.render();
+  //robot.render();
   
   if (opponent && room) {
     robotRender(opponent);
