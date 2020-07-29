@@ -91,12 +91,11 @@ class Robot extends Box {
     
     Object.values(this.parts).forEach(part => part.render());
     
-    /*
-    Body.setVelocity(this.body, {
-      x: Math.cos(this.rotation) * this.body.speed,
-      y: Math.sin(this.rotation) * this.body.speed
-    });
-    */
+    if (this.wheels.type == "NormalWheels")
+      Body.setVelocity(this.body, {
+        x: Math.cos(this.rotation) * this.body.speed,
+        y: Math.sin(this.rotation) * this.body.speed
+      });
     
     Body.setAngularVelocity(this.body, this.vr);
     

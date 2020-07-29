@@ -30,6 +30,25 @@ class Challenge {
     this.name = name;
     // Scores and point boundaries all go in here
   }
+  setupField() {
+    // Create boundaries and walls
+    var topWall = Bodies.rectangle(width/2, -5, width, 10, { isStatic: true});
+    var rightWall = Bodies.rectangle(width+5, height/2, 10, height, { isStatic: true});
+    var leftWall = Bodies.rectangle(-5, height/2, 5, height, { isStatic: true});
+    var bottomWall = Bodies.rectangle(width/2, height+5, width, 10, { isStatic: true});
+    World.add(world, [topWall, leftWall, rightWall, bottomWall]);
+
+    // Add foundation?
+    objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87)));
+    objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
+
+    for (var i = 0; i < 8; i++) {
+      objects.push(new Box(width/2-114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+    }
+    for (var i = 0; i < 8; i++) {
+      objects.push(new Box(width/2+114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+    }
+  }
   renderField() {
     background(0,0,80);
 
@@ -81,11 +100,12 @@ function setup() {
   engine.world.gravity.y = 0;
   world = engine.world;
   
-  challenge = new Challenge("skystones");
-  
   // Create robot
   robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
+  
+  challenge = new Challenge("skystones");
+  challenge.setupField();
   
   if (localStorage.getItem("robo_data") !== null) {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
@@ -97,24 +117,6 @@ function setup() {
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
   
-  
-  // Create boundaries and walls
-  var topWall = Bodies.rectangle(width/2, 20, width, 10, { isStatic: true});
-  var leftWall = Bodies.rectangle(50, 210, 20, 300, { isStatic: true});
-  var rightWall = Bodies.rectangle(width, 0, 10, height, { isStatic: true});
-  var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true});
-  World.add(world, [topWall, leftWall, rightWall, bottomWall]);
-  
-  // Add foundation?
-  objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87)));
-  objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
-  
-  for (var i = 0; i < 8; i++) {
-    objects.push(new Box(width/2-114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
-  }
-  for (var i = 0; i < 8; i++) {
-    objects.push(new Box(width/2+114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
-  }
   // Create the 
 }
 
