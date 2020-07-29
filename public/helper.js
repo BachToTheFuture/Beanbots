@@ -110,6 +110,18 @@ $(document).ready(function() {
       
       // If the match request is accepted
       socket.on("matchAccepted", function(data) {
+        
+        // Update field
+        console.log(data.objects);
+        if (data.objects) {
+          data.objects.forEach((o,i)=>{
+            objects[i].width = o.w;
+            objects[i].height = o.h;
+            Body.setPosition(objects[i].body, {x: o.x, y: o.y})
+            objects[i].color = o.color;
+          })
+        }
+        
         $("#join-match").prop("disabled", false);
         // Hide the join match button
         $("#join-match").hide();
@@ -122,25 +134,14 @@ $(document).ready(function() {
         
         // Set a new room!
         room = data.room;
-        let newObjects = [];
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
         } else {
           document.querySelector(".blue-team").textContent = robot.name;
         }
-        objects.forEach(o=>{
-            newObjects.push({
-              x: o.body.position.x,
-              y: o.body.position.y,
-              width: o.width,
-              height: o.height,
-              color: o.color.toString()
-            })
-          });
         
         socket.emit("sendInitData", {
           robot: JSON.decycle(robot),
-          objects: newObjects,
           room: room
         });
         
@@ -213,16 +214,6 @@ $(document).ready(function() {
             document.querySelector(".blue-team").textContent = robot.name;
           }
         };
-        // Update field
-        console.log(data.objects);
-        if (data.objects) {
-          data.objects.forEach((o,i)=>{
-            objects[i].width = o.width;
-            objects[i].height = o.height;
-            Body.setPosition(objects[i].body, {x: o.x, y: o.y})
-            objects[i].color = o.color;
-          })
-        }
       });
 
       socket.on("updateCollectiblePos", function(data) {

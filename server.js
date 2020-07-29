@@ -6,6 +6,10 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+// Canvas size
+let width = 600;
+let height = 600;
+
 let queue = [];
 
 app.use(express.static(__dirname + '/public' ));
@@ -38,8 +42,20 @@ io.sockets.on('connection',
         let roomname = queue.shift();
         socket.join(roomname);
         let side = Math.random() > 0.5 ? "red" : "blue";
-        io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
-        io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
+        
+        // Generate field
+        let objects = []
+        objects.push({x: width/2-50, y: 70, w: 55, h: 100, color: "#145bde"});
+        objects.push({x: width/2+50, y: 70, w: 55, h: 100, color: "#de1414"});
+        for (var i = 0; i < 8; i++) {
+          objects.push({x:width/2-114, y:height/2+100+i*27, w:14, h:25, color:Math.random() > 0.3 ? "yellow" : "black"});
+        }
+        for (var i = 0; i < 8; i++) {
+          objects.push({x:width/2+114, y:height/2+100+i*27, w:14, h:25, color:Math.random() > 0.3 ? "yellow" : "black"});
+        }
+        
+        io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname, objects:objects});
+        io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname, objects:objects});
         var room = io.sockets.adapter.rooms[roomname];
         console.log(room.length)
       }
