@@ -125,7 +125,10 @@ $(document).ready(function() {
         let newObjects = [];
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
-          objects.forEach(o=>{
+        } else {
+          document.querySelector(".blue-team").textContent = robot.name;
+        }
+        objects.forEach(o=>{
             newObjects.push({
               x: o.body.position.x,
               y: o.body.position.y,
@@ -134,9 +137,7 @@ $(document).ready(function() {
               color: o.color.toString()
             })
           });
-        } else {
-          document.querySelector(".blue-team").textContent = robot.name;
-        }
+        
         socket.emit("sendInitData", {
           robot: JSON.decycle(robot),
           objects: newObjects,
