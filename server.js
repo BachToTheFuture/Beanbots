@@ -34,15 +34,16 @@ io.sockets.on('connection',
       // join room with this person.
       // Make sure no one gets put in a room with themselves!
       if (queue[0].id != socket.id) {
-        console.log("QUEUE", queue, socket.id);
         let r = queue.shift();
         let roomname = r.id;
         let side = r.team;
+        let opside = side === "red" ? "blue" : "red";
+        console.log("QUEUE", queue, socket.id, side, opside);
         socket.join(roomname);
-        io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
-        io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
+        io.to(roomname).emit('matchAccepted', {side: side, room: roomname});
+        io.to(socket.id).emit('matchAccepted', {side: opside, room: roomname});
         var room = io.sockets.adapter.rooms[roomname];
-        console.log(room.length)
+        console.log(room.length);
       }
     }
     // When this user emits, client side: socket.emit('otherevent',some data);

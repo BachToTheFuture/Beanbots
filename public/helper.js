@@ -125,6 +125,7 @@ $(document).ready(function() {
           // Set a new room!
           room = data.room;
           let newObjects = [];
+          console.log(data);
           if (data.side == "red") {
             document.querySelector(".red-team").textContent = robot.name;
             objects.forEach(o=>{
