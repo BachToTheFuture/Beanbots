@@ -143,7 +143,10 @@ class Box {
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.width = w;
     this.height = h;
+    // Color
     this.color = color;
+    this.body.color = color;
+    
     this.rotation = 0;
     this.vr = 0; // Rotation speed
     // Original positions

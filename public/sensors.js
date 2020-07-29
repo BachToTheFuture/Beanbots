@@ -122,11 +122,11 @@ class ColorSensor extends DistanceSensor {
       test = test[0];
       this.distance = dist(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
       if (this.distance < 60) {
-        console.log(test.body);
         // Getting the wrong color!
-        this.color = test.body.render.fillStyle;
+        this.color = test.body.color;
         push();
         stroke(this.color);
+        fill(this.color);
         line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
         pop();
       }

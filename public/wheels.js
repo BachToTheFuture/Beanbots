@@ -116,9 +116,9 @@ class MecanumWheels extends NormalWheels {
     this.type = "MecanumWheels";
   }
   move(powerX, powerY) {
-    this.robot.power = (powerX + powerY)/2;
-    this.robot.vy = powerY;
-    this.robot.vx = powerX;
-    console.log(powerX, powerY);
+    Body.setVelocity(this.robot.body, {
+      x: powerX,
+      y: powerY || 0
+    });
   }
 }
