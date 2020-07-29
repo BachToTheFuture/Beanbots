@@ -16,6 +16,7 @@ class DistanceSensor {
       right: Math.PI / 2,
       back: Math.PI
     };
+    this.angles = angles;
     this.ray = new Ray(
       createVector(this.robot.originX, this.robot.originY),
       angles[side]
@@ -76,9 +77,16 @@ class DistanceSensor {
   }
   get() {
     let bodies = [];
+    objects.forEach(o=>bodies.push(o.body));
     let start = this.robot.body.position;
-    let end   = this.robot.body.position;
-    raycast(bodies, start, end);
+    let end   = Matter.Vector.create(this.robot.body.position.x+width*Math.cos(this.robot.rotation+this.angles[this.side]),
+                              this.robot.body.position.y+width*Math.sin(this.robot.rotation+this.angles[this.side]));
+    let test = raycast(bodies, start, end);
+    if (test.length > 0) {
+      test = test[0];
+      this.distance = dist(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
+      line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
+    }
   }
 
   until(condition, callback) {
