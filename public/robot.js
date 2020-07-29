@@ -175,6 +175,13 @@ class Robot extends Box {
     this.code = "";
     // The color of the robot's name
     this.textColor = "black";
+    // Set robot mass and remove friction as we want the robot to go forever
+    this.body.mass = 100;
+    this.body.friction = 0;
+    this.body.frictionAir = 0;
+    this.body.frictionStatic = 0;
+    // Debug purposes
+    console.log(this);
   }
   run() {
     let code = this.code;
@@ -194,6 +201,7 @@ class Robot extends Box {
     this.body.position.x = this.startX;
     this.body.position.y = this.startY;
     this.rotation = this.startR;
+    this.body
   }
   render() {
     this.wheels.render();

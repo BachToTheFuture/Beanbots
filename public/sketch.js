@@ -76,7 +76,8 @@ function setup() {
   // Give the user a random item from each category 
   giveUserRandomItems();
   
-  engine = Engine.create();
+  engine = Engine.create({options: {showAngleIndicator: true,
+          showVelocity: true,}});
   engine.world.gravity.y = 0;
   world = engine.world;
   
@@ -85,6 +86,16 @@ function setup() {
   // Create robot
   robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
+  
+  if (localStorage.getItem("robo_data") !== null) {
+    let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
+    robot.name = robodata.name;
+    robot.color = robodata.color;
+    robot.code = robodata.code;
+    editor.setValue(robot.code);
+  }
+  $("#robotName").val(robot.name);
+  $("#robotColor").val(robot.color);
   
   objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87)));
   objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
