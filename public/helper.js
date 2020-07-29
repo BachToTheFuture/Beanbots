@@ -18,16 +18,18 @@ function createRobotFromJSON(op){
   // Get the code
   r.code = op.code;
   // reconstruct wheels
-  switch (op.wheels.type) {
-    case "NormalWheels" : r.wheels = new NormalWheels(r, op.wheels.color);
-    case "MecanumWheels": r.wheels = new MecanumWheels(r, op.wheels.color);
-  }
+  if (op.wheels.type == "NormalWheels")
+    r.wheels = new NormalWheels(r, op.wheels.color);
+  else if (op.wheels.type == "MecanumWheels")
+    r.wheels = new MecanumWheels(r, op.wheels.color);
+  
   Object.keys(op.parts).forEach(part => {
     let val = op.parts[part];
-    switch (val.type) {
-      case "ColorSensor"   : r.parts[part] = new ColorSensor(r, val.side, val.color);
-      case "DistanceSensor": r.parts[part] = new DistanceSensor(r, val.side, val.color);
-    }
+    if (val.type == "ColorSensor")
+      r.parts[part] = new ColorSensor(r, val.side, val.color);
+    else if (val.type == "DistanceSensor")
+      r.parts[part] = new DistanceSensor(r, val.side, val.color);
+    
   });
   return r;
 }     
@@ -78,6 +80,7 @@ $(document).ready(function() {
       robot.run();
       
       /* Save the robot's name, color, and code to the storage */
+      window.localStorage.clear();
       window.localStorage.setItem('robo_data', JSON.stringify(JSON.decycle(robot)));
       
     } else {

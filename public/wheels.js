@@ -73,7 +73,6 @@ class NormalWheels {
   }
 }
 
-/*
 // Add mecanum wheels
 class MecanumWheels extends NormalWheels {
   constructor(robot, color="black") {
@@ -88,4 +87,3 @@ class MecanumWheels extends NormalWheels {
   }
   update() {}
 }
-*/
