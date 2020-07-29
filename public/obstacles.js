@@ -140,6 +140,7 @@ class Collectible {
     if (Math.abs(this.vx) < 0.02) this.vx = 0;
     if (Math.abs(this.vy) < 0.02) this.vy = 0;
     // Update the block when it is moving
+    /*
     if ((this.vx != 0 || this.vy != 0) && socket)
       socket.emit("sendCollectiblePos", {
         idx: this.idx,
@@ -148,6 +149,7 @@ class Collectible {
         color: this.color,
         room: room
       });
+      */
   }
 
   checkCollision(obj) {

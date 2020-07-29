@@ -184,35 +184,6 @@ $(document).ready(function() {
           }
         }
       });
-      socket.on("objectsData", function(data) {
-        /* Update the collectibles and their positions (the cubes and balls) based on the data */
-        data = data.collectibles;
-        objects.forEach((c, cidx) => {
-          Object.keys(data[0]).forEach(k => {
-            if (k != "walls") {
-              objects[cidx][k] = data[cidx][k];
-            }
-          });
-          c.walls.forEach((wall, i) => {
-            objects[cidx].walls[i].a.x = data[c.idx].walls[i].a.x;
-            objects[cidx].walls[i].a.y = data[c.idx].walls[i].a.y;
-            objects[cidx].walls[i].b.x = data[c.idx].walls[i].b.x;
-            objects[cidx].walls[i].b.y = data[c.idx].walls[i].b.y;
-            objects[cidx].walls[i].color = data[c.idx].walls[i].color;
-          });
-        });
-      });
-
-      socket.on("opponentPos", function(data) {
-        /* Get opponent's positions and rotations */
-        if (opponent) {
-          opponent.x = data.x;
-          opponent.y = data.y;
-          opponent.originX = data.originX;
-          opponent.originY = data.originY;
-          opponent.rotation = data.rotation;
-        }
-      });
 
       socket.on("opponentData", function(data) {
         /* Get the initial opponent's data */
@@ -241,6 +212,15 @@ $(document).ready(function() {
             document.querySelector(".blue-team").textContent = robot.name;
           }
         };
+        // Update field
+        if (data.objects) {
+          data.objects.forEach((o,i)=>{
+            objects[i].width = o.width;
+            objects[i].height = o.height;
+            Body.setPosition(objects[i].body, {x: o.x, y: o.y})
+            objects[i].color = o.color;
+          })
+        }
       });
 
       socket.on("updateCollectiblePos", function(data) {
