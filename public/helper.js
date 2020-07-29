@@ -172,8 +172,8 @@ $(document).ready(function() {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
               display.textContent = minutes + ":" + seconds;
-              document.querySelector(".red-score").textContent = redPoints;
-              document.querySelector(".blue-score").textContent = bluePoints;
+              document.querySelector(".red-score").textContent = challenge.redPoints;
+              document.querySelector(".blue-score").textContent = challenge.bluePoints;
               if (seconds == 0) {
                 // End game here
                 // Check for winners

@@ -32,7 +32,14 @@ class Box {
     
     World.add(world, this.body);
   }
-  
+  reset() {
+    Body.setPosition(this.body, {x: this.startX, y:this.startY})
+    this.rotation = this.startR;
+    Body.setAngle(this.body, this.rotation);
+    Body.setVelocity(this.body, {x:0, y:0});
+    this.vr = 0;
+    Body.setAngularVelocity(this.body, 0);
+  }
   draw() {
     var pos = this.body.position;
     this.rotation = this.body.angle;
@@ -78,14 +85,6 @@ class Robot extends Box {
     (() => {
       fn(this);
     })();
-  }
-  reset() {
-    Body.setPosition(this.body, {x: this.startX, y:this.startY})
-    this.rotation = this.startR;
-    Body.setAngle(this.body, this.rotation);
-    Body.setVelocity(this.body, {x:0, y:0});
-    this.vr = 0;
-    Body.setAngularVelocity(this.body, 0);
   }
   render() {
     this.wheels.render();
