@@ -15,6 +15,15 @@ var allWheels = [
 var userSensors = [];
 var userWheels = [];
 
+var Engine = Matter.Engine,
+  // Render = Matter.Render,
+  World = Matter.World,
+  Bodies = Matter.Bodies;
+
+var engine;
+var world;
+var boxes = [];
+
 function setup() {
   collideDebug(true);
   colorMode(HSB, 360, 100, 100);
