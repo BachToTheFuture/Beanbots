@@ -30,7 +30,10 @@ var challenge;
 class Challenge {
   constructor(name) {
     this.name = name;
-    this.gameStarted = false;
+    this.pointBoundaries = [
+      {boundary:[0, 300, 200, 10], points: 10, to: "blue", type: "teamline"},
+      {boundary:[400, 300, 200, 10], points: 10, to: "red", type: "teamline"},
+    ]
     // Scores and point boundaries all go in here
   }
   setupField() {
@@ -39,6 +42,12 @@ class Challenge {
     rightWall = Bodies.rectangle(width+5, height/2, 10, height, { isStatic: true});
     leftWall = Bodies.rectangle(-5, height/2, 5, height, { isStatic: true});
     bottomWall = Bodies.rectangle(width/2, height+5, width, 10, { isStatic: true});
+    
+    // Add point boundaries where players can score points
+    this.pointBoundaries.forEach(p => {
+      let bounds = Bodies.rectangle()
+    })
+    
     World.add(world, [topWall, leftWall, rightWall, bottomWall]);
 
     // Add foundation?
@@ -51,6 +60,7 @@ class Challenge {
     for (var i = 0; i < 8; i++) {
       objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
     }
+    
   }
   renderField() {
     background(0,0,80);
