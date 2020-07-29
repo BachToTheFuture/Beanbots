@@ -147,13 +147,6 @@ $(document).ready(function() {
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
         $(".competition-bar").fadeIn(); // Show the scores and timer
         
-        // Move the robots to their respective starting positions based on teams.
-        if (data.side == "red") {
-          Body.setPosition(robot.body, {x: width-40, y: height/2+100});
-          Body.setAngle(robot.body, Math.PI);
-        } else {
-          Body.setPosition(robot.body, {x: 40, y: height/2+100});
-        }
         // Set a new room!
         room = data.room;
         let newObjects = [];
@@ -177,6 +170,14 @@ $(document).ready(function() {
           room: room
         });
         
+        // Move the robots to their respective starting positions based on teams.
+        if (data.side == "red") {
+          Body.setPosition(robot.body, {x: width-40, y: height/2+100});
+          Body.setAngle(robot.body, Math.PI);
+        } else {
+          Body.setPosition(robot.body, {x: 40, y: height/2+100});
+        }
+        
         // Change the robot's name color to indicate which one is you!
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
@@ -196,6 +197,7 @@ $(document).ready(function() {
             $("#countdown-timer").fadeOut();
             console.log("Robot started running!");
             robot.run();
+            opponent.run();
             let timer2 = new CountDownTimer(30);
             let display = document.querySelector("#timer");
             timer2.onTick(format).start();
@@ -250,9 +252,9 @@ $(document).ready(function() {
         if (!opponent) {
           // Create a new robot out of this data
           let op = data.robot;
-          if (data.side == "red") {
+          if (team == "blue") {
             opponent = new Robot(op.name, width-40, height/2+100, op.color);
-            Body.setangle(opponent.body, Math.PI);
+            Body.setAngle(opponent.body, Math.PI);
             document.querySelector(".red-team").textContent = opponent.name;
           }
           else {
