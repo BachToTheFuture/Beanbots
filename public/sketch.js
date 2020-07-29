@@ -35,53 +35,15 @@ function setup() {
   // Create robot
   robot = new Robot(generateName(), 4, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
-  
-  //window.localStorage.clear();
-  
-  // Try restoring saved robot data
-  if (localStorage.getItem("robo_data") !== null) {
-    let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
-    robot.name = robodata.name;
-    robot.color = robodata.color;
-    robot.code = robodata.code;
-    editor.setValue(robot.code);
-  }
-  $("#robotName").val(robot.name);
-  $("#robotColor").val(robot.color);
-  
-  /*
-  // Make the walls around the field
-  obstacles.push(new Wall(0, 0, width, 0));
-  obstacles.push(new Wall(width, 0, width, height, color="red"));
-  obstacles.push(new Wall(0, 0, 0, height));
-  obstacles.push(new Wall(0, height, width, height));
-  */
-  
-  /*
-  for (var i = 0; i < 10; i++)
-    collectibles.push(new Collectible(random(width-20),random(height-20),10,10,(Math.random() > 0.5 ? "rect" : "ball"), i));
-  */
-  
-  // Plz restrict to bounds
-  // Top wall
-  /*
-  collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87), 200,"bluefoundation"));
-  collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 200,"redfoundation"));
-  
-  for (var i = 2; i < 10; i++) {
-    collectibles.push(new Collectible(width/2-114, robot.y+(i-2)*25, 14, 25,"rect", 4, Math.random() > 0.3 ? "yellow" : "black", 10,"block", 0.995));
-  }
-  for (var i = 11; i < 21; i++) {
-    collectibles.push(new Collectible(width/2+100, robot.y+(i-11)*25, 14, 25,"rect", 4, Math.random() > 0.3 ? "yellow" : "black", 10,"block", 0.995));
-  }
-  */
 }
 
 function draw() {
   background(0, 0, 94);
   drawField();
-  collectibles.forEach(c => c.render());
+  Engine.update(engine);
+  //collectibles.forEach(c => c.render());
   robot.render();
+  
   if (opponent && room) {
     robotRender(opponent);
     // Make sure to only send it every 4 frames and when the robot is moving?

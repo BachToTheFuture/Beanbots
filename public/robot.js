@@ -167,8 +167,7 @@ class Robot extends Box {
     this.parts = {};
     // The preprogrammed instructions
     this.code = "";
-    // Color
-    this.color = color;
+    // The color of the robot's name
     this.textColor = "white";
   }
 }
