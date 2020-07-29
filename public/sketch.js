@@ -89,6 +89,7 @@ class Challenge {
     Function used for cleaning up and resetting values after a game ends.
     */
     robot.textColor = "black";
+    World.remove(world, opponent.body);
     socket = null;
     opponent = null;
     room = null;

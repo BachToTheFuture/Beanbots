@@ -88,7 +88,7 @@ $(document).ready(function() {
       target.addClass("btn-success");
       target.html("Run robot");
       robot.reset();
-      collectibles.forEach(o => o.reset());
+      objects.forEach(o => o.reset());
     }
   });
 
