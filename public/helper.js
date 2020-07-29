@@ -194,6 +194,7 @@ $(document).ready(function() {
         if (data.side == "red") {
           Body.setPosition(robot.body, {x: width-40, y: height/2+100});
           robot.rotation = Math.PI;
+          Body.setAngle(robot.body, Math.PI);
         } else {
           Body.setPosition(robot.body, {x: 40, y: height/2+100});
         }
