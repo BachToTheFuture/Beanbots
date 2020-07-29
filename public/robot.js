@@ -169,7 +169,7 @@ class Robot extends Box {
     // The preprogrammed instructions
     this.code = "";
     // The color of the robot's name
-    this.textColor = "white";
+    this.textColor = "black";
   }
   render() {
     this.wheels.render();
@@ -180,7 +180,7 @@ class Robot extends Box {
     textStyle(BOLD);
     fill(this.textColor);
     strokeWeight(0);
-    text(this.name, this.x + this.width / 2, this.y - 20);
+    text(this.name, this.body.position.x, this.body.position.y - 40);
     strokeWeight(2);
   }
 }
