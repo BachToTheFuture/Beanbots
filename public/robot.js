@@ -12,7 +12,8 @@ its accessories and components.
 class Box {
   constructor(x, y, w, h, color) {
     var options = {
-      friction: 100,
+      friction: 1,
+      frictionAir: 0.6,
       restitution: 0,
       mass: 1,
     }
