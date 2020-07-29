@@ -137,8 +137,8 @@ class Box {
   constructor(x, y, w, h, color) {
     var options = {
       friction: 1,
-      restitution: 0.6,
-      mass: 1
+      restitution: 0,
+      mass: 0.0001
     }
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.width = w;
@@ -200,8 +200,7 @@ class Robot extends Box {
     })();
   }
   reset() {
-    this.body.position.x = this.startX;
-    this.body.position.y = this.startY;
+    Body.setPosition(this.body, {x: this.startX, y:this.startY})
     this.rotation = this.startR;
     Body.setVelocity(this.body, {x:0, y:0});
   }
