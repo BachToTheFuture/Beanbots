@@ -30,6 +30,7 @@ var challenge;
 class Challenge {
   constructor(name) {
     this.name = name;
+    this.gameStarted = false;
     // Scores and point boundaries all go in here
   }
   setupField() {
@@ -88,6 +89,7 @@ class Challenge {
     /*
     Function used for cleaning up and resetting values after a game ends.
     */
+    this.gameStarted = false;
     robot.textColor = "black";
     World.remove(world, opponent.body);
     socket = null;
