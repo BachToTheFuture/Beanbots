@@ -94,14 +94,14 @@ class NormalWheels {
     );
   }
   move(power) {
-    Body.setVelocity(this.robot.body, {x: Math.cos(this.robot.rotation) * power, y: Math.sin(this.robot.rotation) * power } )
+    Body.setVelocity(this.robot.body, {x: Math.cos(this.robot.rotation) * power, y: Math.sin(this.robot.rotation) * power });
   }
   stop() {
     // Stop everything
-    this.robot.vy = 0;
-    this.robot.vx = 0;
-    this.robot.vr = 0;
-    this.robot.power = 0;
+    Body.setVelocity(this.robot.body, {
+      x: 0,
+      y: 0
+    });
   }
   rotate(power) {
     this.robot.vr = power / 10;

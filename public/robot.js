@@ -137,7 +137,8 @@ class Box {
   constructor(x, y, w, h, color) {
     var options = {
       friction: 0.3,
-      restitution: 0.6
+      restitution: 0.6,
+      mass: 1
     }
     this.body = Bodies.rectangle(x, y, w, h, options);
     this.width = w;
@@ -201,11 +202,19 @@ class Robot extends Box {
     this.body.position.x = this.startX;
     this.body.position.y = this.startY;
     this.rotation = this.startR;
-    this.body
+    Body.setVelocity(this.body, {x:0, y:0});
   }
   render() {
     this.wheels.render();
     this.draw();
+    
+    if (this.wheels.type == "NormalWheels") {
+      Body.setVelocity(this.body, {
+        x: Math.cos(this.rotation) * this.body.speed,
+        y: Math.sin(this.rotation) * this.body.speed
+      });
+      Body.setAngularVelocity(this.body, 0);
+    }
     
     // Draw the robot's name
     textAlign(CENTER);
@@ -214,5 +223,8 @@ class Robot extends Box {
     strokeWeight(0);
     text(this.name, this.body.position.x, this.body.position.y - 40);
     strokeWeight(2);
+  }
+  wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
