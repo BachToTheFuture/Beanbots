@@ -210,10 +210,12 @@ class Robot extends Box {
     this.wheels.render();
     this.draw();
     
+    /*
     Body.setVelocity(this.body, {
       x: Math.cos(this.rotation) * this.body.speed,
       y: Math.sin(this.rotation) * this.body.speed
     });
+    */
     
     Body.setAngularVelocity(this.body, this.vr);
     
