@@ -49,6 +49,13 @@ class NormalWheels {
       this.robot.body.position.x,
       this.robot.body.position.y
     );
+    this.update();
+  }
+  update() {
+    Body.setVelocity(this.robot.body, {
+        x: Math.cos(this.robot.rotation) * this.robot.body.speed,
+        y: Math.sin(this.robot.rotation) * this.robot.body.speed
+      });
   }
   move(power) {
     Body.setVelocity(this.robot.body, {x: Math.cos(this.robot.rotation) * power, y: Math.sin(this.robot.rotation) * power });
@@ -78,4 +85,5 @@ class MecanumWheels extends NormalWheels {
       y: powerY || 0
     });
   }
+  update() {}
 }

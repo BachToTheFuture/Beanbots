@@ -85,6 +85,8 @@ class Robot extends Box {
     this.rotation = this.startR;
     Body.setAngle(this.body, this.rotation);
     Body.setVelocity(this.body, {x:0, y:0});
+    this.robot.vr = 0;
+    Body.setAngularVelocity(this.body, 0);
   }
   render() {
     this.wheels.render();
@@ -92,11 +94,6 @@ class Robot extends Box {
     
     Object.values(this.parts).forEach(part => part.render());
     
-    if (this.wheels.type == "NormalWheels")
-      Body.setVelocity(this.body, {
-        x: Math.cos(this.rotation) * this.body.speed,
-        y: Math.sin(this.rotation) * this.body.speed
-      });
     /*
     Take a look at this
     else if (this.wheels.type == "MecanumWheels")
@@ -106,7 +103,7 @@ class Robot extends Box {
       });
       */
     Body.setAngularVelocity(this.body, this.vr);
-    
+    this.rotation = this.body.angle;
     // Draw the robot's name
     textAlign(CENTER);
     textStyle(BOLD);
