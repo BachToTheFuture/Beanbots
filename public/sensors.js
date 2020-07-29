@@ -4,6 +4,75 @@ sensors.js
 This file contains all the classes for sensors.
 */
 
+
+class RobotPart {
+  constructor(robot, side, color, width, height) {
+    this.robot = robot;
+    this.side = side; // Which side of the robot it's being placed
+    this.width = width;
+    this.height = height;
+    let angles = {
+      front: 0,
+      left: -Math.PI / 2,
+      right: Math.PI / 2,
+      back: Math.PI
+    };
+    this.angles = angles;
+    this.color = color || `hsl(${Math.floor(random(0,360))}, 100%, 71%)`;
+    // Beam comes out of distance sensor
+  }
+  render() {
+    if (this.side == "front") {
+      fill(this.color);
+      drawRect(
+        this.robot.body.position.x + this.robot.width/2,
+        this.robot.body.position.y - this.width/2,
+        this.height,
+        this.width,
+        this.robot.rotation,
+        this.robot.body.position.x,
+        this.robot.body.position.y
+      );
+    } else if (this.side == "left") {
+      fill(this.color);
+      drawRect(
+        this.robot.body.position.x-this.width/2,
+        this.robot.body.position.y - this.robot.height/2 - this.height/2,
+        this.width,
+        this.height,
+        this.robot.rotation,
+        this.robot.body.position.x,
+        this.robot.body.position.y
+      );
+    } else if (this.side == "right") {
+      fill(this.color);
+      drawRect(
+        this.robot.body.position.x-this.width/2,
+        this.robot.body.position.y + this.robot.height/2,
+        this.width,
+        this.height,
+        this.robot.rotation,
+        this.robot.body.position.x,
+        this.robot.body.position.y
+      );
+    } else if (this.side == "back") {
+      fill(this.color);
+      drawRect(
+        this.robot.body.position.x - this.robot.width/2 - this.height,
+        this.robot.body.position.y - 5,
+        4,
+        10,
+        this.robot.rotation,
+        this.robot.body.position.x,
+        this.robot.body.position.y
+      );
+    }
+    // Update the distance sensor beam
+    //this.ray.show();
+    this.get();
+  }
+}
+
 class DistanceSensor {
   constructor(robot, side, color = "lightgreen") {
     this.type = "DistanceSensor";

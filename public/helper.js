@@ -53,7 +53,7 @@ function endGame() {
   $(".competition-bar").hide();
   $(".practice-bar").fadeIn();
   robot.reset();
-  collectibles.forEach(o => o.reset());
+  objects.forEach(o => o.reset());
 }
 
 function robotRender(data) {
@@ -170,9 +170,9 @@ $(document).ready(function() {
         // One of the competitors change the collectibles layout and sends it to the other user
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
-          collectibles.forEach(c=>c.color = c.color.toString());
+          objects.forEach(c=>c.color = c.color.toString());
           socket.emit("sendInitCollectiblesData", {
-            collectibles: JSON.decycle(collectibles), // Decycle removes all backreferences to the robot object
+            collectibles: JSON.decycle(objects), // Decycle removes all backreferences to the robot object
             room: room
           });
         } else {
@@ -219,18 +219,18 @@ $(document).ready(function() {
       socket.on("collectiblesData", function(data) {
         /* Update the collectibles and their positions (the cubes and balls) based on the data */
         data = data.collectibles;
-        collectibles.forEach((c, cidx) => {
+        objects.forEach((c, cidx) => {
           Object.keys(data[0]).forEach(k => {
             if (k != "walls") {
-              collectibles[cidx][k] = data[cidx][k];
+              objects[cidx][k] = data[cidx][k];
             }
           });
           c.walls.forEach((wall, i) => {
-            collectibles[cidx].walls[i].a.x = data[c.idx].walls[i].a.x;
-            collectibles[cidx].walls[i].a.y = data[c.idx].walls[i].a.y;
-            collectibles[cidx].walls[i].b.x = data[c.idx].walls[i].b.x;
-            collectibles[cidx].walls[i].b.y = data[c.idx].walls[i].b.y;
-            collectibles[cidx].walls[i].color = data[c.idx].walls[i].color;
+            objects[cidx].walls[i].a.x = data[c.idx].walls[i].a.x;
+            objects[cidx].walls[i].a.y = data[c.idx].walls[i].a.y;
+            objects[cidx].walls[i].b.x = data[c.idx].walls[i].b.x;
+            objects[cidx].walls[i].b.y = data[c.idx].walls[i].b.y;
+            objects[cidx].walls[i].color = data[c.idx].walls[i].color;
           });
         });
       });
@@ -256,7 +256,7 @@ $(document).ready(function() {
 
       socket.on("updateCollectiblePos", function(data) {
         /* Update a collectible's position if it moves */
-        let c = collectibles[data.idx];
+        let c = objects[data.idx];
         c.x = data.x;
         c.y = data.y;
         c.color = data.color;
