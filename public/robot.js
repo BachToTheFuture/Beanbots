@@ -84,7 +84,7 @@ class Robot extends Box {
     this.rotation = this.startR;
     Body.setAngle(this.body, this.rotation);
     Body.setVelocity(this.body, {x:0, y:0});
-    this.robot.vr = 0;
+    this.vr = 0;
     Body.setAngularVelocity(this.body, 0);
   }
   render() {
