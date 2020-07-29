@@ -174,5 +174,13 @@ class Robot extends Box {
   render() {
     this.wheels.render();
     this.draw();
+    
+    // Draw the robot's name
+    textAlign(CENTER);
+    textStyle(BOLD);
+    fill(this.textColor);
+    strokeWeight(0);
+    text(this.name, this.x + this.width / 2, this.y - 20);
+    strokeWeight(2);
   }
 }

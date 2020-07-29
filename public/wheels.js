@@ -52,45 +52,46 @@ class NormalWheels {
     // This function draws four wheels on the robot.
     // All wheels are drawn in relative to the robot's position
     fill(this.color);
+    console.log(this.robot);
     // Draw top-left wheel
     drawRect(
-      this.robot.x + this.robot.width/2 - 15,
-      this.robot.y - this.robot.height/2 - 5,
+      this.robot.body.position.x + this.robot.width/2 - 15,
+      this.robot.body.position.y - this.robot.height/2 - 5,
       10,
       5,
       this.robot.rotation,
-      this.robot.x,
-      this.robot.y
+      this.robot.body.position.x,
+      this.robot.body.position.y
     );
     // Draw top-right wheel
     drawRect(
-      this.robot.x + this.robot.width - 15,
-      this.robot.y + this.robot.height/2,
+      this.robot.body.position.x + this.robot.width/2 - 15,
+      this.robot.body.position.y + this.robot.height/2,
       10,
       5,
       this.robot.rotation,
-      this.robot.x - this.robot.width/2,
-      this.robot.y - this.robot.height/2
+      this.robot.body.position.x,
+      this.robot.body.position.y
     );
     // Draw bottom-left wheel
     drawRect(
-      this.robot.x - this.robot.width/2 + 5,
-      this.robot.y - this.robot.height/2 - 5,
+      this.robot.body.position.x - this.robot.width/2 + 5,
+      this.robot.body.position.y - this.robot.height/2 - 5,
       10,
       5,
       this.robot.rotation,
-      this.robot.x - this.robot.width/2,
-      this.robot.y - this.robot.height/2
+      this.robot.body.position.x,
+      this.robot.body.position.y
     );
     // Draw bottom-right wheel
     drawRect(
-      this.robot.x - this.robot.width/2 + 5,
-      this.robot.y + this.robot.height/2,
+      this.robot.body.position.x - this.robot.width/2 + 5,
+      this.robot.body.position.y + this.robot.height/2,
       10,
       5,
       this.robot.rotation,
-      this.robot.x,
-      this.robot.y
+      this.robot.body.position.x,
+      this.robot.body.position.y
     );
   }
   move(power) {
