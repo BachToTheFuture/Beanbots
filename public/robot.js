@@ -10,14 +10,16 @@ its accessories and components.
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/urR596FsU68
 class Box {
-  constructor(x, y, w, h, color) {
+  constructor(x, y, w, h, color, type) {
     var options = {
       friction: 1,
       frictionAir: 0.6,
       restitution: 0,
       mass: 1,
     }
+    this.type = type;
     this.body = Bodies.rectangle(x, y, w, h, options);
+    this.body.type = type;
     this.width = w;
     this.height = h;
     // Color
@@ -57,7 +59,7 @@ class Box {
 
 class Robot extends Box {
   constructor(name, x, y, color) {
-    super(x, y, 50, 40, color);
+    super(x, y, 50, 40, color, "robot");
     this.name = name;
     this.wheels;
     this.parts = {};
