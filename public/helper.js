@@ -152,24 +152,33 @@ $(document).ready(function() {
           Body.setPosition(robot.body, {x: width-40-robot.width, y: height/2+100});
           Body.setAngle(robot.body, Math.PI);
         } else {
-          Body.setPosition(robot.body, {x: width-40-robot.width, y: height/2+100});
-          Body.setAngle(robot.body, Math.PI);
+          Body.setPosition(robot.body, {x: 40, y: height/2+100});
         }
         // Set a new room!
         room = data.room;
-        
         socket.emit("sendInitRobotData", {
           robot: {
-            x: robot
+            x: robot.body.position.x,
+            y: robot.body.position.y,
+            name: robot.name,
+            color: robot.color.toString()
           },
           room: room
         });
-        // One of the competitors change the collectibles layout and sends it to the other user
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
-          objects.forEach(c=>c.color = c.color.toString());
-          socket.emit("sendInitCollectiblesData", {
-            collectibles: JSON.decycle(objects), // Decycle removes all backreferences to the robot object
+          let newObjects = [];
+          objects.forEach(o=>{
+            newObjects.push({
+              x: o.body.position.x,
+              y: o.body.position.y,
+              width: o.width,
+              height: o.height,
+              color: o.color
+            })
+          });
+          socket.emit("sendInitObjectsData", {
+            collectibles: newObjects, // Decycle removes all backreferences to the robot object
             room: room
           });
         } else {
@@ -213,7 +222,7 @@ $(document).ready(function() {
           }
         }
       });
-      socket.on("collectiblesData", function(data) {
+      socket.on("objectsData", function(data) {
         /* Update the collectibles and their positions (the cubes and balls) based on the data */
         data = data.collectibles;
         objects.forEach((c, cidx) => {

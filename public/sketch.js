@@ -99,7 +99,7 @@ function setup() {
   
   
   // Create boundaries and walls
-  var topWall = Bodies.rectangle(0, 0, width, 10, { isStatic: true});
+  var topWall = Bodies.rectangle(width/2, 20, width, 10, { isStatic: true});
   var leftWall = Bodies.rectangle(50, 210, 20, 300, { isStatic: true});
   var rightWall = Bodies.rectangle(width, 0, 10, height, { isStatic: true});
   var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true});
