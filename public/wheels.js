@@ -52,7 +52,6 @@ class NormalWheels {
     // This function draws four wheels on the robot.
     // All wheels are drawn in relative to the robot's position
     fill(this.color);
-    console.log(this.robot);
     // Draw top-left wheel
     drawRect(
       this.robot.body.position.x + this.robot.width/2 - 15,
@@ -95,11 +94,7 @@ class NormalWheels {
     );
   }
   move(power) {
-    // Move the robot forwards or backwards
-    // Power is -1 to 1
-    this.robot.power = power;
-    this.robot.vy = Math.sin(this.robot.rotation) * power;
-    this.robot.vx = Math.cos(this.robot.rotation) * power;
+    Body.setVelocity(this.robot.body, {x: Math.cos(this.robot.rotation) * power, y: Math.sin(this.robot.rotation) * power } )
   }
   stop() {
     // Stop everything

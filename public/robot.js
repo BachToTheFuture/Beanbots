@@ -144,6 +144,11 @@ class Box {
     this.height = h;
     this.color = color;
     this.rotation = 0;
+    // Original positions
+    this.startX = x;
+    this.startY = y;
+    this.startR = 0;
+    
     World.add(world, this.body);
   }
   
@@ -170,6 +175,25 @@ class Robot extends Box {
     this.code = "";
     // The color of the robot's name
     this.textColor = "black";
+  }
+  run() {
+    let code = this.code;
+    const AsyncFunction = Object.getPrototypeOf(async function() {})
+      .constructor;
+    // Redefine global variables as undefined so users don't access them and mess around with it
+    let fn = new AsyncFunction(
+      "robot",
+      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels, document, eval, window;\n" +
+        code
+    );
+    (() => {
+      fn(this);
+    })();
+  }
+  reset() {
+    this.body.position.x = this.startX;
+    this.body.position.y = this.startY;
+    this.rotation = this.startR;
   }
   render() {
     this.wheels.render();

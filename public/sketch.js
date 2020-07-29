@@ -17,8 +17,8 @@ var userWheels = [];
 
 var Engine = Matter.Engine,
     World = Matter.World,
-    Bodies = Matter.Bodies;
-
+    Bodies = Matter.Bodies,
+    Body = Matter.Body;
 var engine;
 var world;
 var objects = [];
@@ -86,9 +86,15 @@ function setup() {
   robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
   robot.wheels = new NormalWheels(robot);
   
-  objects.push(new Box(225, 20, 55, 100, color(219, 91, 87)));
-  objects.push(new Box(325, 20, 55, 100, color(0, 91, 87)));
+  objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87)));
+  objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
   
+  for (var i = 0; i < 8; i++) {
+    objects.push(new Box(width/2-114, robot.body.position.y+i*25, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+  }
+  for (var i = 0; i < 8; i++) {
+    objects.push(new Box(width/2+114, robot.body.position.y+i*25, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+  }
   // Create the 
 }
 
