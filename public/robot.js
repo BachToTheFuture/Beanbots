@@ -136,7 +136,7 @@ class Robot {
 class Box {
   constructor(x, y, w, h, color) {
     var options = {
-      friction: 0.3,
+      friction: 1,
       restitution: 0.6,
       mass: 1
     }
@@ -145,6 +145,7 @@ class Box {
     this.height = h;
     this.color = color;
     this.rotation = 0;
+    this.vr = 0; // Rotation speed
     // Original positions
     this.startX = x;
     this.startY = y;
@@ -207,14 +208,13 @@ class Robot extends Box {
   render() {
     this.wheels.render();
     this.draw();
-    
-    if (this.wheels.type == "NormalWheels") {
-      Body.setVelocity(this.body, {
-        x: Math.cos(this.rotation) * this.body.speed,
-        y: Math.sin(this.rotation) * this.body.speed
-      });
-      Body.setAngularVelocity(this.body, 0);
-    }
+    /*
+    Body.setVelocity(this.body, {
+      x: Math.cos(this.rotation) * this.body.speed,
+      y: Math.sin(this.rotation) * this.body.speed
+    });
+    */
+    Body.setAngularVelocity(this.body, this.vr);
     
     // Draw the robot's name
     textAlign(CENTER);

@@ -97,6 +97,15 @@ function setup() {
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
   
+  
+  // Create boundaries and walls
+  var topWall = Bodies.rectangle(0, 0, width, 10, { isStatic: true});
+  var leftWall = Bodies.rectangle(50, 210, 20, 300, { isStatic: true});
+  var rightWall = Bodies.rectangle(width, 0, 10, height, { isStatic: true});
+  var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true});
+  World.add(world, [topWall, leftWall, rightWall, bottomWall]);
+  
+  // Add foundation?
   objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87)));
   objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
   

@@ -102,6 +102,7 @@ class NormalWheels {
       x: 0,
       y: 0
     });
+    this.robot.vr = 0;
   }
   rotate(power) {
     this.robot.vr = power / 10;
