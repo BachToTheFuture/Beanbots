@@ -164,15 +164,15 @@ function setup() {
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
         if (pair.bodyA.role === "line" && pair.bodyB.role === "stone") {
-          if (pair.bodyA.to == "blue") this.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
-          else this.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
-          console.log("Blue vs red:",this.bluePoints, this.redPoints);
+          if (pair.bodyA.to == "blue") challenge.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
+          else challenge.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
+          console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
           pair.bodyB.pointMultiplier--;
         }
         else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone") {
-          if (pair.bodyB.to == "blue") this.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
-          else this.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
-          console.log("Blue vs red:",this.bluePoints, this.redPoints);
+          if (pair.bodyB.to == "blue") challenge.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
+          else challenge.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
+          console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
           pair.bodyA.pointMultiplier--;
         }
     }

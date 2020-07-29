@@ -78,12 +78,18 @@ class MecanumWheels extends NormalWheels {
   constructor(robot, color="black") {
     super(robot, color);
     this.type = "MecanumWheels";
+    this.powerX = 0;
+    this.powerY = 0;
   }
   move(powerX, powerY) {
-    Body.setVelocity(this.robot.body, {
-      x: powerX,
-      y: powerY || 0
-    });
+    this.powerX = powerX;
+    this.powerY = powerY || 0;
   }
-  update() {}
+  stop() {
+    this.powerX = 0;
+    this.powerY = 0;
+  }
+  update() {
+    Body.applyForce(this.robot.body, this.robot.body.position, {x: this.powerX, y: this.powerY})
+  }
 }
