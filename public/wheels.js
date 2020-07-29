@@ -55,42 +55,42 @@ class NormalWheels {
     // Draw top-left wheel
     drawRect(
       this.robot.x + this.robot.width/2 - 15,
-      this.robot.y - 5,
+      this.robot.y - this.robot.height/2 - 5,
       10,
       5,
       this.robot.rotation,
-      this.robot.originX,
-      this.robot.originY
+      this.robot.x,
+      this.robot.y
     );
     // Draw top-right wheel
     drawRect(
       this.robot.x + this.robot.width - 15,
-      this.robot.y + this.robot.height,
+      this.robot.y + this.robot.height/2,
       10,
       5,
       this.robot.rotation,
-      this.robot.originX,
-      this.robot.originY
+      this.robot.x - this.robot.width/2,
+      this.robot.y - this.robot.height/2
     );
     // Draw bottom-left wheel
     drawRect(
-      this.robot.x + 5,
-      this.robot.y - 5,
+      this.robot.x - this.robot.width/2 + 5,
+      this.robot.y - this.robot.height/2 - 5,
       10,
       5,
       this.robot.rotation,
-      this.robot.originX,
-      this.robot.originY
+      this.robot.x - this.robot.width/2,
+      this.robot.y - this.robot.height/2
     );
     // Draw bottom-right wheel
     drawRect(
-      this.robot.x + 5,
-      this.robot.y + this.robot.height,
+      this.robot.x - this.robot.width/2 + 5,
+      this.robot.y + this.robot.height/2,
       10,
       5,
       this.robot.rotation,
-      this.robot.originX,
-      this.robot.originY
+      this.robot.x,
+      this.robot.y
     );
   }
   move(power) {

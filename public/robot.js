@@ -143,15 +143,16 @@ class Box {
     this.width = w;
     this.height = h;
     this.color = color;
+    this.rotation = 0;
     World.add(world, this.body);
   }
   
-  render() {
+  draw() {
     var pos = this.body.position;
-    var angle = this.body.angle;
+    this.rotation = this.body.angle;
     push();
     translate(pos.x, pos.y);
-    rotate(angle);
+    rotate(this.rotation);
     rectMode(CENTER);
     fill(this.color);
     rect(0, 0, this.width, this.height);
@@ -169,5 +170,9 @@ class Robot extends Box {
     this.code = "";
     // The color of the robot's name
     this.textColor = "white";
+  }
+  render() {
+    this.wheels.render();
+    this.draw();
   }
 }

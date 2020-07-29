@@ -20,9 +20,9 @@ function drawRect(x, y, width, height, rotation, originX, originY) {
   push();
   if (originX && originY) {
     // Rotate the object around the robot's origin
-    translate(x, y);
+    translate(originX, originY);
     rotate(rotation);
-    rect(x, y, width, height);
+    rect(x - originX, y - originY, width, height);
     pop();
   } else {
     // Assume we're rotating the object around its own center
