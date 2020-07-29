@@ -10,6 +10,7 @@ class DistanceSensor {
     this.robot = robot;
     this.side = side; // Which side of the robot it's being placed
     this.distance = 0;
+    this.range = 600;
     let angles = {
       front: 0,
       left: -Math.PI / 2,
@@ -17,15 +18,10 @@ class DistanceSensor {
       back: Math.PI
     };
     this.angles = angles;
-    this.ray = new Ray(
-      createVector(this.robot.originX, this.robot.originY),
-      angles[side]
-    );
-    this.pos = createVector(this.robot.originX, this.robot.originY);
     this.color = color;
+    // Beam comes out of distance sensor
   }
   render() {
-    this.pos.set(this.robot.originX, this.robot.originY);
     if (this.side == "front") {
       fill(this.color);
       drawRect(
@@ -37,6 +33,8 @@ class DistanceSensor {
         this.robot.body.position.x,
         this.robot.body.position.y
       );
+      this.sensorX = this.robot.body.position.x + this.robot.width/2;
+      this.sensorY = this.robot.body.position.y;
     } else if (this.side == "left") {
       fill(this.color);
       drawRect(
@@ -48,6 +46,8 @@ class DistanceSensor {
         this.robot.body.position.x,
         this.robot.body.position.y
       );
+      this.sensorX = this.robot.body.position.x,
+      this.sensorY = this.robot.body.position.y - this.robot.height/2 - 2,
     } else if (this.side == "right") {
       fill(this.color);
       drawRect(
@@ -77,15 +77,16 @@ class DistanceSensor {
   }
   get() {
     let bodies = [];
+    // Maybe optimize this a little?
     objects.forEach(o=>bodies.push(o.body));
     let start = this.robot.body.position;
-    let end   = Matter.Vector.create(this.robot.body.position.x+width*Math.cos(this.robot.rotation+this.angles[this.side]),
-                              this.robot.body.position.y+width*Math.sin(this.robot.rotation+this.angles[this.side]));
+    let end   = Matter.Vector.create(this.sensorX+this.range*Math.cos(this.robot.rotation+this.angles[this.side]),
+                              this.sensorY+this.range*Math.sin(this.robot.rotation+this.angles[this.side]));
     let test = raycast(bodies, start, end);
     if (test.length > 0) {
       test = test[0];
       this.distance = dist(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
-      line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
+      line(test.point.x, test.point.y, this.sensorX, this.sensorY);
     }
   }
 
