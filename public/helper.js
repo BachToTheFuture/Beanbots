@@ -213,6 +213,7 @@ $(document).ready(function() {
           }
         };
         // Update field
+        console.log(data.objects);
         if (data.objects) {
           data.objects.forEach((o,i)=>{
             objects[i].width = o.width;

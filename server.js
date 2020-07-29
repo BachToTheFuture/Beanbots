@@ -26,18 +26,19 @@ io.sockets.on('connection',
     console.log("We have a new client: " + socket.id);
     //console.log(clients[socket.id]);
     if (queue.length < 1) {
-      queue.push(socket.id);
+      queue.push({id: socket.id, team: Math.random() > 0.5 ? "red" : "blue"});
       // The user ID is the room's name
       socket.join(socket.id);
     }
     else {
       // join room with this person.
       // Make sure no one gets put in a room with themselves!
-      if (queue[0] != socket.id) {
+      if (queue[0].id != socket.id) {
         console.log("QUEUE", queue, socket.id);
-        let roomname = queue.shift();
+        let r = queue.shift();
+        let roomname = r.id;
+        let side = r.team;
         socket.join(roomname);
-        let side = Math.random() > 0.5 ? "red" : "blue";
         io.to(roomname).emit('matchAccepted', {ready: true, side: side, room: roomname});
         io.to(socket.id).emit('matchAccepted', {ready: true, side: side == "red" ? "blue" : "red", room: roomname});
         var room = io.sockets.adapter.rooms[roomname];
