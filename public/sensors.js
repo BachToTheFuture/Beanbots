@@ -25,7 +25,7 @@ class DistanceSensor {
     if (this.side == "front") {
       fill(this.color);
       drawRect(
-        this.robot.body.position.x + this.robot.width/2-5,
+        this.robot.body.position.x + this.robot.width/2,
         this.robot.body.position.y - 5,
         4,
         10,
@@ -122,8 +122,13 @@ class ColorSensor extends DistanceSensor {
       test = test[0];
       this.distance = dist(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
       if (this.distance < 60) {
+        console.log(test.body);
+        // Getting the wrong color!
+        this.color = test.body.render.fillStyle;
+        push();
         stroke(this.color);
         line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
+        pop();
       }
     }
   }
