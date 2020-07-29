@@ -28,76 +28,57 @@ class DistanceSensor {
     if (this.side == "front") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width,
-        this.robot.y + this.robot.height / 2 - 5,
+        this.robot.body.position.x + this.robot.width/2,
+        this.robot.body.position.y - 5,
         4,
         10,
         this.robot.rotation,
-        this.robot.originX,
-        this.robot.originY
+        this.robot.body.position.x,
+        this.robot.body.position.y
       );
     } else if (this.side == "left") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width / 2 - 5,
-        this.robot.y - 4,
+        this.robot.body.position.x,
+        this.robot.body.position.y - this.robot.height/2 - 2,
         10,
         4,
         this.robot.rotation,
-        this.robot.originX,
-        this.robot.originY
+        this.robot.body.position.x,
+        this.robot.body.position.y
       );
     } else if (this.side == "right") {
       fill(this.color);
       drawRect(
-        this.robot.x + this.robot.width / 2 - 5,
-        this.robot.y + this.robot.height,
+        this.robot.body.position.x,
+        this.robot.body.position.y + this.robot.height/2+2,
         10,
         4,
         this.robot.rotation,
-        this.robot.originX,
-        this.robot.originY
+        this.robot.body.position.x,
+        this.robot.body.position.y
       );
     } else if (this.side == "back") {
       fill(this.color);
       drawRect(
-        this.robot.x - 4,
-        this.robot.y + this.robot.height / 2 - 5,
+        this.robot.body.position.x - this.robot.width/2 - 2,
+        this.robot.body.position.y,
         4,
         10,
         this.robot.rotation,
-        this.robot.originX,
-        this.robot.originY
+        this.robot.body.position.x,
+        this.robot.body.position.y
       );
     }
     // Update the distance sensor beam
-    this.ray.show();
+    //this.ray.show();
     this.get();
   }
   get() {
-    // This is some complicated ray tracing from Daniel Shiffman
-    // https://thecodingtrain.com/CodingChallenges/145-2d-ray-casting.html
-    // https://youtu.be/TOEi6T2mtHo
-    const ray = this.ray;
-    let closest = null;
-    let record = Infinity;
-    // Check ray casting with collectibles
-    for (let c of collectibles) {
-      c.walls.forEach(w => {
-        const pt = ray.cast(w);
-        if (pt) {
-          const d = p5.Vector.dist(this.pos, pt);
-          if (d < record) {
-            record = d;
-            closest = pt;
-          }
-        }
-      });
-    }
-    if (closest) {
-      this.distance = dist(this.pos.x, this.pos.y, closest.x, closest.y);
-      line(this.pos.x, this.pos.y, closest.x, closest.y);
-    }
+    let bodies = [];
+    let start = this.robot.body.position;
+    let end   = this.robot.body.position;
+    raycast(bodies, start, end);
   }
 
   until(condition, callback) {
