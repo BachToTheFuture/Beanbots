@@ -19,6 +19,7 @@ var Engine = Matter.Engine,
     World = Matter.World,
     Bodies = Matter.Bodies,
     Body = Matter.Body;
+
 var engine;
 var world;
 var objects = [];
@@ -81,6 +82,27 @@ class Challenge {
     stroke(219, 91, 87);
     square(width-75, height-75, 80);
     pop();
+  }
+  endGame() {
+    /*
+    Function used for cleaning up and resetting values after a game ends.
+    */
+    robot.textColor = "white";
+    socket = null;
+    opponent = null;
+    room = null;
+    team = null;
+
+    bluePoints = 0;
+    redPoints = 0;
+
+    $(".runRobot").fadeIn();
+    $("#join-match").text("Play a match!");
+    $("#join-match").fadeIn();
+    $(".competition-bar").hide();
+    $(".practice-bar").fadeIn();
+    robot.reset();
+    objects.forEach(o => o.reset());
   }
 }
 

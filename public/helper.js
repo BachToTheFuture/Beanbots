@@ -54,28 +54,6 @@ function drawRect(x, y, width, height, rotation, originX, originY) {
   }
 }
 
-function endGame() {
-  /*
-  Function used for cleaning up and resetting values after a game ends.
-  */
-  robot.textColor = "white";
-  socket = null;
-  opponent = null;
-  room = null;
-  team = null;
-  
-  bluePoints = 0;
-  redPoints = 0;
-  
-  $(".runRobot").fadeIn();
-  $("#join-match").text("Play a match!");
-  $("#join-match").fadeIn();
-  $(".competition-bar").hide();
-  $(".practice-bar").fadeIn();
-  robot.reset();
-  objects.forEach(o => o.reset());
-}
-
 function robotRender(data) {
   /*
   A function that handles the tricky bits in reconstructing the robot from a JSON file
@@ -191,13 +169,6 @@ $(document).ready(function() {
         });
         
         // Move the robots to their respective starting positions based on teams.
-        if (data.side == "red") {
-          Body.setPosition(robot.body, {x: width-40, y: height/2+100});
-          robot.rotation = Math.PI;
-          Body.setAngle(robot.body, Math.PI);
-        } else {
-          Body.setPosition(robot.body, {x: 40, y: height/2+100});
-        }
         
         // Change the robot's name color to indicate which one is you!
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
@@ -232,7 +203,7 @@ $(document).ready(function() {
                 // End game here
                 // Check for winners
                 notification("Good game!");
-                endGame();
+                challenge.endGame();
               }
             }
           }
@@ -277,10 +248,20 @@ $(document).ready(function() {
           if (team == "blue") {
             Body.setPosition(opponent.body, {x: width-40, y: height/2+100});
             opponent.rotation = Math.PI;
+
+            Body.setPosition(robot.body, {x: 40, y: height/2+100});
+            robot.rotation = 0;
+            Body.setAngle(robot.body, 0);
             document.querySelector(".red-team").textContent = opponent.name;
           }
           else {
             Body.setPosition(opponent.body, {x: 40, y: height/2+100});
+            opponent.rotation = 0;
+            Body.setAngle(opponent.body, 0);
+            
+            Body.setPosition(robot.body, {x: width-40, y: height/2+100});
+            robot.rotation = Math.PI;
+            Body.setAngle(robot.body, Math.PI);
             document.querySelector(".blue-team").textContent = opponent.name;
           }
         };
