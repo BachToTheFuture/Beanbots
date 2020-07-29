@@ -12,6 +12,26 @@ var room;
 var collectibles = [];
 var team;
 
+function createRobotFromJSON(op){
+  // Create a new robot out of this data
+  let r = new Robot(op.name, 40, height/2+100, op.color);
+  // Get the code
+  r.code = op.code;
+  // reconstruct wheels
+  switch (op.wheels.type) {
+    case "NormalWheels" : r.wheels = new NormalWheels(r, op.wheels.color);
+    case "MecanumWheels": r.wheels = new MecanumWheels(r, op.wheels.color);
+  }
+  Object.keys(op.parts).forEach(part => {
+    let val = op.parts[part];
+    switch (val.type) {
+      case "ColorSensor"   : r.parts[part] = new NormalWheels(r, val.side, val.color);
+      case "DistanceSensor": r.parts[part] = new MecanumWheels(r, val.side, val.color);
+    }
+  });
+  return r;
+}     
+
 function drawRect(x, y, width, height, rotation, originX, originY) {
   /*
   Function used to draw the robot's parts.
@@ -108,7 +128,7 @@ $(document).ready(function() {
       robot.run();
       
       /* Save the robot's name, color, and code to the storage */
-      window.localStorage.setItem('robo_data', JSON.stringify({name: robot.name, color: robot.color.toString(), code: robot.code}));
+      window.localStorage.setItem('robo_data', JSON.stringify(JSON.decycle(robot)));
       
     } else {
       target.removeClass("btn-danger");

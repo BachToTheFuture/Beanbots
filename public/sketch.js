@@ -43,10 +43,10 @@ class Challenge {
     objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87)));
 
     for (var i = 0; i < 8; i++) {
-      objects.push(new Box(width/2-114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+      objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
     }
     for (var i = 0; i < 8; i++) {
-      objects.push(new Box(width/2+114, robot.body.position.y+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
+      objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black"));
     }
   }
   renderField() {
@@ -100,19 +100,19 @@ function setup() {
   engine.world.gravity.y = 0;
   world = engine.world;
   
-  // Create robot
-  robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-  robot.wheels = new NormalWheels(robot);
   
   challenge = new Challenge("skystones");
   challenge.setupField();
   
-  if (localStorage.getItem("robo_data") !== null) {
+  if (window.localStorage.getItem("robo_data") !== null) {
+    console.log(window.localStorage.getItem("robo_data"));
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
-    robot.name = robodata.name;
-    robot.color = robodata.color;
-    robot.code = robodata.code;
-    editor.setValue(robot.code);
+    robot = createRobotFromJSON(robodata);
+  }
+  else {
+    // Create robot
+    robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+    robot.wheels = new NormalWheels(robot);
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
