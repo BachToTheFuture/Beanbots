@@ -96,7 +96,14 @@ class Robot extends Box {
         x: Math.cos(this.rotation) * this.body.speed,
         y: Math.sin(this.rotation) * this.body.speed
       });
-    
+    /*
+    Take a look at this
+    else if (this.wheels.type == "MecanumWheels")
+      Body.setVelocity(this.body, {
+        x: this.body.speed,
+        y: this.body.speed
+      });
+      */
     Body.setAngularVelocity(this.body, this.vr);
     
     // Draw the robot's name

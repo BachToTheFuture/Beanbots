@@ -156,18 +156,9 @@ $(document).ready(function() {
         }
         // Set a new room!
         room = data.room;
-        socket.emit("sendInitRobotData", {
-          robot: {
-            x: robot.body.position.x,
-            y: robot.body.position.y,
-            name: robot.name,
-            color: robot.color.toString()
-          },
-          room: room
-        });
+        let newObjects = [];
         if (data.side == "red") {
           document.querySelector(".red-team").textContent = robot.name;
-          let newObjects = [];
           objects.forEach(o=>{
             newObjects.push({
               x: o.body.position.x,
@@ -177,13 +168,20 @@ $(document).ready(function() {
               color: o.color
             })
           });
-          socket.emit("sendInitObjectsData", {
-            collectibles: newObjects, // Decycle removes all backreferences to the robot object
-            room: room
-          });
         } else {
           document.querySelector(".blue-team").textContent = robot.name;
         }
+        socket.emit("sendInitData", {
+          robot: {
+            x: robot.body.position.x,
+            y: robot.body.position.y,
+            name: robot.name,
+            color: robot.color.toString()
+          },
+          objects: newObjects,
+          room: room
+        });
+        
         // Change the robot's name color to indicate which one is you!
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
@@ -254,7 +252,11 @@ $(document).ready(function() {
 
       socket.on("opponentData", function(data) {
         /* Get the initial opponent's data () */
-        if (!opponent) opponent = data.robot;
+        if (!opponent) {
+          // Create a new robot out of this data
+          opponent = new Robot(data.name, data.x, data.y, data.color);
+          console.log(opponent);
+        }
         if (team == "red")
           document.querySelector(".blue-team").textContent = opponent.name;
         else document.querySelector(".red-team").textContent = opponent.name;

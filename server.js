@@ -46,7 +46,7 @@ io.sockets.on('connection',
     }
     // When this user emits, client side: socket.emit('otherevent',some data);
     // Players send their robot objects to the server and the server runs the game
-    socket.on('sendInitRobotData', function(data) {
+    socket.on('sendInitData', function(data) {
       // Send robot data over to the other player
       socket.to(data.room).emit("opponentData", data);
     });
@@ -56,13 +56,9 @@ io.sockets.on('connection',
       socket.to(data.room).emit("opponentPos", data);
     });
   
-    socket.on('sendCollectiblePos', function(data) {
+    socket.on('sendObjectPos', function(data) {
       // Send robot data over to the other player
-      socket.to(data.room).emit("updateCollectiblePos", data);
-    });
-  socket.on('sendInitCollectiblesData', function(data) {
-      // Send robot data over to the other player
-      socket.to(data.room).emit("collectiblesData", data);
+      socket.to(data.room).emit("updateObjectPos", data);
     });
   
     socket.on('disconnect', function() {

@@ -128,10 +128,10 @@ function draw() {
   robot.render();
   
   if (opponent && room) {
-    robotRender(opponent);
+    opponent.render();
     // Make sure to only send it every 4 frames and when the robot is moving?
     if (socket && frameCount % 2) {
-      socket.emit("sendRobotPos", {x: robot.x, y:robot.y, originX: robot.originX, originY: robot.originY, rotation:robot.rotation, room: room});
+      socket.emit("sendRobotVel", {vx: robot.body.velocity.x, vy:robot.body.velocity.y, vr:robot.body.angularVelocity, room: room});
     }
   }
 }
