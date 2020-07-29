@@ -149,7 +149,7 @@ $(document).ready(function() {
         
         // Move the robots to their respective starting positions based on teams.
         if (data.side == "red") {
-          Body.setPosition(robot.body, {x: width-40-robot.width, y: height/2+100});
+          Body.setPosition(robot.body, {x: width-40, y: height/2+100});
           Body.setAngle(robot.body, Math.PI);
         } else {
           Body.setPosition(robot.body, {x: 40, y: height/2+100});
@@ -165,19 +165,14 @@ $(document).ready(function() {
               y: o.body.position.y,
               width: o.width,
               height: o.height,
-              color: o.color
+              color: o.color.toString()
             })
           });
         } else {
           document.querySelector(".blue-team").textContent = robot.name;
         }
         socket.emit("sendInitData", {
-          robot: {
-            x: robot.body.position.x,
-            y: robot.body.position.y,
-            name: robot.name,
-            color: robot.color.toString()
-          },
+          robot: JSON.decycle(robot),
           objects: newObjects,
           room: room
         });
@@ -254,12 +249,30 @@ $(document).ready(function() {
         /* Get the initial opponent's data () */
         if (!opponent) {
           // Create a new robot out of this data
-          opponent = new Robot(data.name, data.x, data.y, data.color);
-          console.log(opponent);
-        }
-        if (team == "red")
-          document.querySelector(".blue-team").textContent = opponent.name;
-        else document.querySelector(".red-team").textContent = opponent.name;
+          console.log("DATA",data)
+          let op = data.robot;
+          if (data.side == "red") {
+            opponent = new Robot(op.name, width-40, height/2+100, op.color);
+            Body.setangle(opponent.body, Math.PI);
+            document.querySelector(".red-team").textContent = opponent.name;
+          }
+          else {
+            opponent = new Robot(op.name, 40, height/2+100, op.color);
+            document.querySelector(".blue-team").textContent = opponent.name;
+          }
+          // reconstruct wheels
+          switch (op.wheels.type) {
+            case "NormalWheels" : opponent.wheels = new NormalWheels(opponent, op.wheels.color);
+            case "MecanumWheels": opponent.wheels = new MecanumWheels(opponent, op.wheels.color);
+          }
+          Object.keys(op.parts).forEach(part => {
+            let val = op.parts[part];
+            switch (val.type) {
+              case "ColorSensor"   : opponent.parts[part] = new NormalWheels(opponent, val.side, val.color);
+              case "DistanceSensor": opponent.parts[part] = new MecanumWheels(opponent, val.side, val.color);
+            }
+          });
+        }        
       });
 
       socket.on("updateCollectiblePos", function(data) {

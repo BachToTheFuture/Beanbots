@@ -117,6 +117,11 @@ It's very similar to the distance sensor, but it gets the obstacle's color prope
 only when the sensor is few pixels (maybe like 50px) away from the obstacle.
 */
 class ColorSensor extends DistanceSensor {
+  constructor(robot, side, color = "gray") {
+    super(robot,side,color);
+    this.type = "ColorSensor";
+    this.range = 60;
+  }
   update() {
     let bodies = [];
     // Maybe optimize this a little?
@@ -128,15 +133,12 @@ class ColorSensor extends DistanceSensor {
     if (test.length > 0) {
       test = test[0];
       this.distance = dist(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
-      if (this.distance < 60) {
-        // Getting the wrong color!
-        this.color = test.body.color;
-        push();
-        stroke(this.color);
-        fill(this.color);
-        line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
-        pop();
-      }
+      this.color = test.body.color;
+      push();
+      stroke(this.color);
+      fill(this.color);
+      line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
+      pop();
     }
   }
   until(condition, callback) {
