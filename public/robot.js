@@ -160,7 +160,7 @@ class Box {
 }
 
 class Robot extends Box {
-  constructor(x, y, color) {
+  constructor(name, x, y, color) {
     super(x, y, 50, 40, color);
     this.name = name;
     this.wheels;
