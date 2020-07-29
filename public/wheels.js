@@ -54,7 +54,7 @@ class NormalWheels {
     fill(this.color);
     // Draw top-left wheel
     drawRect(
-      this.robot.x + this.robot.width - 15,
+      this.robot.x + this.robot.width/2 - 15,
       this.robot.y - 5,
       10,
       5,
