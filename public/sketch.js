@@ -16,16 +16,14 @@ var userSensors = [];
 var userWheels = [];
 
 var Engine = Matter.Engine,
-  // Render = Matter.Render,
-  World = Matter.World,
-  Bodies = Matter.Bodies;
+    World = Matter.World,
+    Bodies = Matter.Bodies;
 
 var engine;
 var world;
-var boxes = [];
+var objects = [];
 
 function setup() {
-  collideDebug(true);
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
   canvas.parent("canvas");
@@ -66,7 +64,7 @@ function setup() {
   
   // Plz restrict to bounds
   // Top wall
- 
+  /*
   collectibles.push(new Collectible(225, 20, 55, 100,"rect", 0, color(219, 91, 87), 200,"bluefoundation"));
   collectibles.push(new Collectible(325, 20, 55, 100,"rect", 1, color(0, 91, 87), 200,"redfoundation"));
   
@@ -76,12 +74,12 @@ function setup() {
   for (var i = 11; i < 21; i++) {
     collectibles.push(new Collectible(width/2+100, robot.y+(i-11)*25, 14, 25,"rect", 4, Math.random() > 0.3 ? "yellow" : "black", 10,"block", 0.995));
   }
+  */
 }
 
 function draw() {
   background(0, 0, 94);
   drawField();
-  //obstacles.forEach(obstacle => obstacle.render());
   collectibles.forEach(c => c.render());
   robot.render();
   if (opponent && room) {

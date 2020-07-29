@@ -5,6 +5,7 @@ The main class that contains the robot body and
 its accessories and components.
 */
 
+/*
 class Robot {
   constructor(name, x, y, color) {
     this.name = name;
@@ -110,7 +111,7 @@ class Robot {
          this.y = height - this.height;
      }
   }
-  /*
+  
   checkCollision() {
     if (collideLineRect(
         0, height, width, height
@@ -122,39 +123,52 @@ class Robot {
       
     }
   }
-  */
   wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
-
+*/
 
 // Daniel Shiffman
 // http://codingtra.in
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/urR596FsU68
-function Box(x, y, w, h) {
-  var options = {
-    friction: 0.3,
-    restitution: 0.6
+class Box {
+  constructor(x, y, w, h, color) {
+    var options = {
+      friction: 0.3,
+      restitution: 0.6
+    }
+    this.body = Bodies.rectangle(x, y, w, h, options);
+    this.width = w;
+    this.height = h;
+    this.color = color;
+    World.add(world, this.body);
   }
-  this.body = Bodies.rectangle(x, y, w, h, options);
-  this.w = w;
-  this.h = h;
-  World.add(world, this.body);
-
-  this.show = function() {
+  
+  render() {
     var pos = this.body.position;
     var angle = this.body.angle;
     push();
     translate(pos.x, pos.y);
     rotate(angle);
     rectMode(CENTER);
-    strokeWeight(1);
-    stroke(255);
-    fill(127);
-    rect(0, 0, this.w, this.h);
+    fill(this.color);
+    rect(0, 0, this.width, this.height);
     pop();
   }
 }
 
+class Robot extends Box {
+  constructor(x, y, color) {
+    super(x, y, 50, 40, color);
+    this.name = name;
+    this.wheels;
+    this.parts = {};
+    // The preprogrammed instructions
+    this.code = "";
+    // Color
+    this.color = color;
+    this.textColor = "white";
+  }
+}
