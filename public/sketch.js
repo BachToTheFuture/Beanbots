@@ -42,8 +42,8 @@ class Challenge {
     rect(400, 300, 200, 10);
 
     // big bridge
-    fill(0, 0, 25);
-    rect(200, height/2-50, 200, 100);
+    fill(0, 0, 70);
+    rect(200, height/2-45, 200, 100);
 
     //how to get the yellow line to show above black 
     fill(65, 85, 100);

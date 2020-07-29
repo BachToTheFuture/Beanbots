@@ -324,7 +324,7 @@ function giveUserRandomItems() {
   userSensors.forEach(s => {
     $("#user-sensors").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
+  <a id="${s}" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Name" placeholder="Variable name">
@@ -343,7 +343,7 @@ function giveUserRandomItems() {
   userWheels.forEach(s => {
     $("#user-wheels").append(`
 <div class="input-group">
-  <a id="${s}" href="#" class="equipToggle input-group-prepend equip">
+  <a id="${s}" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
   <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
