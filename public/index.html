@@ -26,7 +26,9 @@
           <h3>BeanBots 🤖</h3>
         </div>
         <div class="col pt-1">
-          
+          <p>
+            Bringing the challenges of Robotics <i>online</i>
+          </p>
         </div>
       </div>
     </header>
@@ -160,18 +162,15 @@ await robot.wait(2000);
       </code></pre>
     </div>
     <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
-      <h3>Documentation</h3>
       <p>
-        <b>robot.wheels</b>
+        <h3>robot.wheels</h3>
         <p>
-          Reference to the robot's wheels. Robot's movements
+          Reference to the robot's wheels. Robot's movements are controlled by this element.
+          <br> Possible types of wheels include <i>NormalWheels</i> and <i>MecanumWheels</i>
       </p>
-        <pre><code class="javascript">
-robot.parts.distanceSensor.color = "gray";
-robot.wheels.move(0.5);
-await robot.parts.colorSensor.until(color => color != "gray");
-      </code></pre>
-        
+      <h4>robot.wheels (NormalWheels)</h4>
+        <b>robot.wheels.move(<i>velocity</i>)</b>
+        <p>Makes the robot move forward with given velocity</p>
       </p>
     </div>
 </div>
