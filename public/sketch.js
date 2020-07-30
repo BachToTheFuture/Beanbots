@@ -96,8 +96,13 @@ class Challenge {
     fill("black");
     textSize(15);
     textAlign(CENTER);
-    text("Push the block across the lines to gain points.", width/2,height/2-100);
-    text("", width/2,height/2-80);
+    text("Push the block across the lines to gain points.", width/2,height/2-200);
+    fill(219, 91, 87);
+    text("Block pushed across the blue line gains points for the blue team.", width/2,height/2-180);
+    fill(0,91, 87);
+    text("Block pushed across the red line gains points for the red team.", width/2,height/2-160);
+    fill("black");
+    text("Yellow blocks are 10 points each, and black ones are 20 points.", width/2,height/2-140);
     pop();
     /*
     push();
