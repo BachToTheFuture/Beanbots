@@ -108,6 +108,9 @@ $(document).ready(function() {
       $(e.target).prop("disabled", true);
       $(e.target).html("Waiting for an opponent...");
       
+      // Reset scores
+      challenge.resetPoints();
+      
       // If the match request is accepted
       socket.on("matchAccepted", function(data) {
         
@@ -153,8 +156,7 @@ $(document).ready(function() {
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
         team = data.side;
-        // Reset scores
-        challenge.resetPoints();
+
         // Create a 5 second timer to count down
         timer = new CountDownTimer(5);
         let display = document.querySelector("#countdown-timer");
@@ -182,7 +184,14 @@ $(document).ready(function() {
               if (seconds == 0) {
                 // End game here
                 // Check for winners
-                notification("Good game!");
+                if (team == "red") {
+                  if (challenge.redPoints > challenge.bluePoints) notification("You won!");
+                  else notification("Good game!");
+                }
+                else if (team == "blue") {
+                  if (challenge.bluePoints > challenge.redPoints) notification("You won!");
+                  else notification("Good game!");
+                }
                 challenge.endGame();
               }
             }
