@@ -83,6 +83,9 @@ $(document).ready(function() {
       /* Save the robot's name, color, and code to the storage */
       window.localStorage.clear();
       window.localStorage.setItem('robo_data', JSON.stringify(JSON.decycle(robot)));
+      var xml = Blockly.Xml.workspaceToDom(workspace);
+      var xml_text = Blockly.Xml.domToText(xml);
+      window.localStorage.setItem('robo_code', xml_text);
       
     } else {
       target.removeClass("btn-danger");
@@ -103,7 +106,7 @@ $(document).ready(function() {
       $(".runRobot").hide();
       // Create new socket connection
       socket = io({ transports: ["websocket"], upgrade: false }).connect(
-        "https://cool-bean-bots.glitch.me"
+        "https://beanbots-jr.glitch.me"
       );
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);

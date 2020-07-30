@@ -152,6 +152,8 @@ function setup() {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
     console.log(robot);
+    var xml = Blockly.Xml.textToDom(window.localStorage.getItem("robo_code"));
+    Blockly.Xml.domToWorkspace(xml, workspace);
     //editor.setValue(robot.code);
   }
   else {

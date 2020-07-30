@@ -1,4 +1,4 @@
-# CoolBeanBots
+# BeanBots.jr
 
-A cool way to learn coding :)
+codE for everyone :)
 
