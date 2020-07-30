@@ -88,8 +88,18 @@ class MecanumWheels extends NormalWheels {
   stop() {
     this.powerX = 0;
     this.powerY = 0;
+    this.robot.vr = 0;
   }
   update() {
-    Body.applyForce(this.robot.body, this.robot.body.position, {x: this.powerX, y: this.powerY})
+    if (this.rotation > Math.PI/2 && this.rotation < Math.PI/2 * 3)
+      Body.setVelocity(this.robot.body, {
+        x: -this.powerX,
+        y: this.powerY
+      });
+    else
+      Body.setVelocity(this.robot.body, {
+        x: this.powerX,
+        y: this.powerY
+      });
   }
 }
