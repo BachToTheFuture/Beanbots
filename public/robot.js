@@ -81,7 +81,6 @@ class Robot extends Box {
     // Debug purposes
   }
   run() {
-    
     let code = "(async " + this.code + ")()";
     console.log(code);
     (() => {
