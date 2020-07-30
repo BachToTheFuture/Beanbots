@@ -252,10 +252,8 @@ $(document).ready(function() {
       target.removeClass("equip");
       target.addClass("equipped");
       let item = target.attr("id");
-      let name = $("#" + item + "Name").val();
       let color = $("#" + item + "Color").val();
       let placement = $("#" + item + "Placement").val();
-      console.log(name);
       console.log(color);
       console.log(placement);
 
@@ -267,10 +265,10 @@ $(document).ready(function() {
           robot.wheels = new MecanumWheels(robot, color);
           break;
         case "ColorSensor":
-          robot.parts[name] = new ColorSensor(robot, placement, color);
+          robot.parts.colorSensor = new ColorSensor(robot, placement, color);
           break;
         case "DistanceSensor":
-          robot.parts[name] = new DistanceSensor(robot, placement, color);
+          robot.parts.distanceSensor = new DistanceSensor(robot, placement, color);
           break;
       }
     } else {
@@ -305,7 +303,6 @@ function giveUserRandomItems() {
   <a id="${s}" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
-  <input type="text" class="form-control" id="${s}Name" placeholder="Variable name">
   <input type="text" class="form-control" id="${s}Color" placeholder="Sensor color">
   <select class="custom-select" id="${s}Placement">
     <option selected>Placement</option>

@@ -118,6 +118,38 @@ Blockly.JavaScript['wait'] = function(block) {
   return code;
 };
 
+
+Blockly.Blocks['distancesensor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Distance Sensor");
+    this.setOutput(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['distancesensor'] = function(block) {
+  var code = 'robot.parts.distanceSensor';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+
+Blockly.Blocks['distancesensor'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Distance Sensor");
+    this.setOutput(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['distancesensor'] = function(block) {
+  var code = 'robot.parts.distanceSensor';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
 var options = { 
 	toolbox : document.getElementById('toolbox'), 
 	collapse : true, 
@@ -136,4 +168,4 @@ var options = {
 };
 
 var workspace;
-workspace = Blockly.inject('#pills-profile',options);
+workspace = Blockly.inject('editor',options);
