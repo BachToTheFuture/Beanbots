@@ -176,7 +176,7 @@ $(document).ready(function() {
             console.log("Robot started running!");
             robot.run();
             opponent.run();
-            let timer2 = new CountDownTimer(30);
+            let timer2 = new CountDownTimer(15);
             let display = document.querySelector("#timer");
             timer2.onTick(format).start();
             function format(minutes, seconds) {

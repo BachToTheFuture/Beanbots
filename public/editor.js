@@ -122,31 +122,65 @@ Blockly.JavaScript['wait'] = function(block) {
 Blockly.Blocks['distancesensor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Distance Sensor");
+        .appendField("Detected Distance");
+    this.setOutput(true, null);
+    this.setColour(0);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+Blockly.JavaScript['distancesensor'] = function(block) {
+  var code = 'robot.parts.distanceSensor.distance';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Blocks['waituntil'] = {
+  init: function() {
+    this.appendValueInput("condition")
+        .setCheck("Boolean")
+        .appendField("Wait until");
+    this.setInputsInline(true);
     this.setOutput(true, null);
     this.setColour(120);
  this.setTooltip("");
  this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['distancesensor'] = function(block) {
-  var code = 'robot.parts.distanceSensor';
+Blockly.JavaScript['waituntil'] = function(block) {
+  var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `
+let t = this;
+    return new Promise(resolve => {
+      var l = setInterval(() => {
+        // Call callback function
+        if (callback) callback(t.distance);
+        // Have a little leeway for error
+        if (condition(t.distance)) {
+          resolve();
+          this.robot.stop();
+          clearTimeout(l);
+          return;
+        }
+      }, 250);
+    });
+`;
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 
-Blockly.Blocks['distancesensor'] = {
+Blockly.Blocks['colorsensor'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("Distance Sensor");
+        .appendField("Detected Color");
     this.setOutput(true, null);
-    this.setColour(120);
+    this.setColour(0);
  this.setTooltip("");
  this.setHelpUrl("");
   }
 };
-Blockly.JavaScript['distancesensor'] = function(block) {
-  var code = 'robot.parts.distanceSensor';
+Blockly.JavaScript['colorsensor'] = function(block) {
+  var code = 'robot.parts.colorSensor.color';
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
