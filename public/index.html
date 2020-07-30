@@ -26,9 +26,7 @@
           <h3>BeanBots 🤖</h3>
         </div>
         <div class="col">
-          <p class="motto">
-            Bringing you the excitement and challenges of robotics <i>online</i>.
-          </p>
+          
         </div>
       </div>
     </header>
@@ -169,8 +167,18 @@ await robot.wait(2000);
           <br> Possible types of wheels include <i>NormalWheels</i> and <i>MecanumWheels</i>
       </p>
       <h4>robot.wheels (NormalWheels)</h4>
-        <b>robot.wheels.move(<i>velocity</i>)</b>
+      <div class="indented">
+        <b>robot.wheels.move(float <i>velocity</i>)</b>
         <p>Makes the robot move forward with given velocity</p>
+        <pre><code class="javascript">// Example: move forward at 3px/frame for 200 miliseconds
+robot.wheels.move(3);
+await robot.wait(200);
+      </code></pre>
+      </div>
+      <div class="indented">
+        <b>robot.wheels.stop()</b>
+        <p>Stops the robot. This is automatically called whenever <code>await</code> or <code>robot.wait</code> is used.</p>
+      </div>
       </p>
     </div>
 </div>

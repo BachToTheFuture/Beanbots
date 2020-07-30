@@ -33,9 +33,10 @@ canvas {
   margin-left:10px;
 }
 .motto {
-  padding-top:10px;
-  margin-left:-50px;
   font-weight:500;
+}
+.indented {
+  margin-left:10px;
 }
 .input-group {
   margin:10px;
