@@ -161,7 +161,7 @@ function setup() {
   $("#robotColor").val(robot.color);
   
   // Awarding scores
-  Events.on(engine, 'collisionEnd', function(event) {
+  Events.on(engine, 'collisionStart', function(event) {
     var pairs = event.pairs;
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];

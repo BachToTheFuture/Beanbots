@@ -104,6 +104,7 @@ class DistanceSensor extends RobotPart{
         // Have a little leeway for error
         if (condition(t.distance)) {
           resolve();
+          this.robot.stop();
           clearTimeout(l);
           return;
         }
@@ -152,6 +153,7 @@ class ColorSensor extends DistanceSensor {
         // Have a little leeway for error
         if (condition(t.color)) {
           resolve();
+          this.robot.stop();
           clearTimeout(l);
           return;
         }
