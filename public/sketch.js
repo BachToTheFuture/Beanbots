@@ -159,11 +159,12 @@ function setup() {
   $("#robotColor").val(robot.color);
   
   // Awarding scores
-  Events.on(engine, 'collisionStart', function(event) {
+  Events.on(engine, 'collisionEnd', function(event) {
     var pairs = event.pairs;
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
         if (pair.bodyA.role === "line" && pair.bodyB.role === "stone" && pair.bodyB.pointMultiplier > 0) {
+          console.log(pair.bodyB);
           if (pair.bodyB.color == "black") pair.bodyA.points *= 2;
           if (pair.bodyA.to == "blue") challenge.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
           else challenge.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
@@ -171,6 +172,7 @@ function setup() {
           pair.bodyB.pointMultiplier--;
         }
         else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone" && pair.bodyA.pointMultiplier > 0) {
+          console.log(pair.bodyA);
           if (pair.bodyA.color == "black") pair.bodyB.points *= 2;
           if (pair.bodyB.to == "blue") challenge.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
           else challenge.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
