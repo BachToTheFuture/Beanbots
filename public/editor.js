@@ -8,7 +8,7 @@ var editor = ace.edit( "editor" );
 
 // inline must be true to syntax highlight PHP without opening <?php tag
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
-
+editor.setFontSize("14px");
 
 /*
 

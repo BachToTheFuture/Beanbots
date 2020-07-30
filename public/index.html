@@ -81,7 +81,7 @@
       <div class="col rightside practice-bar">
         <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
   <li class="nav-item">
-    <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Tutorial</a>
+    <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Home</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Configs</a>
@@ -130,10 +130,17 @@
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
       
     <div id="editor" style="min-height:540px; height: 100%; width: 100%;">
-/* Take a look at the tutorial tab for some starter code! */
+/* Take a look at the home or the documentations tab for some starter code! */
 </div>
   </div>
     <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
+      <h3> The Delivery Bot Challenge </h3>
+      <b>
+        Create a bot that pushes the block across to the other side of the field, but make sure to get them across your team lines. Be careful though, because other robots might get in your way!
+      </b>
+      <p>
+        Yellow blocks are worth <code>10 points</code> each, and black blocks are worth <code>20 points</code> each.
+      </p>
       <h3>
         Get Started
       </h3>
@@ -166,12 +173,10 @@ await robot.parts.colorSensor.until(color => color != "gray");</code></pre>
 await robot.wait(2000);</code></pre>
     </div>
     <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
-      <p>
         <h3>robot.wheels</h3>
         <p>
           Reference to the robot's wheels. Robot's movements are controlled by this element.
           <br> Possible types of wheels include <code>NormalWheels</code> and <code>MecanumWheels</code>
-      </p>
       <h4>robot.wheels (NormalWheels)</h4>
       <div class="indented">
         <b>robot.wheels.move(float <i>velocity</i>)</b>
