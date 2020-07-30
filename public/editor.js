@@ -4,12 +4,15 @@ editor.js
 This handles the code editor
 */
 
+/*
 var editor = ace.edit( "editor" );
 
 // inline must be true to syntax highlight PHP without opening <?php tag
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
 editor.setFontSize("14px");
-
+*/
+var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox')});
 /*
 
 // Type something!

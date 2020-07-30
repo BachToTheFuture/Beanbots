@@ -128,10 +128,16 @@
     </p>
       <div id="user-sensors"></div></div>
   <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-      
-    <div id="editor" style="min-height:540px; height: 100%; width: 100%;">
-/* Take a look at the home or the documentations tab for some starter code! */
-</div>
+  <xml id="toolbox" style="display: none">
+  <block type="controls_if"></block>
+  <block type="controls_repeat_ext"></block>
+  <block type="logic_compare"></block>
+  <block type="math_number"></block>
+  <block type="math_arithmetic"></block>
+  <block type="text"></block>
+  <block type="text_print"></block>
+</xml>
+      <div id="blocklyDiv" style="min-height:540px; height: 100%; width: 100%;"></div>
   </div>
     <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
       <h3> The Delivery Bot Challenge </h3>
@@ -216,6 +222,13 @@ await robot.wait(200);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"></script>
     
+    <!-- Blockly -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/3.20200625.2/blockly_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/3.20200625.2/blocks_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/3.20200625.2/msg/en.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/3.20200625.2/javascript_compressed.min.js"></script>
+
+
     <script src="wackynames.js"></script>
     <script src="cycle.js"></script>
     <script src="countdown.js"></script>
