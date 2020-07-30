@@ -136,21 +136,4 @@ var options = {
 };
 
 var workspace;
-workspace = Blockly.inject('.leftside',options);
-/*
-
-// Type something!
-// Rotate until the distance sensor finds an object 
-robot.parts.distanceSensor.distance = 0;
-robot.wheels.rotate(0.01);
-await robot.parts.distanceSensor.until(
-    // This is the condition: robot rotates until distance is not 0.
-    distance=>distance!=0);
-robot.wheels.stop();
-
-// Move towards the object
-robot.wheels.move(0.7);
-await robot.parts.distanceSensor.until(
-    distance=>distance<50);
-robot.wheels.stop();
-*/
+workspace = Blockly.inject('#pills-profile',options);
