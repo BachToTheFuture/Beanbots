@@ -167,7 +167,7 @@ function setup() {
           if (pair.bodyA.to == "blue") challenge.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
           else challenge.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
           console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
-          pair.bodyB.pointMultiplier--;
+          pair.bodyB.pointMultiplier ;
         }
         else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone") {
           if (pair.bodyB.to == "blue") challenge.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;

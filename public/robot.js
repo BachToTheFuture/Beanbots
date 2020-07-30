@@ -46,6 +46,7 @@ class Box {
     this.vr = 0;
     Body.setAngularVelocity(this.body, 0);
     this.body.pointMultiplier = 1;
+    if (this.wheels) this.wheels.stop();
   }
   draw() {
     var pos = this.body.position;
