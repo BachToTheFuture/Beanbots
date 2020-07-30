@@ -67,12 +67,13 @@ Blockly.Blocks['wait'] = {
 
 Blockly.Blocks['wheels_rotate'] = {
   init: function() {
+    this.appendValueInput("velocity")
+        .setCheck(null)
+        .appendField("Rotate with velocity");
+    this.appendValueInput("time")
+        .setCheck(null)
+        .appendField(" for");
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Rotate at power")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "velocity")
-        .appendField(" for")
-        .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -83,8 +84,8 @@ Blockly.Blocks['wheels_rotate'] = {
 };
 
 Blockly.JavaScript['wheels_rotate'] = function(block) {
-  var number_velocity = block.getFieldValue('velocity');
-  var number_time = block.getFieldValue('time');
+  var number_velocity = Blockly.JavaScript.valueToCode(block, 'velocity', Blockly.JavaScript.ORDER_ADDITION) || '0'
+  var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
   var code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});`;
   return code;
