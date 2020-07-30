@@ -77,6 +77,7 @@ $(document).ready(function() {
       target.addClass("btn-danger");
       target.html("Reset robot");
       robot.code = Blockly.JavaScript.workspaceToCode(workspace);
+      robot.code = "(async /*" + robot.code + ")()";
       console.log(robot.code);
       robot.run();
       
