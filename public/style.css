@@ -95,3 +95,6 @@ a {
 .blue-team {
   color: #4d99f7;
 }
+.blocklyComputeCanvas {
+  display:none;
+}

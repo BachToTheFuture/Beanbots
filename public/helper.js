@@ -77,13 +77,14 @@ $(document).ready(function() {
       target.addClass("btn-danger");
       target.html("Reset robot");
       // Check which tab is open
-      let active = $(".active");
-      if (active.attr("id", "pills-js")) {
+      let active = $(".nav-link.active");
+      console.log(active);
+      if (active.attr("id") == "pills-js-tab") {
         // JS
         robot.code = editor.getValue();
         robot.run();
       }
-      else if (active.attr("id", "pills-profile")) {
+      else if (active.attr("id") == "pills-profile-tab") {
         // Blocks
         robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
         robot.code = "async " + robot.code;

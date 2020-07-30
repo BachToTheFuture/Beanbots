@@ -92,9 +92,9 @@ Blockly.JavaScript['wheels_rotate'] = function(block) {
   
   var code = "";
   if (number_time != 0)
-    code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});`;
+    code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});\n`;
   else
-    code = `robot.wheels.rotate(${number_velocity});`;
+    code = `robot.wheels.rotate(${number_velocity});\n`;
   return code;
 };
 
@@ -104,9 +104,9 @@ Blockly.JavaScript['normalwheels_move'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = "";
   if (number_time != 0)
-    code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});`;
+    code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});\n`;
   else
-    code = `robot.wheels.move(${number_velocity});`;
+    code = `robot.wheels.move(${number_velocity});\n`;
   return code;
 };
 
@@ -117,9 +117,9 @@ Blockly.JavaScript['mecanumwheels_move'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = "";
   if (number_time != 0)
-    code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});`;
+    code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});\n`;
   else
-    code = `robot.wheels.move(${number_xvel}, ${number_yvel});`;
+    code = `robot.wheels.move(${number_xvel}, ${number_yvel});\n`;
   return code;
 };
 
@@ -164,7 +164,7 @@ Blockly.JavaScript['waituntil'] = function(block) {
   var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `
-await robot.until(${value_condition});
+await robot.until(()=>${value_condition});
 `;
   return code;
 };
