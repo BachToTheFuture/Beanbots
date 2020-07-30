@@ -32,6 +32,11 @@ canvas {
   min-width: 150px;
   margin-left:10px;
 }
+.motto {
+  padding-top:10px;
+  margin-left:-50px;
+  font-weight:500;
+}
 .input-group {
   margin:10px;
 }
