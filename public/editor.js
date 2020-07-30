@@ -137,7 +137,7 @@ var options = {
 
 var workspace;
 setTimeout(()=>{
-  workspace = Blockly.inject('blocklyDiv',options);
+  workspace = Blockly.inject('pills-profile',options);
 },0);
 /*
 

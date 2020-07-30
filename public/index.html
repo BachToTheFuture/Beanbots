@@ -26,116 +26,7 @@
     <!-- import the webpage's javascript file -->
   </head>
   <body>
-    <header class="bpy-3">
-      <div class="row flex-nowrap align-items-center">
-        <div class="col-2 site-name">
-          <h3>BeanBots Jr.</h3>
-        </div>
-        <div class="col">
-          
-        </div>
-      </div>
-    </header>
-    <br>
-    <div class="row">
-      <div class="col-5 leftside">
-        <div class="notif-section">
-          
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
-            <div class="toast-header">
-              <strong class="mr-auto">Notification</strong>
-              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div id="main-toast-body" class="toast-body">
-              
-            </div>
-          </div>
-          
-        </div>
-        
-        <div id="countdown-timer"></div>
-        
-        <div id="canvas"></div>
-      </div>
-      
-      
-      <div class="col-5 rightside hide competition-bar">
-        <h4> Scores </h4>
-        <table>
-          <tr>
-            <td class="scoreboard-name red-team"></td>
-            <td class="scoreboard-score red-score">0</td>
-          </tr>
-          <tr>
-            <td class="scoreboard-name blue-team"></td>
-            <td class="scoreboard-score blue-score">0</td>
-          </tr>
-        </table>
-        <hr>
-        <h4> Timer </h4>
-        <h1 id="timer" class="scoreboard-timer">
-          00:30
-        </h1>
-        <hr>
-        <h4> Event Log </h4>
-      </div>
-      
-      
-      
-      <div class="col rightside practice-bar">
-        <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Configs</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Code</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-help2" data-toggle="pill" href="#pills-help2" role="tab" aria-controls="pills-help2" aria-selected="false">Documentation</a>
-  </li>
-          <li class="nav-item">
-    <button href="#" id="join-match" class="btn btn-primary">
-            Play a match!
-          </button>       
-  </li>
-  <li class='nav-item'>
-    <a href="#" class="btn btn-success runRobot">
-            Run robot
-          </a>         
-  </li>
-</ul>
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-    <b>Robot name and color</b>
-    <p>
-      Type in a name for your robot and the color of the robot body and press <code>Update Robot</code> to confirm changes!
-    </p>
-      <div class="input-group">
-        <a href="#" class="input-group-prepend updateRobot">
-          <span class="input-group-text" id="robotBody">Update robot</span>
-        </a>
-        <input type="text" class="form-control" id="robotName" placeholder="Robot name">
-        <input type="text" class="form-control" id="robotColor" placeholder="Robot color">
-      </div>
-      <b>Wheels</b>
-    <p>
-      Give your wheels some color and click which type you want! To take them off click on the leftmost button again.
-    </p>
-      <div id="user-wheels"></div>
-      <b>Sensors</b>
-    <p>
-      Variable name is what you will use to reference the sensor. For example, if you name a color sensor <code>colorSensor</code> you can refer to it in the code by <code>robot.parts.colorSensor</code>
-    </p>
-      <div id="user-sensors"></div></div>
-  
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="-1">
-  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
   <category name="Actions" colour="#5ba55b">
     <block type="normalwheels_move">
       <value name="velocity">
@@ -544,7 +435,113 @@
   <category name="Variables" colour="#a55b80" custom="VARIABLE"></category>
   <category name="Functions" colour="#995ba5" custom="PROCEDURE"></category>
 </xml>
-      <div id="blocklyDiv" class="show" style="height:520px; width: 700px; z-index:99999"></div>
+    <header class="bpy-3">
+      <div class="row flex-nowrap align-items-center">
+        <div class="col-2 site-name">
+          <h3>BeanBots Jr.</h3>
+        </div>
+        <div class="col">
+          
+        </div>
+      </div>
+    </header>
+    <br>
+    <div class="row">
+      <div class="col-5 leftside">
+        <div class="notif-section">
+          
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+            <div class="toast-header">
+              <strong class="mr-auto">Notification</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="main-toast-body" class="toast-body">
+              
+            </div>
+          </div>
+          
+        </div>
+        
+        <div id="countdown-timer"></div>
+        
+        <div id="canvas"></div>
+      </div>
+      
+      
+      <div class="col-5 rightside hide competition-bar">
+        <h4> Scores </h4>
+        <table>
+          <tr>
+            <td class="scoreboard-name red-team"></td>
+            <td class="scoreboard-score red-score">0</td>
+          </tr>
+          <tr>
+            <td class="scoreboard-name blue-team"></td>
+            <td class="scoreboard-score blue-score">0</td>
+          </tr>
+        </table>
+        <hr>
+        <h4> Timer </h4>
+        <h1 id="timer" class="scoreboard-timer">
+          00:30
+        </h1>
+        <hr>
+        <h4> Event Log </h4>
+      </div>
+      
+      
+      
+      <div class="col rightside practice-bar">
+        <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="pills-profile-help" data-toggle="pill" href="#pills-help" role="tab" aria-controls="pills-help" aria-selected="true">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false">Configs</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Code</a>
+  </li>
+          <li class="nav-item">
+    <button href="#" id="join-match" class="btn btn-primary">
+            Play a match!
+          </button>       
+  </li>
+  <li class='nav-item'>
+    <a href="#" class="btn btn-success runRobot">
+            Run robot
+          </a>         
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+    <b>Robot name and color</b>
+    <p>
+      Type in a name for your robot and the color of the robot body and press <code>Update Robot</code> to confirm changes!
+    </p>
+      <div class="input-group">
+        <a href="#" class="input-group-prepend updateRobot">
+          <span class="input-group-text" id="robotBody">Update robot</span>
+        </a>
+        <input type="text" class="form-control" id="robotName" placeholder="Robot name">
+        <input type="text" class="form-control" id="robotColor" placeholder="Robot color">
+      </div>
+      <b>Wheels</b>
+    <p>
+      Give your wheels some color and click which type you want! To take them off click on the leftmost button again.
+    </p>
+      <div id="user-wheels"></div>
+      <b>Sensors</b>
+    <p>
+      Variable name is what you will use to reference the sensor. For example, if you name a color sensor <code>colorSensor</code> you can refer to it in the code by <code>robot.parts.colorSensor</code>
+    </p>
+      <div id="user-sensors"></div></div>
+  
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" style="padding:0px; margin: 0px; height:520px; width: 700px;" aria-labelledby="pills-profile-tab" tabindex="-1">
+      
   </div>
     <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
       <h3> The Delivery Bot Challenge </h3>
@@ -565,9 +562,6 @@
       </p>
 
 </code></pre>
-    </div>
-    <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
-        
     </div>
 </div>
       </div>
