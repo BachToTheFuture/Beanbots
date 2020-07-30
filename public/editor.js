@@ -215,3 +215,4 @@ var options = {
 
 var workspace;
 workspace = Blockly.inject('editor',options);
+workspace.addChangeListener(Blockly.Events.disableOrphans);
