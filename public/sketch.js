@@ -1,4 +1,4 @@
-
+  //  //  //
 /*
 sketch.js
 ===============================================
@@ -146,7 +146,7 @@ function setup() {
   world = engine.world;
   
   challenge = new Challenge("skystones");
-  challenge.setupField();
+  challenge.se  //tupField();
   //window.localStorage.clear();
   if (window.localStorage.getItem("robo_data") !== null) {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
@@ -203,7 +203,6 @@ function draw() {
     opponent.render();
     // Make sure to only send it every 4 frames and when the robot is moving?
     if (socket && frameCount % 2) {
-      socket.emit("sendRobotVel", {vx: robot.body.velocity.x, vy:robot.body.velocity.y, vr:robot.body.angularVelocity, room: room});
-    }
+      socket.emit("sendRobotVel", {vx: robot.body.velocity.x, vy:robot.body.velocity.y, vr:robot.body.angularVelocity, room: roo});     }
   }
 }
