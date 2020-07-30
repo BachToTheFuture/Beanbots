@@ -87,8 +87,8 @@ class Robot extends Box {
     // Redefine global variables as undefined so users don't access them and mess around with it
     let fn = new Function(
       "robot",
-      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels, document, eval, window;\n" +
-        this.code
+      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels, document, eval, window;\n(" +
+        this.code+")()"
     );
     
     console.log(this.code);

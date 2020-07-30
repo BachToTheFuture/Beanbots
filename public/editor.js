@@ -164,18 +164,7 @@ Blockly.JavaScript['waituntil'] = function(block) {
   var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `
-    await new Promise(resolve => {
-      var l = setInterval(() => {
-        if (${value_condition}) {
-          resolve();
-          robot.wheels.stop();
-          if (robot.parts.distanceSensor) robot.parts.distanceSensor.distance = 100000;
-          if (robot.parts.colorSensor) robot.parts.colorSensor.color = "gray";
-          clearTimeout(l);
-          return;
-        }
-      }, 250);
-    });
+await robot.until(${value_condition});
 `;
   return code;
 };

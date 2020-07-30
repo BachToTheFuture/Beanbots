@@ -86,7 +86,7 @@ $(document).ready(function() {
       else if (active.attr("id", "pills-profile")) {
         // Blocks
         robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
-        robot.code = "(async " + robot.code + ")()";
+        robot.code = "async " + robot.code;
         editor.setValue(robot.code);
         robot.run();
       }
