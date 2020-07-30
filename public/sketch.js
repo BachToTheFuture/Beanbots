@@ -148,6 +148,7 @@ function setup() {
   challenge = new Challenge("skystones");
   challenge.setupField();
   //window.localStorage.clear();
+  
   if (window.localStorage.getItem("robo_data") !== null) {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
@@ -163,6 +164,33 @@ function setup() {
     robot.wheels = new NormalWheels(robot);
     var workspaceBlocks = document.getElementById("workspaceBlocks"); 
     Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
+
+    robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
+    robot.code = `/*
+Useful functions
+=====================
+robot.move(velocity)
+  - move robot forward or backward
+  - ex: robot.move(2)
+
+await robot.wait(miliseconds)
+  - wait for several miliseconds before
+    stopping the robot
+  - ex: robot.move(2);
+        await robot.wait(1000); // 1 second
+
+await robot.until(()=>(condition))
+  - wait until condition is fulfilled then
+    stop the robot
+  - ex: 
+        robot.move(2);
+        await robot.until(()=>(
+          robot.parts.distanceSensor.distance < 50
+        ))
+
+async ` + robot.code;
+    editor.setValue(robot.code);
+    
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
