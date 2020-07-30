@@ -140,32 +140,32 @@ Blockly.Blocks['waituntil'] = {
         .setCheck("Boolean")
         .appendField("Wait until");
     this.setInputsInline(true);
-    this.setOutput(true, null);
-    this.setColour(120);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(0);
  this.setTooltip("");
  this.setHelpUrl("");
   }
 };
+
 Blockly.JavaScript['waituntil'] = function(block) {
   var value_condition = Blockly.JavaScript.valueToCode(block, 'condition', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `
-let t = this;
-    return new Promise(resolve => {
+    await new Promise(resolve => {
       var l = setInterval(() => {
-        // Call callback function
-        if (callback) callback(t.distance);
-        // Have a little leeway for error
-        if (condition(t.distance)) {
+        if (${value_condition}) {
           resolve();
-          this.robot.stop();
+          robot.stop();
+          if (robot.parts.distanceSensor) robot.parts.distanceSensor.distance = 0;
+          if (robot.parts.colorSensor) robot.parts.colorSensor.color = "gray";
           clearTimeout(l);
           return;
         }
       }, 250);
     });
 `;
-  return [code, Blockly.JavaScript.ORDER_NONE];
+  return code;
 };
 
 
