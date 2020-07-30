@@ -53,6 +53,9 @@ class Challenge {
     // Add point boundaries where players can score points
     this.pointBoundaries.forEach(p => {
       let bounds = Bodies.rectangle(p.boundary[0], p.boundary[1],p.boundary[2],p.boundary[3]);
+      console.log(bounds);
+      bounds.isSensor = true;
+      bounds.isStatic = true;
       bounds.role = p.type;
       bounds.points = p.points;
       bounds.to = p.to;
@@ -163,8 +166,8 @@ function setup() {
     var pairs = event.pairs;
     for (var i = 0, j = pairs.length; i != j; ++i) {
         var pair = pairs[i];
+        //if (pair.bodyA.role === "line" || pair.bodyB.role === "line") console.log(pair);
         if (pair.bodyA.role === "line" && pair.bodyB.role === "stone" && pair.bodyB.pointMultiplier > 0) {
-          console.log(pair.bodyB);
           if (pair.bodyB.color == "black") pair.bodyA.points *= 2;
           if (pair.bodyA.to == "blue") challenge.bluePoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
           else challenge.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
@@ -172,7 +175,6 @@ function setup() {
           pair.bodyB.pointMultiplier--;
         }
         else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone" && pair.bodyA.pointMultiplier > 0) {
-          console.log(pair.bodyA);
           if (pair.bodyA.color == "black") pair.bodyB.points *= 2;
           if (pair.bodyB.to == "blue") challenge.bluePoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
           else challenge.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
