@@ -11,6 +11,9 @@ var editor = ace.edit( "editor" );
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
 editor.setFontSize("14px");
 */
+
+Blockly.HSV_VALUE = 0.7 // 0 (inclusive) to 1 (exclusive), defaulting to 0.65
+
 Blockly.Blocks['normalwheels_move'] = {
   init: function() {
     this.appendDummyInput()
