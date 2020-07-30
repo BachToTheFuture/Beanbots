@@ -1,6 +1,6 @@
 // Normal wheels class
 class NormalWheels {
-  constructor(robot, color="black") {
+  constructor(robot, color = "black") {
     this.type = "NormalWheels";
     this.robot = robot;
     this.color = color;
@@ -11,8 +11,8 @@ class NormalWheels {
     fill(this.color);
     // Draw top-left wheel
     drawRect(
-      this.robot.body.position.x + this.robot.width/2 - 15,
-      this.robot.body.position.y - this.robot.height/2 - 5,
+      this.robot.body.position.x + this.robot.width / 2 - 15,
+      this.robot.body.position.y - this.robot.height / 2 - 5,
       10,
       5,
       this.robot.rotation,
@@ -21,8 +21,8 @@ class NormalWheels {
     );
     // Draw top-right wheel
     drawRect(
-      this.robot.body.position.x + this.robot.width/2 - 15,
-      this.robot.body.position.y + this.robot.height/2,
+      this.robot.body.position.x + this.robot.width / 2 - 15,
+      this.robot.body.position.y + this.robot.height / 2,
       10,
       5,
       this.robot.rotation,
@@ -31,8 +31,8 @@ class NormalWheels {
     );
     // Draw bottom-left wheel
     drawRect(
-      this.robot.body.position.x - this.robot.width/2 + 5,
-      this.robot.body.position.y - this.robot.height/2 - 5,
+      this.robot.body.position.x - this.robot.width / 2 + 5,
+      this.robot.body.position.y - this.robot.height / 2 - 5,
       10,
       5,
       this.robot.rotation,
@@ -41,8 +41,8 @@ class NormalWheels {
     );
     // Draw bottom-right wheel
     drawRect(
-      this.robot.body.position.x - this.robot.width/2 + 5,
-      this.robot.body.position.y + this.robot.height/2,
+      this.robot.body.position.x - this.robot.width / 2 + 5,
+      this.robot.body.position.y + this.robot.height / 2,
       10,
       5,
       this.robot.rotation,
@@ -53,12 +53,15 @@ class NormalWheels {
   }
   update() {
     Body.setVelocity(this.robot.body, {
-        x: Math.cos(this.robot.rotation) * this.robot.body.speed,
-        y: Math.sin(this.robot.rotation) * this.robot.body.speed
-      });
+      x: Math.cos(this.robot.rotation) * this.robot.body.speed,
+      y: Math.sin(this.robot.rotation) * this.robot.body.speed
+    });
   }
   move(power) {
-    Body.setVelocity(this.robot.body, {x: Math.cos(this.robot.rotation) * power, y: Math.sin(this.robot.rotation) * power });
+    Body.setVelocity(this.robot.body, {
+      x: Math.cos(this.robot.rotation) * power,
+      y: Math.sin(this.robot.rotation) * power
+    });
   }
   stop() {
     // Stop everything
@@ -75,7 +78,7 @@ class NormalWheels {
 
 // Add mecanum wheels
 class MecanumWheels extends NormalWheels {
-  constructor(robot, color="black") {
+  constructor(robot, color = "black") {
     super(robot, color);
     this.type = "MecanumWheels";
     this.powerX = 0;
@@ -92,7 +95,10 @@ class MecanumWheels extends NormalWheels {
   }
   update() {
     // A weird fix
-    if (this.robot.rotation > Math.PI/2 && this.robot.rotation < Math.PI/2 * 3)
+    if (
+      this.robot.rotation > Math.PI / 2 &&
+      this.robot.rotation < (Math.PI / 2) * 3
+    )
       Body.setVelocity(this.robot.body, {
         x: -this.powerX,
         y: this.powerY

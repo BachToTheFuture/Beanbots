@@ -94,23 +94,6 @@ class DistanceSensor extends RobotPart{
       line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
     }
   }
-  until(condition, callback) {
-    // Wait until the sensor gets a certain distance
-    let t = this;
-    return new Promise(resolve => {
-      var l = setInterval(() => {
-        // Call callback function
-        if (callback) callback(t.distance);
-        // Have a little leeway for error
-        if (condition(t.distance)) {
-          resolve();
-          this.robot.stop();
-          clearTimeout(l);
-          return;
-        }
-      }, 250);
-    });
-  }
 }
 
 /*
@@ -142,22 +125,5 @@ class ColorSensor extends DistanceSensor {
       line(test.point.x, test.point.y, this.robot.body.position.x, this.robot.body.position.y);
       pop();
     }
-  }
-  until(condition, callback) {
-    // Wait until the sensor gets a certain distance
-    let t = this;
-    return new Promise(resolve => {
-      var l = setInterval(() => {
-        // Call callback function
-        if (callback) callback(t.color);
-        // Have a little leeway for error
-        if (condition(t.color)) {
-          resolve();
-          this.robot.stop();
-          clearTimeout(l);
-          return;
-        }
-      }, 250);
-    });
   }
 }

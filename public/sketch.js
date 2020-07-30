@@ -167,27 +167,30 @@ function setup() {
 
     robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
     robot.code = `/*
-Useful functions
-=====================
-robot.move(velocity)
-  - move robot forward or backward
-  - ex: robot.move(2)
+USEFUL FUNCTIONS TO HELP YOU GET STARTED
+=============================================
+robot.move(vx, [vy only for MecanumWheels])
+  - move robot with the given velocities
+  - ex: robot.move(2)   // moving straight
+        robot.move(2,2) // moving diagonally
 
 await robot.wait(miliseconds)
   - wait for several miliseconds before
     stopping the robot
-  - ex: robot.move(2);
-        await robot.wait(1000); // 1 second
+  - ex: // Let the robot move for one second
+        robot.move(2);
+        await robot.wait(1000);
 
 await robot.until(()=>(condition))
   - wait until condition is fulfilled then
     stop the robot
-  - ex: 
+  - ex: // Move until robot is less than 50 pixels away
+        // from an obstacle
         robot.move(2);
         await robot.until(()=>(
           robot.parts.distanceSensor.distance < 50
         ))
-
+*/
 async ` + robot.code;
     editor.setValue(robot.code);
     

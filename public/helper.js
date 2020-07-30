@@ -12,9 +12,9 @@ var room;
 var collectibles = [];
 var team;
 
-function createRobotFromJSON(op){
+function createRobotFromJSON(op) {
   // Create a new robot out of this data
-  let r = new Robot(op.name, 40, height/2+100, op.color);
+  let r = new Robot(op.name, 40, height / 2 + 100, op.color);
   // Get the code
   r.code = op.code;
   // reconstruct wheels
@@ -22,17 +22,16 @@ function createRobotFromJSON(op){
     r.wheels = new NormalWheels(r, op.wheels.color);
   else if (op.wheels.type == "MecanumWheels")
     r.wheels = new MecanumWheels(r, op.wheels.color);
-  
+
   Object.keys(op.parts).forEach(part => {
     let val = op.parts[part];
     if (val.type == "ColorSensor")
       r.parts[part] = new ColorSensor(r, val.side, val.color);
     else if (val.type == "DistanceSensor")
       r.parts[part] = new DistanceSensor(r, val.side, val.color);
-    
   });
   return r;
-}     
+}
 
 function drawRect(x, y, width, height, rotation, originX, originY) {
   /*
@@ -83,25 +82,27 @@ $(document).ready(function() {
         // JS
         robot.code = editor.getValue();
         robot.run();
-      }
-      else if (active.attr("id") == "pills-profile-tab") {
+      } else if (active.attr("id") == "pills-profile-tab") {
         // Blocks
         robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
         robot.code = "async " + robot.code;
         editor.setValue(robot.code);
         robot.run();
+      } else {
+        notification(
+          "Please go to the <b>tab with your code</b> and press <b>Run Robot</b> again!"
+        );
       }
-      else {
-        notification("Please go to the <b>tab with your code</b> and press <b>Run Robot</b> again!")
-      }
-      
+
       /* Save the robot's name, color, and code to the storage */
       window.localStorage.clear();
-      window.localStorage.setItem('robo_data', JSON.stringify(JSON.decycle(robot)));
+      window.localStorage.setItem(
+        "robo_data",
+        JSON.stringify(JSON.decycle(robot))
+      );
       var xml = Blockly.Xml.workspaceToDom(workspace);
       var xml_text = Blockly.Xml.domToText(xml);
-      window.localStorage.setItem('robo_code', xml_text);
-      
+      window.localStorage.setItem("robo_code", xml_text);
     } else {
       target.removeClass("btn-danger");
       target.addClass("btn-success");
@@ -126,26 +127,25 @@ $(document).ready(function() {
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);
       $(e.target).html("Waiting for an opponent...");
-      
+
       // Reset scores
       challenge.resetPoints();
-      
+
       // If the match request is accepted
       socket.on("matchAccepted", function(data) {
-        
         // Update field
         console.log(data.objects);
         if (data.objects) {
-          data.objects.forEach((o,i)=>{
+          data.objects.forEach((o, i) => {
             objects[i].width = o.w;
             objects[i].height = o.h;
             objects[i].body.role = o.type;
             objects[i].body.color = o.color;
-            Body.setPosition(objects[i].body, {x: o.x, y: o.y})
+            Body.setPosition(objects[i].body, { x: o.x, y: o.y });
             objects[i].color = o.color;
-          })
+          });
         }
-        
+
         $("#join-match").prop("disabled", false);
         // Hide the join match button
         $("#join-match").hide();
@@ -155,7 +155,7 @@ $(document).ready(function() {
         );
         $(".practice-bar").hide(); // Hide the entire rightside of the screen
         $(".competition-bar").fadeIn(); // Show the scores and timer
-        
+
         // Set a new room!
         room = data.room;
         if (data.side == "red") {
@@ -163,14 +163,14 @@ $(document).ready(function() {
         } else {
           document.querySelector(".blue-team").textContent = robot.name;
         }
-        
+
         socket.emit("sendInitData", {
           robot: JSON.decycle(robot),
           room: room
         });
-        
+
         // Move the robots to their respective starting positions based on teams.
-        
+
         // Change the robot's name color to indicate which one is you!
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
@@ -198,17 +198,20 @@ $(document).ready(function() {
               minutes = minutes < 10 ? "0" + minutes : minutes;
               seconds = seconds < 10 ? "0" + seconds : seconds;
               display.textContent = minutes + ":" + seconds;
-              document.querySelector(".red-score").textContent = challenge.redPoints;
-              document.querySelector(".blue-score").textContent = challenge.bluePoints;
+              document.querySelector(".red-score").textContent =
+                challenge.redPoints;
+              document.querySelector(".blue-score").textContent =
+                challenge.bluePoints;
               if (seconds == 0) {
                 // End game here
                 // Check for winners
                 if (team == "red") {
-                  if (challenge.redPoints > challenge.bluePoints) notification("You won!");
+                  if (challenge.redPoints > challenge.bluePoints)
+                    notification("You won!");
                   else notification("Good game!");
-                }
-                else if (team == "blue") {
-                  if (challenge.bluePoints > challenge.redPoints) notification("You won!");
+                } else if (team == "blue") {
+                  if (challenge.bluePoints > challenge.redPoints)
+                    notification("You won!");
                   else notification("Good game!");
                 }
                 challenge.endGame();
@@ -225,26 +228,31 @@ $(document).ready(function() {
           let op = data.robot;
           opponent = createRobotFromJSON(op);
           if (team == "blue") {
-            Body.setPosition(opponent.body, {x: width-40, y: height/2+100});
+            Body.setPosition(opponent.body, {
+              x: width - 40,
+              y: height / 2 + 100
+            });
             opponent.rotation = Math.PI;
             Body.setAngle(opponent.body, Math.PI);
-            
-            Body.setPosition(robot.body, {x: 40, y: height/2+100});
+
+            Body.setPosition(robot.body, { x: 40, y: height / 2 + 100 });
             robot.rotation = 0;
             Body.setAngle(robot.body, 0);
             document.querySelector(".red-team").textContent = opponent.name;
-          }
-          else {
-            Body.setPosition(opponent.body, {x: 40, y: height/2+100});
+          } else {
+            Body.setPosition(opponent.body, { x: 40, y: height / 2 + 100 });
             opponent.rotation = 0;
             Body.setAngle(opponent.body, 0);
-            
-            Body.setPosition(robot.body, {x: width-40, y: height/2+100});
+
+            Body.setPosition(robot.body, {
+              x: width - 40,
+              y: height / 2 + 100
+            });
             robot.rotation = Math.PI;
             Body.setAngle(robot.body, Math.PI);
             document.querySelector(".blue-team").textContent = robot.name;
           }
-        };
+        }
       });
 
       socket.on("updateCollectiblePos", function(data) {
@@ -283,7 +291,11 @@ $(document).ready(function() {
           robot.parts.colorSensor = new ColorSensor(robot, placement, color);
           break;
         case "DistanceSensor":
-          robot.parts.distanceSensor = new DistanceSensor(robot, placement, color);
+          robot.parts.distanceSensor = new DistanceSensor(
+            robot,
+            placement,
+            color
+          );
           break;
       }
     } else {
@@ -308,7 +320,7 @@ function giveUserRandomItems() {
   // Give user random items from each category
   //userSensors.push(random(allSensors));
   //userWheels.push(random(allWheels));
-  
+
   userSensors = allSensors;
   userWheels = allWheels;
   // have this group for each item
