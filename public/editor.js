@@ -135,7 +135,10 @@ var options = {
 	oneBasedIndex : true
 };
 
-var workspace = Blockly.inject('blocklyDiv',options);
+var workspace;
+setTimeout(()=>{
+  workspace = Blockly.inject('blocklyDiv',options);
+},0);
 /*
 
 // Type something!
