@@ -77,6 +77,7 @@ $(document).ready(function() {
       target.addClass("btn-danger");
       target.html("Reset robot");
       robot.code = Blockly.JavaScript.workspaceToCode(workspace);
+      console.log(robot.code);
       robot.run();
       
       /* Save the robot's name, color, and code to the storage */

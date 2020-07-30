@@ -11,6 +11,81 @@ var editor = ace.edit( "editor" );
 editor.getSession().setMode( { path: "ace/mode/javascript" } );
 editor.setFontSize("14px");
 */
+Blockly.Blocks['normalwheels_move'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "velocity")
+        .appendField(" for")
+        .appendField(new Blockly.FieldNumber(0, 0), "time")
+        .appendField("miliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['mecanumwheels_move'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Move")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "xvel")
+        .appendField("vx,")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "yvel")
+        .appendField("vy for")
+        .appendField(new Blockly.FieldNumber(0, 0), "time")
+        .appendField("miliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['wait'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Wait")
+        .appendField(new Blockly.FieldNumber(0, 0), "time")
+        .appendField("miliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['normalwheels_move'] = function(block) {
+  var number_velocity = block.getFieldValue('velocity');
+  var number_time = block.getFieldValue('time');
+  // TODO: Assemble JavaScript into code variable.
+  var code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});`;
+  return code;
+};
+
+Blockly.JavaScript['mecanumwheels_move'] = function(block) {
+  var number_xvel = block.getFieldValue('xvel');
+  var number_yvel = block.getFieldValue('yvel');
+  var number_time = block.getFieldValue('time');
+  // TODO: Assemble JavaScript into code variable.
+  var code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});`;
+  return code;
+};
+
+Blockly.JavaScript['wait'] = function(block) {
+  var number_time = block.getFieldValue('time');
+  // TODO: Assemble JavaScript into code variable.
+  var code = `await robot.wait(${number_time})`;
+  return code;
+};
+
 var workspace = Blockly.inject('blocklyDiv',
       {toolbox: document.getElementById('toolbox')});
 /*
