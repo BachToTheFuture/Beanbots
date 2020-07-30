@@ -62,8 +62,8 @@ class Challenge {
     })
 
     // Add foundation?
-    objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87), "bluefoundation"));
-    objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87),"redfoundation"));
+    //objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87), "bluefoundation"));
+    //objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87),"redfoundation"));
 
     for (var i = 0; i < 8; i++) {
       objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
@@ -91,7 +91,15 @@ class Challenge {
     //how to get the yellow line to show above black 
     fill(65, 85, 100);
     rect(200, 300, 200, 10);
-
+    
+    push();
+    fill("black");
+    textSize(15);
+    textAlign(CENTER);
+    text("Push the block across the lines to gain points.", width/2,height/2-100);
+    text("", width/2,height/2-80);
+    pop();
+    /*
     push();
     noFill();
     strokeWeight(4);
@@ -105,6 +113,7 @@ class Challenge {
     stroke(219, 91, 87);
     square(width-75, height-75, 80);
     pop();
+    */
   }
   endGame() {
     /*

@@ -130,13 +130,11 @@
       <pre><code class="javascript">
 robot.wheels.move(0.5);
 await robot.wait(2000);
-robot.wheels.stop();
       </code></pre>
       <b> Rotate clockwise for 3 seconds </b>
       <pre><code class="javascript">
 robot.wheels.rotate(0.5);
 await robot.wait(3000);
-robot.wheels.stop();
       </code></pre>
       <b> Rotate until distance sensor detects something </b>
       <pre><code class="javascript">
@@ -144,20 +142,17 @@ robot.wheels.stop();
 robot.parts.distanceSensor.distance = 0; // this resets the sensor
 robot.wheels.rotate(0.03);
 await robot.parts.distanceSensor.until(distance => distance != 0);
-robot.wheels.stop();
       </code></pre>
       <b> Move forward until color is detected </b>
       <pre><code class="javascript">
 robot.parts.distanceSensor.color = "gray";
 robot.wheels.move(0.5);
 await robot.parts.colorSensor.until(color => color != "gray");
-robot.wheels.stop();
       </code></pre>
       <b> Move diagonal with mecanum wheel </b>
       <pre><code class="javascript">
 robot.wheels.move(2,3);
 await robot.wait(2000);
-robot.wheels.stop();
       </code></pre>
     </div>
     <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">

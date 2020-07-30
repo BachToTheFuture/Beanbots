@@ -119,6 +119,9 @@ class Robot extends Box {
     strokeWeight(2);
   }
   wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(()=>{
+      resolve();
+      this.wheels.stop();
+    }, ms));
   }
 }

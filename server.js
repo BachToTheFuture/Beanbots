@@ -45,8 +45,8 @@ io.sockets.on('connection',
         
         // Generate field
         let objects = []
-        objects.push({x: width/2-50, y: 70, w: 55, h: 100, color: "#145bde", type:"bluefoundation"});
-        objects.push({x: width/2+50, y: 70, w: 55, h: 100, color: "#de1414", type:"redfoundation"});
+        //objects.push({x: width/2-50, y: 70, w: 55, h: 100, color: "#145bde", type:"bluefoundation"});
+        //objects.push({x: width/2+50, y: 70, w: 55, h: 100, color: "#de1414", type:"redfoundation"});
         for (var i = 0; i < 8; i++) {
           objects.push({x:width/2-114, y:height/2+100+i*27, w:14, h:25, color:Math.random() > 0.3 ? "yellow" : "black", type:"stone"});
         }
