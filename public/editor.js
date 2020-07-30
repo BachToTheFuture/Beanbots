@@ -136,9 +136,7 @@ var options = {
 };
 
 var workspace;
-setTimeout(()=>{
-  workspace = Blockly.inject('pills-profile',options);
-},0);
+workspace = Blockly.inject('.leftside',options);
 /*
 
 // Type something!
