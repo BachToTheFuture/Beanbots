@@ -53,7 +53,6 @@ class Challenge {
     // Add point boundaries where players can score points
     this.pointBoundaries.forEach(p => {
       let bounds = Bodies.rectangle(p.boundary[0], p.boundary[1],p.boundary[2],p.boundary[3]);
-      console.log(bounds);
       bounds.isSensor = true;
       bounds.isStatic = true;
       bounds.role = p.type;
