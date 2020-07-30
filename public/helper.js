@@ -118,6 +118,7 @@ $(document).ready(function() {
             objects[i].width = o.w;
             objects[i].height = o.h;
             objects[i].body.role = o.type;
+            objects[i].body.color = o.color;
             Body.setPosition(objects[i].body, {x: o.x, y: o.y})
             objects[i].color = o.color;
           })
