@@ -16,12 +16,13 @@ Blockly.HSV_VALUE = 0.7 // 0 (inclusive) to 1 (exclusive), defaulting to 0.65
 
 Blockly.Blocks['normalwheels_move'] = {
   init: function() {
+    this.appendValueInput("velocity")
+        .setCheck(null)
+        .appendField("Move at power");
+    this.appendValueInput("time")
+        .setCheck(null)
+        .appendField("for");
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move at power")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "velocity")
-        .appendField(" for")
-        .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -33,14 +34,16 @@ Blockly.Blocks['normalwheels_move'] = {
 
 Blockly.Blocks['mecanumwheels_move'] = {
   init: function() {
+    this.appendValueInput("xvel")
+        .setCheck(null)
+        .appendField("Move with");
+    this.appendValueInput("yvel")
+        .setCheck(null)
+        .appendField("vx,");
+    this.appendValueInput("time")
+        .setCheck(null)
+        .appendField("vy for");
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move at")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "xvel")
-        .appendField("vx,")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "yvel")
-        .appendField("vy for")
-        .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -52,10 +55,10 @@ Blockly.Blocks['mecanumwheels_move'] = {
 
 Blockly.Blocks['wait'] = {
   init: function() {
+    this.appendValueInput("time")
+        .setCheck(null)
+        .appendField("Wait");
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Wait")
-        .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -92,24 +95,24 @@ Blockly.JavaScript['wheels_rotate'] = function(block) {
 };
 
 Blockly.JavaScript['normalwheels_move'] = function(block) {
-  var number_velocity = block.getFieldValue('velocity');
-  var number_time = block.getFieldValue('time');
+  var number_velocity = Blockly.JavaScript.valueToCode(block, 'velocity', Blockly.JavaScript.ORDER_ADDITION) || '0'
+  var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
   var code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});`;
   return code;
 };
 
 Blockly.JavaScript['mecanumwheels_move'] = function(block) {
-  var number_xvel = block.getFieldValue('xvel');
-  var number_yvel = block.getFieldValue('yvel');
-  var number_time = block.getFieldValue('time');
+  var number_xvel = Blockly.JavaScript.valueToCode(block, 'xvel', Blockly.JavaScript.ORDER_ADDITION) || '0'
+  var number_yvel = Blockly.JavaScript.valueToCode(block, 'yvel', Blockly.JavaScript.ORDER_ADDITION) || '0'
+  var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
   var code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});`;
   return code;
 };
 
 Blockly.JavaScript['wait'] = function(block) {
-  var number_time = block.getFieldValue('time');
+  var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
   var code = `await robot.wait(${number_time})`;
   return code;
