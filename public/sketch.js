@@ -152,7 +152,7 @@ function setup() {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
     console.log(robot);
-    editor.setValue(robot.code);
+    //editor.setValue(robot.code);
   }
   else {
     // Create new robot

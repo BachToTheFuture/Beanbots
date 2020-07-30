@@ -15,8 +15,8 @@ Blockly.Blocks['normalwheels_move'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "velocity")
+        .appendField("Move at power")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "velocity")
         .appendField(" for")
         .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
@@ -32,10 +32,10 @@ Blockly.Blocks['mecanumwheels_move'] = {
   init: function() {
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("Move")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "xvel")
+        .appendField("Move at")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "xvel")
         .appendField("vx,")
-        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 4), "yvel")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "yvel")
         .appendField("vy for")
         .appendField(new Blockly.FieldNumber(0, 0), "time")
         .appendField("miliseconds");
@@ -60,6 +60,31 @@ Blockly.Blocks['wait'] = {
  this.setTooltip("");
  this.setHelpUrl("");
   }
+};
+
+Blockly.Blocks['wheels_rotate'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Rotate at power")
+        .appendField(new Blockly.FieldNumber(0, -Infinity, Infinity, 0.001), "velocity")
+        .appendField(" for")
+        .appendField(new Blockly.FieldNumber(0, 0), "time")
+        .appendField("miliseconds");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(120);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.JavaScript['wheels_rotate'] = function(block) {
+  var number_velocity = block.getFieldValue('velocity');
+  var number_time = block.getFieldValue('time');
+  // TODO: Assemble JavaScript into code variable.
+  var code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});`;
+  return code;
 };
 
 Blockly.JavaScript['normalwheels_move'] = function(block) {
