@@ -76,10 +76,23 @@ $(document).ready(function() {
       target.removeClass("btn-success");
       target.addClass("btn-danger");
       target.html("Reset robot");
-      robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
-      robot.code = "(async " + robot.code + ")()";
-      console.log(robot.code);
-      robot.run();
+      // Check which tab is open
+      let active = $(".active");
+      if (active.attr("id", "pills-js")) {
+        // JS
+        robot.code = editor.getValue();
+        robot.run();
+      }
+      else if (active.attr("id", "pills-profile")) {
+        // Blocks
+        robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
+        robot.code = "(async " + robot.code + ")()";
+        editor.setValue(robot.code);
+        robot.run();
+      }
+      else {
+        notification("Please go to the <b>tab with your code</b> and press <b>Run Robot</b> again!")
+      }
       
       /* Save the robot's name, color, and code to the storage */
       window.localStorage.clear();

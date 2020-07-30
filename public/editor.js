@@ -216,3 +216,10 @@ var options = {
 var workspace;
 workspace = Blockly.inject('editor',options);
 workspace.addChangeListener(Blockly.Events.disableOrphans);
+
+// JS editor
+var editor = ace.edit( "js-editor" );
+
+// inline must be true to syntax highlight PHP without opening <?php tag
+editor.getSession().setMode( { path: "ace/mode/javascript" } );
+editor.setFontSize("14px");

@@ -126,4 +126,18 @@ class Robot extends Box {
       this.wheels.stop();
     }, ms));
   }
+  until(condition) {
+    return new Promise(resolve => {
+        var l = setInterval(() => {
+          if (condition()) {
+            resolve();
+            this.wheels.stop();
+            if (this.parts.distanceSensor) this.parts.distanceSensor.distance = 100000;
+            if (this.parts.colorSensor) this.parts.colorSensor.color = "gray";
+            clearTimeout(l);
+            return;
+          }
+        }, 250);
+    });
+  }
 }

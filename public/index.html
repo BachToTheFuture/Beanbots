@@ -559,11 +559,11 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              id="pills-profile-tab"
+              id="pills-js-tab"
               data-toggle="pill"
-              href="#pills-profile"
+              href="#pills-js"
               role="tab"
-              aria-controls="pills-profile"
+              aria-controls="pills-js"
               aria-selected="false"
               >JS</a
             >
@@ -631,7 +631,20 @@
             aria-labelledby="pills-profile-tab"
             tabindex="-1"
           >
+            <i>
+              Don't see anything? Try resizing your window.
+            </i>
             <div id="editor" style="height: 600px; width: 100%;"></div>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-js"
+            style="height: 100%"
+            role="tabpanel"
+            aria-labelledby="pills-js-tab"
+            tabindex="-1"
+          >
+            <div id="js-editor" style="height: 600px; width: 100%;"></div>
           </div>
           <div
             class="tab-pane fade show active"
