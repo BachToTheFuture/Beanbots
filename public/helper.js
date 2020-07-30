@@ -76,8 +76,8 @@ $(document).ready(function() {
       target.removeClass("btn-success");
       target.addClass("btn-danger");
       target.html("Reset robot");
-      robot.code = Blockly.JavaScript.workspaceToCode(workspace);
-      robot.code = "(async /*" + robot.code + ")()";
+      robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
+      robot.code = "(async " + robot.code + ")()";
       console.log(robot.code);
       robot.run();
       
