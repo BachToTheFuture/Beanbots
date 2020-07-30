@@ -147,7 +147,7 @@ function setup() {
   
   challenge = new Challenge("skystones");
   challenge.setupField();
-  //window.localStorage.clear();
+  window.localStorage.clear();
   if (window.localStorage.getItem("robo_data") !== null) {
     let robodata = JSON.parse(window.localStorage.getItem("robo_data"));
     robot = createRobotFromJSON(robodata);
@@ -160,6 +160,8 @@ function setup() {
     // Create new robot
     robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
     robot.wheels = new NormalWheels(robot);
+    var workspaceBlocks = document.getElementById("workspaceBlocks"); 
+    Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);

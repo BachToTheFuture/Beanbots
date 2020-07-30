@@ -215,8 +215,3 @@ var options = {
 
 var workspace;
 workspace = Blockly.inject('editor',options);
-
-var workspaceBlocks = document.getElementById("workspaceBlocks"); 
-
-/* Load blocks to workspace. */
-Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);

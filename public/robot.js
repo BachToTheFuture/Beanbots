@@ -81,17 +81,10 @@ class Robot extends Box {
     // Debug purposes
   }
   run() {
-    let code = this.code;
-    const AsyncFunction = Object.getPrototypeOf(async function() {})
-      .constructor;
-    // Redefine global variables as undefined so users don't access them and mess around with it
-    let fn = new AsyncFunction(
-      "robot",
-      "var editor, drawRect, Wall, Ray, Robot, DistanceSensor, obstacles, draw, setup, NormalWheels, document, eval, window;\n" +
-        code
-    );
+    let code = "(async " + this.code + ")()";
+    console.log(code);
     (() => {
-      fn(this);
+      eval(code);
     })();
   }
   render() {
