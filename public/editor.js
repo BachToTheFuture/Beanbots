@@ -213,7 +213,7 @@ var options = {
 	oneBasedIndex : true
 };
 
-var blocklyArea = document.getElementById('blocklyArea');
+var blocklyArea = document.getElementById('pills-profile');
   var blocklyDiv = document.getElementById('blocklyDiv');
   var workspace = Blockly.inject(blocklyDiv,options);
   var onresize = function(e) {
