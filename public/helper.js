@@ -106,7 +106,7 @@ $(document).ready(function() {
       $(".runRobot").hide();
       // Create new socket connection
       socket = io({ transports: ["websocket"], upgrade: false }).connect(
-        "https://beanbots-jr.glitch.me"
+        "https://beanbots.glitch.me"
       );
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);

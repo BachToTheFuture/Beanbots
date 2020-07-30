@@ -89,8 +89,12 @@ Blockly.Blocks['wheels_rotate'] = {
 Blockly.JavaScript['wheels_rotate'] = function(block) {
   var number_velocity = Blockly.JavaScript.valueToCode(block, 'velocity', Blockly.JavaScript.ORDER_ADDITION) || '0'
   var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
-  // TODO: Assemble JavaScript into code variable.
-  var code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});`;
+  
+  var code = "";
+  if (number_time != 0)
+    code = `robot.wheels.rotate(${number_velocity});\nawait robot.wait(${number_time});`;
+  else
+    code = `robot.wheels.rotate(${number_velocity});`;
   return code;
 };
 
@@ -98,7 +102,11 @@ Blockly.JavaScript['normalwheels_move'] = function(block) {
   var number_velocity = Blockly.JavaScript.valueToCode(block, 'velocity', Blockly.JavaScript.ORDER_ADDITION) || '0'
   var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
-  var code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});`;
+  var code = "";
+  if (number_time != 0)
+    code = `robot.wheels.move(${number_velocity});\nawait robot.wait(${number_time});`;
+  else
+    code = `robot.wheels.move(${number_velocity});`;
   return code;
 };
 
@@ -107,7 +115,11 @@ Blockly.JavaScript['mecanumwheels_move'] = function(block) {
   var number_yvel = Blockly.JavaScript.valueToCode(block, 'yvel', Blockly.JavaScript.ORDER_ADDITION) || '0'
   var number_time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ADDITION) || '0';
   // TODO: Assemble JavaScript into code variable.
-  var code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});`;
+  var code = "";
+  if (number_time != 0)
+    code = `robot.wheels.move(${number_xvel}, ${number_yvel});\nawait robot.wait(${number_time});`;
+  else
+    code = `robot.wheels.move(${number_xvel}, ${number_yvel});`;
   return code;
 };
 
@@ -156,8 +168,8 @@ Blockly.JavaScript['waituntil'] = function(block) {
       var l = setInterval(() => {
         if (${value_condition}) {
           resolve();
-          robot.stop();
-          if (robot.parts.distanceSensor) robot.parts.distanceSensor.distance = 0;
+          robot.wheels.stop();
+          if (robot.parts.distanceSensor) robot.parts.distanceSensor.distance = 100000;
           if (robot.parts.colorSensor) robot.parts.colorSensor.color = "gray";
           clearTimeout(l);
           return;

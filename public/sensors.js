@@ -77,7 +77,7 @@ class DistanceSensor extends RobotPart{
   constructor(robot, side, color = "lightgreen") {
     super(robot,side,color,10,4);
     this.type = "DistanceSensor";
-    this.distance = 0;
+    this.distance = 10000;
     this.range = 600;
   }
   update() {
