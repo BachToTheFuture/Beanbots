@@ -105,6 +105,9 @@
 </ul>
 <div class="tab-content" id="pills-tabContent">
   <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <p>
+      
+    </p>
     <b>Robot name and color</b>
       <div class="input-group">
         <a href="#" class="input-group-prepend updateRobot">
@@ -124,47 +127,32 @@
 </div>
   </div>
     <div class="tab-pane fade show active" id="pills-help" role="tabpanel" aria-labelledby="pills-help-tab">
-      <h3>Tutorial</h3>
-      <p>
-        Welcome! You will learn how to design a robot, program it, and compete against other people.
-        This tutorial is not completed yet :)
-      </p>
       <h3>Starter Code</h3>
       <b> Move forward for 2 seconds </b>
-      <pre><code class="javascript">
-robot.wheels.move(0.5);
-await robot.wait(2000);
-      </code></pre>
+      <pre><code class="javascript">robot.wheels.move(0.5);
+await robot.wait(2000);</code></pre>
       <b> Rotate clockwise for 3 seconds </b>
-      <pre><code class="javascript">
-robot.wheels.rotate(0.5);
-await robot.wait(3000);
-      </code></pre>
+      <pre><code class="javascript">robot.wheels.rotate(0.5);
+await robot.wait(3000);</code></pre>
       <b> Rotate until distance sensor detects something </b>
-      <pre><code class="javascript">
-// Assuming the variable name for distance sensor is distanceSensor
+      <pre><code class="javascript">// Assuming the variable name for distance sensor is distanceSensor
 robot.parts.distanceSensor.distance = 0; // this resets the sensor
 robot.wheels.rotate(0.03);
-await robot.parts.distanceSensor.until(distance => distance != 0);
-      </code></pre>
+await robot.parts.distanceSensor.until(distance => distance != 0);</code></pre>
       <b> Move forward until color is detected </b>
-      <pre><code class="javascript">
-robot.parts.distanceSensor.color = "gray";
+      <pre><code class="javascript">robot.parts.distanceSensor.color = "gray";
 robot.wheels.move(0.5);
-await robot.parts.colorSensor.until(color => color != "gray");
-      </code></pre>
+await robot.parts.colorSensor.until(color => color != "gray");</code></pre>
       <b> Move diagonal with mecanum wheel </b>
-      <pre><code class="javascript">
-robot.wheels.move(2,3);
-await robot.wait(2000);
-      </code></pre>
+      <pre><code class="javascript">robot.wheels.move(2,3);
+await robot.wait(2000);</code></pre>
     </div>
     <div class="tab-pane fade" id="pills-help2" role="tabpanel" aria-labelledby="pills-help2-tab">
       <p>
         <h3>robot.wheels</h3>
         <p>
           Reference to the robot's wheels. Robot's movements are controlled by this element.
-          <br> Possible types of wheels include <i>NormalWheels</i> and <i>MecanumWheels</i>
+          <br> Possible types of wheels include <code>NormalWheels</code> and <code>MecanumWheels</code>
       </p>
       <h4>robot.wheels (NormalWheels)</h4>
       <div class="indented">
@@ -172,12 +160,19 @@ await robot.wait(2000);
         <p>Makes the robot move forward with given velocity</p>
         <pre><code class="javascript">// Example: move forward at 3px/frame for 200 miliseconds
 robot.wheels.move(3);
-await robot.wait(200);
-      </code></pre>
-      </div>
-      <div class="indented">
+await robot.wait(200);</code></pre>
+      
         <b>robot.wheels.stop()</b>
         <p>Stops the robot. This is automatically called whenever <code>await</code> or <code>robot.wait</code> is used.</p>
+      </div>
+      <h4>robot.wheels (MecanumWheels)</h4>
+      <div class="indented">
+        <b>robot.wheels.move(float <i>xVelocity</i>, float <i>yVelocity</i>)</b>
+        <p>Moves the robot with the given velocity components.</p>
+        <pre><code class="javascript">// Example: move diagonal
+robot.wheels.move(1,2);
+await robot.wait(200);
+      </code></pre>
       </div>
       </p>
     </div>
