@@ -328,7 +328,7 @@ function giveUserRandomItems() {
   <a id="${s}" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
-  <input type="text" class="form-control" id="${s}Color" placeholder="Sensor color">
+  <input type="text" class="form-control" id="${s}Color" placeholder="Sensor color" autocomplete="off">
   <select class="custom-select" id="${s}Placement">
     <option selected>Placement</option>
     <option value="left">left</option>
@@ -346,7 +346,7 @@ function giveUserRandomItems() {
   <a id="${s}" class="equipToggle input-group-prepend equip">
     <span class="input-group-text" id="${s}">${s}</span>
   </a>
-  <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color">
+  <input type="text" class="form-control" id="${s}Color"placeholder="Wheel color" autocomplete="off">
 </div>
 `);
   });
