@@ -18,10 +18,13 @@ canvas {
   margin-bottom: 20px;
 }
 .leftside {
-  margin-left: 20px;
+  margin-left: 10px;
   max-height: 600px;
   overflow-y: auto;
   min-width: 770px;
+}
+.navbar-brand {
+  margin-left: 30px; 
 }
 .rightside {
   min-width: 600px;
