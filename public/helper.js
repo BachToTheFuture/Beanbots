@@ -247,8 +247,8 @@ $(document).ready(function() {
             });
             robot.rotation = Math.PI;
             Body.setAngle(robot.body, Math.PI);
-            document.querySelector(".blue-team").textContent = robot.name;
-            document.querySelector(".red-team").textContent = opponent.name;
+            document.querySelector(".blue-team").textContent = opponent.name;
+            document.querySelector(".red-team").textContent = robot.name;
           }
         }
       });
