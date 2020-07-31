@@ -107,5 +107,30 @@ a {
 }
 
 .nav-tabs .nav-link{
-  background: "red" !important;
+  margin-left:5px;
+  margin-bottom: 0px;
+}
+.nav-link.active {
+  border: 2px black solid;
+  background: white !important;
+}
+.orange {
+  color: black;
+  background: hsl(31, 100%, 81%) !important;
+}
+.salmon {
+  color: black;
+  background: hsl(0, 100%, 81%) !important;
+}
+.indigo {
+  color: black;
+  background: hsl(235, 100%, 81%) !important;
+}
+.teal {
+  color: black;
+  background: hsl(160, 100%, 71%) !important;
+}
+.btn-primary {
+  color: black;
+  background: hsl(200, 100%, 81%) !important;
 }
