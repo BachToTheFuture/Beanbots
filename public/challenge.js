@@ -2,9 +2,11 @@
 /* Make it easier to create different challenges! */
 
 class Challenge {
-  constructor(name, description="") {
+  constructor(name, description="", rules="") {
     this.name = name;
-    this.description = description;
+    this.desc = description;
+    this.rules = rules;
+    
     this.pointBoundaries = [
       {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line"},
       {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line"},
@@ -17,6 +19,10 @@ class Challenge {
     this.redPoints = 0;
   }
   setupField() {
+    // set the challenge stuff
+    $("#challenge-name").html(this.name);
+    $("#challenge-desc").html(this.desc);
+    $("#challenge-rules").html(this.rules);
     // Create boundaries and walls
     topWall = Bodies.rectangle(width/2, -5, width, 10, { isStatic: true});
     rightWall = Bodies.rectangle(width+5, height/2, 10, height, { isStatic: true});
