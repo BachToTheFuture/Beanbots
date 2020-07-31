@@ -76,10 +76,14 @@ io.sockets.on('connection',
       // Send robot data over to the other player
       socket.to(data.room).emit("updateObjectPos", data);
     });
-  
+    
     socket.on('disconnect', function() {
+      let id = socket.id;
       console.log(socket.id+" has disconnected");
-      //if (queue.includes(socket.id)) queue.splice(queue.findIndex(socket.id), 1);
+      if (queue.includes(id)) {
+        queue.splice(queue.indexOf(id), 1);
+        console.log("QUEUE", queue);
+      }
     });
   }
 );
