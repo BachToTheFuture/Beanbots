@@ -29,6 +29,7 @@ var topWall, rightWall, leftWall, bottomWall;
 var challenge;
 
 function setup() {
+  window.resizeTo(800, 600);
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
   strokeWeight(2);
