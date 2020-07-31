@@ -1,3 +1,6 @@
+
+/* Make it easier to create different challenges! */
+
 class Challenge {
   constructor(name, description="") {
     this.name = name;
