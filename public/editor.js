@@ -230,7 +230,7 @@ var options = {
   css: true,
   media: "https://blockly-demo.appspot.com/static/media/",
   rtl: false,
-  scrollbars: false,
+  scrollbars: true,
   sounds: true,
   oneBasedIndex: true
 };

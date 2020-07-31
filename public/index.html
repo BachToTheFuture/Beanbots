@@ -482,6 +482,7 @@
     <header class="bpy-3">
       <div class="row flex-nowrap align-items-center">
         <div class="col-2 site-name">
+          <img src="https://cdn.glitch.com/43990ee0-32d7-4468-a768-619537accd65%2Fbeanbots.png?v=1596171232348" width="50" height="50"/>
           <h3>BeanBots</h3>
         </div>
         <div class="col"></div>
@@ -489,36 +490,8 @@
     </header>
     <br />
     <div class="row">
-      <div class="col-5 leftside">
-        <div class="notif-section">
-          <div
-            class="toast"
-            role="alert"
-            aria-live="assertive"
-            aria-atomic="true"
-            data-delay="4000"
-          >
-            <div class="toast-header">
-              <strong class="mr-auto">Notification</strong>
-              <button
-                type="button"
-                class="ml-2 mb-1 close"
-                data-dismiss="toast"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div id="main-toast-body" class="toast-body"></div>
-          </div>
-        </div>
 
-        <div id="countdown-timer"></div>
-
-        <div id="canvas"></div>
-      </div>
-
-      <div class="col-5 rightside hide competition-bar">
+      <div class="col-5 leftside hide competition-bar">
         <h4>Scores</h4>
         <table>
           <tr>
@@ -539,7 +512,7 @@
         <hr />
       </div>
 
-      <div class="col rightside practice-bar">
+      <div class="col leftside practice-bar">
         <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
           <li class="nav-item">
             <a
@@ -700,6 +673,34 @@
             </ul>
           </div>
         </div>
+      </div>
+      <div class="col rightside">
+        <div class="notif-section">
+          <div
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            data-delay="4000"
+          >
+            <div class="toast-header">
+              <strong class="mr-auto">Notification</strong>
+              <button
+                type="button"
+                class="ml-2 mb-1 close"
+                data-dismiss="toast"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="main-toast-body" class="toast-body"></div>
+          </div>
+        </div>
+
+        <div id="countdown-timer"></div>
+
+        <div id="canvas"></div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
