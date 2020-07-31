@@ -109,7 +109,15 @@ a {
 .nav-tabs .nav-link{
   margin-left:2px;
   margin-bottom: 0px;
+  transition: all 0.2s ease;
 }
+
+.nav-tabs .nav-link:hover{
+  color: black;
+  transition: all 0.2s ease;
+  transform: translateY(5px);
+}
+
 .nav-link.active {
   border: 2px black solid;
   background: white !important;
