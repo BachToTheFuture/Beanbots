@@ -62,10 +62,13 @@ a {
   color: black;
 }
 .equip .input-group-text {
+  font-weight:600;
   background: #eee !important;
 }
 .equipped .input-group-text {
-  background: lightgreen !important;
+  color: black;
+  font-weight:600;
+  background: #C4E873 !important;
 }
 .notif-section {
   position: absolute;
@@ -122,23 +125,23 @@ a {
   border: 2px black solid;
   background: white !important;
 }
-.orange {
+.blue3 {
   color: #eee;
   background: #6475E8 !important;
 }
-.salmon {
+.blue2 {
   color: #222;
   background: #719CE7 !important;
 }
-.indigo {
+.blue1 {
   color: black;
   background: #62D4E8 !important;
 }
-.teal {
+.green3 {
   color: black;
   background: #73E894; !important;
 }
-.blue {
+.green2 {
   margin-left: 20px !important;
   color: black;
   background: #9BE778; !important;
@@ -150,4 +153,8 @@ a {
 .danger {
   color: black;
   background: #ff928a !important;
+}
+
+a {
+  cursor: pointer;
 }
