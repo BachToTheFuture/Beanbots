@@ -158,11 +158,6 @@ $(document).ready(function() {
 
         // Set a new room!
         room = data.room;
-        if (data.side == "red") {
-          document.querySelector(".red-team").textContent = robot.name;
-        } else {
-          document.querySelector(".blue-team").textContent = robot.name;
-        }
 
         socket.emit("sendInitData", {
           robot: JSON.decycle(robot),
@@ -175,12 +170,12 @@ $(document).ready(function() {
         robot.textColor = data.side == "red" ? "#ff5145" : "#347aeb";
         // Store the robot side;
         team = data.side;
-
+        
         // Create a 5 second timer to count down
         timer = new CountDownTimer(5);
         let display = document.querySelector("#countdown-timer");
         timer.onTick(format).start();
-
+  
         // Count down!
         $("#countdown-timer").fadeIn();
         function format(minutes, seconds) {
@@ -191,6 +186,13 @@ $(document).ready(function() {
             console.log("Robot started running!");
             robot.run();
             opponent.run();
+            if (team == "red") {
+              document.querySelector(".red-team").textContent = robot.name;
+              document.querySelector(".blue-team").textContent = opponent.name;
+            } else {
+              document.querySelector(".blue-team").textContent = robot.name;
+              document.querySelector(".red-team").textContent = opponent.name;
+            }
             let timer2 = new CountDownTimer(15);
             let display = document.querySelector("#timer");
             timer2.onTick(format).start();
@@ -202,6 +204,7 @@ $(document).ready(function() {
                 challenge.redPoints;
               document.querySelector(".blue-score").textContent =
                 challenge.bluePoints;
+              
               if (seconds == 0) {
                 // End game here
                 // Check for winners
