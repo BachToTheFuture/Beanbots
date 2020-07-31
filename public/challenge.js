@@ -1,6 +1,7 @@
 class Challenge {
-  constructor(name) {
+  constructor(name, description="") {
     this.name = name;
+    this.description = description;
     this.pointBoundaries = [
       {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line"},
       {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line"},
