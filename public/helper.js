@@ -69,7 +69,7 @@ including button press and socket events.
 */
 
 $(document).ready(function() {
-  $(window).trigger('resize');
+  //$(window).trigger('resize');
   $(".runRobot").click(e => {
     /* Handle "Run robot" button */
     let target = $(e.target);
