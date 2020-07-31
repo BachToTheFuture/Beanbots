@@ -132,6 +132,42 @@ class Challenge {
   }
 }
 
+function newRobot() {
+  robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
+  robot.wheels = new NormalWheels(robot);
+  var workspaceBlocks = document.getElementById("workspaceBlocks"); 
+  Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
+
+  robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
+  robot.code = `/*
+USEFUL FUNCTIONS TO HELP YOU GET STARTED
+=============================================
+robot.wheels.move(vx, [vy only for MecanumWheels])
+  - move robot with the given velocities
+  - ex: robot.wheels.move(2)   // moving straight
+        robot.wheels.move(2,2) // moving diagonally
+
+await robot.wait(miliseconds)
+  - wait for several miliseconds before
+    stopping the robot
+  - ex: // Let the robot move for one second
+        robot.wheels.move(2);
+        await robot.wait(1000);
+
+await robot.until(()=>(condition))
+  - wait until condition is fulfilled then
+    stop the robot
+  - ex: // Move until robot is less than 50 pixels away
+        // from an obstacle
+        robot.wheels.move(2);
+        await robot.until(()=>(
+          robot.parts.distanceSensor.distance < 50
+        ))
+*/
+async ` + robot.code;
+  editor.setValue(robot.code);
+}
+
 function setup() {
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
@@ -161,40 +197,7 @@ function setup() {
   }
   else {
     // Create new robot
-    robot = new Robot(generateName(), 40, height/2+100, `hsl(${Math.floor(random(0,360))}, 100%, 71%)`);
-    robot.wheels = new NormalWheels(robot);
-    var workspaceBlocks = document.getElementById("workspaceBlocks"); 
-    Blockly.Xml.domToWorkspace(workspaceBlocks, workspace);
-
-    robot.code = Blockly.JavaScript.workspaceToCode(workspace).slice(9); // slice out beginning comments
-    robot.code = `/*
-USEFUL FUNCTIONS TO HELP YOU GET STARTED
-=============================================
-robot.move(vx, [vy only for MecanumWheels])
-  - move robot with the given velocities
-  - ex: robot.move(2)   // moving straight
-        robot.move(2,2) // moving diagonally
-
-await robot.wait(miliseconds)
-  - wait for several miliseconds before
-    stopping the robot
-  - ex: // Let the robot move for one second
-        robot.move(2);
-        await robot.wait(1000);
-
-await robot.until(()=>(condition))
-  - wait until condition is fulfilled then
-    stop the robot
-  - ex: // Move until robot is less than 50 pixels away
-        // from an obstacle
-        robot.move(2);
-        await robot.until(()=>(
-          robot.parts.distanceSensor.distance < 50
-        ))
-*/
-async ` + robot.code;
-    editor.setValue(robot.code);
-    
+    newRobot();
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
