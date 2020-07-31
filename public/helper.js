@@ -186,13 +186,6 @@ $(document).ready(function() {
             console.log("Robot started running!");
             robot.run();
             opponent.run();
-            if (team == "red") {
-              document.querySelector(".red-team").textContent = robot.name;
-              document.querySelector(".blue-team").textContent = opponent.name;
-            } else {
-              document.querySelector(".blue-team").textContent = robot.name;
-              document.querySelector(".red-team").textContent = opponent.name;
-            }
             let timer2 = new CountDownTimer(15);
             let display = document.querySelector("#timer");
             timer2.onTick(format).start();
@@ -242,6 +235,7 @@ $(document).ready(function() {
             robot.rotation = 0;
             Body.setAngle(robot.body, 0);
             document.querySelector(".red-team").textContent = opponent.name;
+            document.querySelector(".blue-team").textContent = robot.name;
           } else {
             Body.setPosition(opponent.body, { x: 40, y: height / 2 + 100 });
             opponent.rotation = 0;
@@ -254,6 +248,7 @@ $(document).ready(function() {
             robot.rotation = Math.PI;
             Body.setAngle(robot.body, Math.PI);
             document.querySelector(".blue-team").textContent = robot.name;
+            document.querySelector(".red-team").textContent = opponent.name;
           }
         }
       });
