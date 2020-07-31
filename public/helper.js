@@ -67,7 +67,9 @@ function notification(msg) {
 This big function contains all of the event handlers,
 including button press and socket events.
 */
+
 $(document).ready(function() {
+  $(window).trigger('resize');
   $(".runRobot").click(e => {
     /* Handle "Run robot" button */
     let target = $(e.target);
