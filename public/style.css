@@ -107,7 +107,7 @@ a {
 }
 
 .nav-tabs .nav-link{
-  margin-left:5px;
+  margin-left:2px;
   margin-bottom: 0px;
 }
 .nav-link.active {
@@ -115,22 +115,31 @@ a {
   background: white !important;
 }
 .orange {
-  color: black;
-  background: hsl(31, 100%, 81%) !important;
+  color: #eee;
+  background: #6475E8 !important;
 }
 .salmon {
-  color: black;
-  background: hsl(0, 100%, 81%) !important;
+  color: #222;
+  background: #719CE7 !important;
 }
 .indigo {
   color: black;
-  background: hsl(235, 100%, 81%) !important;
+  background: #62D4E8 !important;
 }
 .teal {
   color: black;
-  background: hsl(160, 100%, 71%) !important;
+  background: #73E894; !important;
 }
-.btn-primary {
+.blue {
+  margin-left: 20px !important;
   color: black;
-  background: hsl(200, 100%, 81%) !important;
+  background: #9BE778; !important;
+}
+.success {
+  color: black;
+  background: #C4E873 !important;
+}
+.danger {
+  color: black;
+  background: #ff928a !important;
 }

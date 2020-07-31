@@ -75,7 +75,7 @@ class Challenge {
   }
   renderField() {
     background(0,0,80);
-
+    strokeWeight(0);
     // blue? bridge
     fill(219, 91, 87);
     rect(0, 300, 200, 10); 
@@ -107,6 +107,7 @@ class Challenge {
     square(width-75, height-75, 80);
     pop();
     */
+    strokeWeight(2);
   }
   endGame() {
     /*

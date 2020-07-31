@@ -71,9 +71,9 @@ $(document).ready(function() {
   $(".runRobot").click(e => {
     /* Handle "Run robot" button */
     let target = $(e.target);
-    if (target.hasClass("btn-success")) {
-      target.removeClass("btn-success");
-      target.addClass("btn-danger");
+    if (target.hasClass("success")) {
+      target.removeClass("success");
+      target.addClass("danger");
       target.html("Reset robot");
       // Check which tab is open
       let active = $(".nav-link.active");
@@ -104,8 +104,8 @@ $(document).ready(function() {
       var xml_text = Blockly.Xml.domToText(xml);
       window.localStorage.setItem("robo_code", xml_text);
     } else {
-      target.removeClass("btn-danger");
-      target.addClass("btn-success");
+      target.removeClass("danger");
+      target.addClass("success");
       target.html("Run robot");
       robot.reset();
       objects.forEach(o => o.reset());
