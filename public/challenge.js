@@ -204,10 +204,17 @@ function collectChallenge() {
     strokeWeight(0);
     push();
     strokeWeight(5);
-    stroke("red");
+    stroke("#60a3f0");
     noFill();
     rectMode(CENTER);
     rect(50, 50, 100, 100);
+    pop();
+    push();
+    strokeWeight(5);
+    stroke("#db5151");
+    noFill();
+    rectMode(CENTER);
+    rect(width-50, height-50, 100, 100);
     pop();
     strokeWeight(2);
   }

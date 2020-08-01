@@ -14,7 +14,7 @@ h4 {
 canvas {
   display: block;
   float: left;
-  border: 2px #222 solid;
+  border: 2px black solid;
   margin-bottom: 20px;
 }
 .leftside {
