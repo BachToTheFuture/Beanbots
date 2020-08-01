@@ -175,8 +175,8 @@ function collectChallenge() {
   }
   // Set point boundaries
   challenge.pointBoundaries = [
-    //{boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
-    //{boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
+    {boundary:[50, 50, 100, 100], points: 10, to: "blue", type: "line", endure: false},
+    {boundary:[width-50, height-50, 100, 100], points: 10, to: "red", type: "line", endure: false},
   ];
   // Set what happens when blocks hit
   challenge.collisionStart = (bodyA, bodyB) => {
@@ -202,7 +202,13 @@ function collectChallenge() {
   challenge.renderField = ()=>{
     background(0,0,80);
     strokeWeight(0);
-    
+    push();
+    strokeWeight(5);
+    stroke("red");
+    noFill();
+    rectMode(CENTER);
+    rect(50, 50, 100, 100);
+    pop();
     strokeWeight(2);
   }
   return challenge;

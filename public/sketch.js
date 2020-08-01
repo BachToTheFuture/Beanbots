@@ -42,7 +42,7 @@ function setup() {
   world = engine.world;
   
   // Create challenge
-  challenge = deliveryChallenge();
+  challenge = collectChallenge();
   challenge.setupField();
   //window.localStorage.clear();
   
