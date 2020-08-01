@@ -101,7 +101,8 @@ function deliveryChallenge() {
               careful though, because other robots might get in your way!`,
             `Yellow blocks are worth <code>10 points</code> each, and black
               blocks are worth <code>20 points</code> each.`);
-  
+  // Initial robot positions
+  challenge.robotInitPos = {blue: {x: 40, y: height/2+100, r:0}, red: {x: width-40, y: height/2+100, r:Math.PI}};
   // Add blocks
   for (var i = 0; i < 8; i++) {
     challenge.objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));

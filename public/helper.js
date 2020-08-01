@@ -232,21 +232,20 @@ $(document).ready(function() {
             opponent.rotation = Math.PI;
             Body.setAngle(opponent.body, Math.PI);
 
-            Body.setPosition(robot.body, { x: 40, y: height / 2 + 100 });
-            robot.rotation = 0;
+            Body.setPosition(robot.body, { x:challenge.robotInitPos[team].x, y:challenge.robotInitPos[team].y  });
+            robot.rotation = challenge.robotInitPos[team].r ;
             Body.setAngle(robot.body, 0);
             document.querySelector(".red-team").textContent = opponent.name;
             document.querySelector(".blue-team").textContent = robot.name;
           } else {
-            Body.setPosition(opponent.body, { x: 40, y: height / 2 + 100 });
-            opponent.rotation = 0;
+            Body.setPosition(opponent.body, { x:challenge.robotInitPos["blue"].x, y:challenge.robotInitPos["blue"].y });
+            opponent.rotation = challenge.robotInitPos["blue"].r ;
             Body.setAngle(opponent.body, 0);
 
             Body.setPosition(robot.body, {
-              x: width - 40,
-              y: height / 2 + 100
+              x:challenge.robotInitPos[team].x, y:challenge.robotInitPos[team].y
             });
-            robot.rotation = Math.PI;
+            robot.rotation = challenge.robotInitPos[team].r;
             Body.setAngle(robot.body, Math.PI);
             document.querySelector(".blue-team").textContent = opponent.name;
             document.querySelector(".red-team").textContent = robot.name;
