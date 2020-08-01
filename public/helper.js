@@ -9,7 +9,6 @@ var robot;
 var opponent;
 var socket;
 var room;
-var collectibles = [];
 var team;
 
 function createRobotFromJSON(op) {
@@ -110,7 +109,7 @@ $(document).ready(function() {
       target.addClass("success");
       target.html("Run robot");
       robot.reset();
-      objects.forEach(o => o.reset());
+      challenge.objects.forEach(o => o.reset());
     }
   });
 
@@ -139,12 +138,12 @@ $(document).ready(function() {
         console.log(data.objects);
         if (data.objects) {
           data.objects.forEach((o, i) => {
-            objects[i].width = o.w;
-            objects[i].height = o.h;
-            objects[i].body.role = o.type;
-            objects[i].body.color = o.color;
-            Body.setPosition(objects[i].body, { x: o.x, y: o.y });
-            objects[i].color = o.color;
+            challenge.objects[i].width = o.w;
+            challenge.objects[i].height = o.h;
+            challenge.objects[i].body.role = o.type;
+            challenge.objects[i].body.color = o.color;
+            Body.setPosition(challenge.objects[i].body, { x: o.x, y: o.y });
+            challenge.objects[i].color = o.color;
           });
         }
 
@@ -257,7 +256,7 @@ $(document).ready(function() {
 
       socket.on("updateCollectiblePos", function(data) {
         /* Update a collectible's position if it moves */
-        let c = objects[data.idx];
+        let c = challenge.objects[data.idx];
         c.x = data.x;
         c.y = data.y;
         c.color = data.color;

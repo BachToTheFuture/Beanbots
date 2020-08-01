@@ -83,7 +83,7 @@ class DistanceSensor extends RobotPart{
   update() {
     let bodies = [topWall, leftWall, bottomWall, rightWall];
     // Maybe optimize this a little?
-    objects.forEach(o=>bodies.push(o.body));
+    challenge.objects.forEach(o=>bodies.push(o.body));
     let start = this.robot.body.position;
     let end   = Matter.Vector.create(this.robot.body.position.x+this.range*Math.cos(this.robot.rotation+this.angles[this.side]),
                               this.robot.body.position.y+this.range*Math.sin(this.robot.rotation+this.angles[this.side]));
@@ -110,7 +110,7 @@ class ColorSensor extends DistanceSensor {
   update() {
     let bodies = [];
     // Maybe optimize this a little?
-    objects.forEach(o=>bodies.push(o.body));
+    challenge.objects.forEach(o=>bodies.push(o.body));
     let start = this.robot.body.position;
     let end   = Matter.Vector.create(this.robot.body.position.x+this.range*Math.cos(this.robot.rotation+this.angles[this.side]),
                               this.robot.body.position.y+this.range*Math.sin(this.robot.rotation+this.angles[this.side]));

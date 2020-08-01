@@ -23,7 +23,6 @@ var Engine = Matter.Engine,
 
 var engine;
 var world;
-var objects = [];
 var topWall, rightWall, leftWall, bottomWall;
 
 var challenge;
@@ -49,7 +48,13 @@ function setup() {
               careful though, because other robots might get in your way!`,
             `Yellow blocks are worth <code>10 points</code> each, and black
               blocks are worth <code>20 points</code> each.`);
-
+  
+  for (var i = 0; i < 8; i++) {
+    challenge.objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
+  }
+  for (var i = 0; i < 8; i++) {
+    challenge.objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
+  }
   challenge.setupField();
   //window.localStorage.clear();
   
@@ -75,7 +80,7 @@ function draw() {
   background(0, 0, 94);
   challenge.renderField();
   Engine.update(engine);
-  objects.forEach(o => o.draw());
+  challenge.objects.forEach(o => o.draw());
   robot.render();
   
   if (opponent && room) {

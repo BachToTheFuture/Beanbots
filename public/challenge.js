@@ -6,6 +6,7 @@ class Challenge {
     this.name = name;
     this.desc = description;
     this.rules = rules;
+    this.objects = [];
     
     this.pointBoundaries = [
       {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
@@ -47,13 +48,6 @@ class Challenge {
     // Add foundation?
     //objects.push(new Box(width/2-50, 70, 55, 100, color(219, 91, 87), "bluefoundation"));
     //objects.push(new Box(width/2+50, 70, 55, 100, color(0, 91, 87),"redfoundation"));
-
-    for (var i = 0; i < 8; i++) {
-      objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
-    }
-    for (var i = 0; i < 8; i++) {
-      objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
-    }
     
     // Awarding scores
     Events.on(engine, 'collisionStart', function(event) {
@@ -136,6 +130,6 @@ class Challenge {
     $(".competition-bar").hide();
     $(".practice-bar").fadeIn();
     robot.reset();
-    objects.forEach(o => o.reset());
+    this.objects.forEach(o => o.reset());
   }
 }
