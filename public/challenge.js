@@ -8,13 +8,12 @@ class Challenge {
     this.rules = rules;
     this.objects = [];
     
-    this.pointBoundaries = [
-      {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
-      {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
-    ];
+    this.pointBoundaries = []
     
     this.bluePoints = 0;
     this.redPoints = 0;
+    
+    this.collisionStart(body, blockB)
   }
   resetPoints() {
     this.bluePoints = 0;
@@ -75,42 +74,7 @@ class Challenge {
     })
     
   }
-  renderField() {
-    background(0,0,80);
-    strokeWeight(0);
-    // blue? bridge
-    fill(219, 91, 87);
-    rect(0, 300, 200, 10); 
-
-    // red? bridge?
-    fill(0,91, 87);
-    rect(400, 300, 200, 10);
-
-    // big bridge
-    fill(0, 0, 70);
-    rect(200, height/2-45, 200, 100);
-
-    //how to get the yellow line to show above black 
-    fill(65, 85, 100);
-    rect(200, 300, 200, 10);
-    
-    /*
-    push();
-    noFill();
-    strokeWeight(4);
-    stroke(0, 91, 87);
-    square(-5, height-75, 80);
-    pop();
-
-    push();
-    noFill();
-    strokeWeight(4);
-    stroke(219, 91, 87);
-    square(width-75, height-75, 80);
-    pop();
-    */
-    strokeWeight(2);
-  }
+  renderField() {}
   endGame() {
     /*
     Function used for cleaning up and resetting values after a game ends.
@@ -132,4 +96,50 @@ class Challenge {
     robot.reset();
     this.objects.forEach(o => o.reset());
   }
+}
+
+function deliveryChallenge() {
+  // Set descriptions
+  let challenge = new Challenge("The Delivery Bot Challenge",
+            `Create a bot that pushes as much blocks as it can across to the other side of the
+              field in 15 seconds, but make sure to get them across your team lines. Be
+              careful though, because other robots might get in your way!`,
+            `Yellow blocks are worth <code>10 points</code> each, and black
+              blocks are worth <code>20 points</code> each.`);
+  
+  // Add blocks
+  for (var i = 0; i < 8; i++) {
+    challenge.objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
+  }
+  for (var i = 0; i < 8; i++) {
+    challenge.objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
+  }
+  // Set point boundaries
+  challenge.pointBoundaries = [
+    {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
+    {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
+  ];
+  // Render function
+  challenge.renderField = ()=>{
+    background(0,0,80);
+    strokeWeight(0);
+    // blue? bridge
+    fill(219, 91, 87);
+    rect(0, 300, 200, 10); 
+
+    // red? bridge?
+    fill(0,91, 87);
+    rect(400, 300, 200, 10);
+
+    // big bridge
+    fill(0, 0, 70);
+    rect(200, height/2-45, 200, 100);
+
+    //how to get the yellow line to show above black 
+    fill(65, 85, 100);
+    rect(200, 300, 200, 10);
+
+    strokeWeight(2);
+  }
+  return challenge;
 }

@@ -27,25 +27,6 @@ var topWall, rightWall, leftWall, bottomWall;
 
 var challenge;
 
-function deliveryChallenge() {
-  // Set descriptions
-  let challenge = new Challenge("The Delivery Bot Challenge",
-            `Create a bot that pushes as much blocks as it can across to the other side of the
-              field in 15 seconds, but make sure to get them across your team lines. Be
-              careful though, because other robots might get in your way!`,
-            `Yellow blocks are worth <code>10 points</code> each, and black
-              blocks are worth <code>20 points</code> each.`);
-  
-  // Add blocks
-  for (var i = 0; i < 8; i++) {
-    challenge.objects.push(new Box(width/2-114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
-  }
-  for (var i = 0; i < 8; i++) {
-    challenge.objects.push(new Box(width/2+114, height/2+100+i*27, 14, 25, Math.random() > 0.3 ? "yellow" : "black", "stone"));
-  }
-  return challenge;
-}
-
 function setup() {
   colorMode(HSB, 360, 100, 100);
   let canvas = createCanvas(600,600);
