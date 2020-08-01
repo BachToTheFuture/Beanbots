@@ -8,9 +8,10 @@ class Challenge {
     this.rules = rules;
     
     this.pointBoundaries = [
-      {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line"},
-      {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line"},
+      {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
+      {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
     ];
+    
     this.bluePoints = 0;
     this.redPoints = 0;
   }
@@ -38,6 +39,7 @@ class Challenge {
       bounds.role = p.type;
       bounds.points = p.points;
       bounds.to = p.to;
+      bounds.endure = p.endure; // Remove points if 
       World.add(world, bounds);
     })
 
