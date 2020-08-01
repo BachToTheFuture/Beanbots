@@ -12,10 +12,11 @@ class Challenge {
     
     this.bluePoints = 0;
     this.redPoints = 0;
-    
-    // The callback function
-    this.collisionStart = (bodyA, bodyB) => {};
+
   }
+  // this can be replaced
+  collisionStart(bodyA, bodyB) {}
+  
   resetPoints() {
     this.bluePoints = 0;
     this.redPoints = 0;
@@ -54,7 +55,7 @@ class Challenge {
       var pairs = event.pairs;
       for (var i = 0, j = pairs.length; i != j; ++i) {
           var pair = pairs[i];
-          this.collisionStart(pair.bodyA, pair.bodyB);
+          challenge.collisionStart(pair.bodyA, pair.bodyB);
       };
     })
     
@@ -123,7 +124,7 @@ function deliveryChallenge() {
         console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
         bodyA.pointMultiplier--;
       }
-  }
+  };
   // Render function
   challenge.renderField = ()=>{
     background(0,0,80);

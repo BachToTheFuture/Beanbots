@@ -123,7 +123,7 @@ $(document).ready(function() {
       $(".runRobot").hide();
       // Create new socket connection
       socket = io({ transports: ["websocket"], upgrade: false }).connect(
-        "https://beanbots.glitch.me"
+        "https://beanbots2.glitch.me"
       );
       notification(`Waiting for an opponent... please wait!`);
       $(e.target).prop("disabled", true);
