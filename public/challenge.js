@@ -8,6 +8,9 @@ class Challenge {
     this.rules = rules;
     this.objects = [];
     
+    // Where the robot will start
+    this.robotInitPos = {blue: {x: 40, y: height/2}, red: {x: width-40, y: height/2}};
+    
     this.pointBoundaries = []
     
     this.bluePoints = 0;
@@ -16,6 +19,12 @@ class Challenge {
   }
   // this can be replaced
   collisionStart(bodyA, bodyB) {}
+  
+  
+  initializeGame() {
+    
+  }
+  
   
   resetPoints() {
     this.bluePoints = 0;
@@ -145,6 +154,54 @@ function deliveryChallenge() {
     fill(65, 85, 100);
     rect(200, 300, 200, 10);
 
+    strokeWeight(2);
+  }
+  return challenge;
+}
+
+function collectChallenge() {
+  // Set descriptions
+  let challenge = new Challenge("The Random Challenge",
+            `Create a bot that pushes as much blocks as it can across to the other side of the
+              field in 15 seconds, but make sure to get them across your team lines. Be
+              careful though, because other robots might get in your way!`,
+            `Yellow blocks are worth <code>10 points</code> each, and black
+              blocks are worth <code>20 points</code> each.`);
+  
+  // Add blocks
+  for (var i = 0; i < 25; i++) {
+    challenge.objects.push(new Box(random(width/2-40,width/2+40), random(height/2-40,height/2+40), 16, 16, Math.random() > 0.3 ? "yellow" : "black", "stone"));
+  }
+  // Set point boundaries
+  challenge.pointBoundaries = [
+    {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
+    {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
+  ];
+  // Set what happens when blocks hit
+  challenge.collisionStart = (bodyA, bodyB) => {
+      //if (pair.bodyA.role === "line" || pair.bodyB.role === "line") console.log(pair);
+      if (bodyA.role === "line" && bodyB.role === "stone" && bodyB.pointMultiplier > 0) {
+        let points = bodyA.points;
+        if (bodyB.color == "black") points *= 2;
+        if (bodyA.to == "blue") challenge.bluePoints += points * bodyB.pointMultiplier;
+        else challenge.redPoints += bodyA.points * bodyB.pointMultiplier;
+        console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
+        bodyB.pointMultiplier--;
+      }
+      else if (bodyB.role === "line" && bodyA.role === "stone" && bodyA.pointMultiplier > 0) {
+        let points = bodyB.points;
+        if (bodyA.color == "black") points *= 2;
+        if (bodyB.to == "blue") challenge.bluePoints += points * bodyA.pointMultiplier;
+        else challenge.redPoints += bodyB.points * bodyA.pointMultiplier;
+        console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
+        bodyA.pointMultiplier--;
+      }
+  };
+  // Render function
+  challenge.renderField = ()=>{
+    background(0,0,80);
+    strokeWeight(0);
+    
     strokeWeight(2);
   }
   return challenge;

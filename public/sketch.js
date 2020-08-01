@@ -42,7 +42,7 @@ function setup() {
   world = engine.world;
   
   // Create challenge
-  challenge = deliveryChallenge();
+  challenge = collectChallenge();
   challenge.setupField();
   //window.localStorage.clear();
   
@@ -54,10 +54,18 @@ function setup() {
     var xml = Blockly.Xml.textToDom(window.localStorage.getItem("robo_code"));
     Blockly.Xml.domToWorkspace(xml, workspace);
     //editor.setValue(robot.code);
+    let pos = challenge.robotInitPos[Math.random() > 0.5 ? "blue":"red"];
+    Body.setPosition(robot.body, pos);
+    robot.startX = pos.x;
+    robot.startY = pos.y;
   }
   else {
     // Create new robot
     newRobot();
+    let pos = challenge.robotInitPos[Math.random() > 0.5 ? "blue":"red"];
+    Body.setPosition(robot.body, pos);
+    robot.startX = pos.x;
+    robot.startY = pos.y;
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);
