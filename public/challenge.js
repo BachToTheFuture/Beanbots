@@ -13,7 +13,8 @@ class Challenge {
     this.bluePoints = 0;
     this.redPoints = 0;
     
-    this.collisionStart(body, blockB)
+    // The callback function
+    this.collisionStart = (bodyA, bodyB) => {};
   }
   resetPoints() {
     this.bluePoints = 0;
@@ -53,23 +54,7 @@ class Challenge {
       var pairs = event.pairs;
       for (var i = 0, j = pairs.length; i != j; ++i) {
           var pair = pairs[i];
-          //if (pair.bodyA.role === "line" || pair.bodyB.role === "line") console.log(pair);
-          if (pair.bodyA.role === "line" && pair.bodyB.role === "stone" && pair.bodyB.pointMultiplier > 0) {
-            let points = pair.bodyA.points;
-            if (pair.bodyB.color == "black") points *= 2;
-            if (pair.bodyA.to == "blue") challenge.bluePoints += points * pair.bodyB.pointMultiplier;
-            else challenge.redPoints += pair.bodyA.points * pair.bodyB.pointMultiplier;
-            console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
-            pair.bodyB.pointMultiplier--;
-          }
-          else if (pair.bodyB.role === "line" && pair.bodyA.role === "stone" && pair.bodyA.pointMultiplier > 0) {
-            let points = pair.bodyB.points;
-            if (pair.bodyA.color == "black") points *= 2;
-            if (pair.bodyB.to == "blue") challenge.bluePoints += points * pair.bodyA.pointMultiplier;
-            else challenge.redPoints += pair.bodyB.points * pair.bodyA.pointMultiplier;
-            console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
-            pair.bodyA.pointMultiplier--;
-          }
+          this.collisionStart(pair.bodyA, pair.bodyB);
       };
     })
     
@@ -119,6 +104,26 @@ function deliveryChallenge() {
     {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
     {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
   ];
+  // Set what happens when blocks hit
+  challenge.collisionStart = (bodyA, bodyB) => {
+      //if (pair.bodyA.role === "line" || pair.bodyB.role === "line") console.log(pair);
+      if (bodyA.role === "line" && bodyB.role === "stone" && bodyB.pointMultiplier > 0) {
+        let points = bodyA.points;
+        if (bodyB.color == "black") points *= 2;
+        if (bodyA.to == "blue") challenge.bluePoints += points * bodyB.pointMultiplier;
+        else challenge.redPoints += bodyA.points * bodyB.pointMultiplier;
+        console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
+        bodyB.pointMultiplier--;
+      }
+      else if (bodyB.role === "line" && bodyA.role === "stone" && bodyA.pointMultiplier > 0) {
+        let points = bodyB.points;
+        if (bodyA.color == "black") points *= 2;
+        if (bodyB.to == "blue") challenge.bluePoints += points * bodyA.pointMultiplier;
+        else challenge.redPoints += bodyB.points * bodyA.pointMultiplier;
+        console.log("Blue vs red:",challenge.bluePoints, challenge.redPoints);
+        bodyA.pointMultiplier--;
+      }
+  }
   // Render function
   challenge.renderField = ()=>{
     background(0,0,80);
