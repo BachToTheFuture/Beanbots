@@ -120,3 +120,7 @@ await robot.until(()=>(condition))
 async ` + robot.code;
   editor.setValue(robot.code);
 }
+
+function destroyRobot() {
+  World.remove(world, robot.body);
+}

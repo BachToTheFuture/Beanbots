@@ -54,18 +54,24 @@ function setup() {
     var xml = Blockly.Xml.textToDom(window.localStorage.getItem("robo_code"));
     Blockly.Xml.domToWorkspace(xml, workspace);
     //editor.setValue(robot.code);
+    // Set initial position
     let pos = challenge.robotInitPos[Math.random() > 0.5 ? "blue":"red"];
-    Body.setPosition(robot.body, pos);
+    console.log(pos);
+    Body.setPosition(robot.body, {x: pos.x, y: pos.y});
+    Body.setAngle(robot.body, pos.r);
     robot.startX = pos.x;
     robot.startY = pos.y;
+    robot.startR = pos.r;
   }
   else {
     // Create new robot
     newRobot();
     let pos = challenge.robotInitPos[Math.random() > 0.5 ? "blue":"red"];
-    Body.setPosition(robot.body, pos);
+    Body.setPosition(robot.body, {x: pos.x, y: pos.y});
+    Body.setAngle(robot.body, pos.r);
     robot.startX = pos.x;
     robot.startY = pos.y;
+    robot.startR = pos.r;
   }
   $("#robotName").val(robot.name);
   $("#robotColor").val(robot.color);

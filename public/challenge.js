@@ -9,7 +9,7 @@ class Challenge {
     this.objects = [];
     
     // Where the robot will start
-    this.robotInitPos = {blue: {x: 40, y: height/2}, red: {x: width-40, y: height/2}};
+    this.robotInitPos = {blue: {x: 40, y: height/2, r:0}, red: {x: width-40, y: height/2, r:Math.PI}};
     
     this.pointBoundaries = []
     
@@ -174,8 +174,8 @@ function collectChallenge() {
   }
   // Set point boundaries
   challenge.pointBoundaries = [
-    {boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
-    {boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
+    //{boundary:[100, 305, 200, 10], points: 10, to: "blue", type: "line", endure: false},
+    //{boundary:[500, 305, 200, 10], points: 10, to: "red", type: "line", endure: false},
   ];
   // Set what happens when blocks hit
   challenge.collisionStart = (bodyA, bodyB) => {
